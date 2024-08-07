@@ -8,6 +8,11 @@ uniform vec2 translation;
 uniform float rotation;
 uniform vec2 scale;
 
+uniform uint row;
+uniform uint rowMax;
+uniform uint column;
+uniform uint columnMax;
+
 void main(){
 
 	mat3 translationMatrix;
@@ -30,6 +35,5 @@ void main(){
     mat3 transformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
     gl_Position = vec4(transformationMatrix * vec3(aPos, 1.0f), 1.0f);
 
-	//gl_Position = vec4(aPos, 0.0, 1.0f);
-	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+	TexCoord = vec2((float(column) + aTexCoord.x) / columnMax, (float(rowMax - 1 - row) + aTexCoord.y) / rowMax);
 }

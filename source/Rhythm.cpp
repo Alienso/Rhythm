@@ -62,13 +62,13 @@ void Rhythm::initGlfw(){
         exit(-1);
     }
 
-    //glEnable(GL_BLEND);
+    glEnable(GL_BLEND);
     //glEnable(GL_MULTISAMPLE);
     //glEnable(GL_CULL_FACE);
     //glEnable(GL_DEPTH_TEST);
     glDisable(GL_DEPTH_TEST);
 
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glfwSetScrollCallback(window, scrollCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }

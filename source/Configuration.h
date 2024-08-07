@@ -8,8 +8,9 @@
 class Configuration{
 
 public:
-    static int windowWidth;
-    static int windowHeight;
+    static inline int windowWidth = 1600;
+    static inline int windowHeight = 900;
+    static inline float aspectRatio = (float)windowWidth / (float)windowHeight;
     Configuration()= default;
 };
 

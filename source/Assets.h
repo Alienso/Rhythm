@@ -14,6 +14,7 @@ class Textures{
 public:
     static inline Texture* BLANK;
     static inline Texture* BACKGROUND;
+    static inline Texture* BIKER;
 };
 
 class Shaders{
