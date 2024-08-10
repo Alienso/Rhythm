@@ -27,10 +27,9 @@ public:
 
     //TODO for debugging purposes only move down
     float animationSpeed = 0.7f;
-    unsigned int state = 0;
 
 private:
-    //unsigned int state = 0;
+    unsigned int state = 0;
     std::vector<std::vector<unsigned int>> transitions;
     std::vector<unsigned int> textureCountForState;
     unsigned int textureWidth = 1;

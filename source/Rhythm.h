@@ -11,6 +11,7 @@
 #include "render/Texture.h"
 #include "render/Shader.h"
 #include "PhysicsEngine.h"
+#include "render/UiRenderer.h"
 
 class GLFWwindow;
 
@@ -36,9 +37,12 @@ private:
     World* world = nullptr;
     InputHandler* inputHandler = nullptr;
     PhysicsEngine* physicsEngine = nullptr;
+    UiRenderer* uiRenderer = nullptr;
     GLFWwindow* window = nullptr;
     AssetManager<Texture> textureManager;
     AssetManager<Shader> shaderManager;
+
+    friend InputHandler;
 
 };
 

@@ -5,13 +5,13 @@
 #ifndef RHYTHM_GLOBAL_H
 #define RHYTHM_GLOBAL_H
 
-#include "render/Sprite.h"
 #include "Assets.h"
+#include "entity/Player.h"
 
 class Global{
 public:
     static void init(){
-        player = new Sprite(Textures::BIKER);
+        player = new Player(Textures::BIKER);
         player->scale = glm::vec2(0.1,0.1);
         player->stateMachine = *SpriteStateMachine(9, 8)
                 .addTransitionsForState(0, {})
@@ -24,9 +24,9 @@ public:
                 ->addTransitionsForState(7, {})
                 ->addTransitionsForState(8, {});
         player->stateMachine.setTexturesCount({6, 8, 6, 4, 6, 2, 4, 6, 6});
-
     }
-    static inline Sprite* player = nullptr; //TODO make it not pointer
+    static inline Player* player = nullptr; //TODO make it not pointer
+    static inline Sprite* cursor = nullptr;
 };
 
 #endif //RHYTHM_GLOBAL_H

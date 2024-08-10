@@ -15,11 +15,14 @@ public:
     static inline Texture* BLANK;
     static inline Texture* BACKGROUND;
     static inline Texture* BIKER;
+    static inline Texture* CURSOR;
+    static inline Texture* PISTOL;
 };
 
 class Shaders{
 public:
-    static inline Shader* BASE;
+    static inline Shader* ENTITY;
+    static inline Shader* SPRITE;
     static inline Shader* TEXTURE;
     static inline Shader* TEXTURE_MONO;
 };

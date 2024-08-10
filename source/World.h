@@ -6,7 +6,8 @@
 #define RHYTHM_WORLD_H
 
 
-#include "render/Sprite.h"
+#include "entity/Sprite.h"
+#include "Assets.h"
 
 class World {
 public:
@@ -17,8 +18,6 @@ public:
     void onImGuiRender();
 
 private:
-    void handleCollision();
-
     GlBufferWrapper background{quadVertices, sizeof(quadVertices) / sizeof(float)};
 };
 

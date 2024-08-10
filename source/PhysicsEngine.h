@@ -6,7 +6,8 @@
 #define RHYTHM_PHYSICSENGINE_H
 
 
-#include "render/Sprite.h"
+#include "entity/Sprite.h"
+#include "entity/Entity.h"
 
 class PhysicsEngine {
 
@@ -14,10 +15,10 @@ public:
 
     PhysicsEngine();
     void onUpdate(double deltaTime);
-    void registerSprite(Sprite* sprite);
+    void registerEntity(Entity* entity);
 
 private:
-    std::vector<Sprite*> sprites;
+    std::vector<Entity*> entities;
 };
 
 

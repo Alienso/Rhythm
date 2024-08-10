@@ -5,16 +5,18 @@
 #ifndef VOXEL_INPUTHANDLER_H
 #define VOXEL_INPUTHANDLER_H
 
+
 class GLFWwindow;
+class Rhythm;
 
 class InputHandler {
 public:
-    explicit InputHandler(GLFWwindow* window) : window(window){}
+    explicit InputHandler(Rhythm* app) : app(app){}
     void processMouseInput();
     void processKeyboardInput(double deltaTime);
 
 private:
-    GLFWwindow* window = nullptr;
+    Rhythm* app;
 };
 
 

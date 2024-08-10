@@ -6,33 +6,31 @@
 #include "Global.h"
 
 PhysicsEngine::PhysicsEngine() {
-    sprites.push_back(Global::player);
+    entities.push_back(Global::player);
 }
 
 void PhysicsEngine::onUpdate(double deltaTime) {
 
-    for (Sprite* sprite: sprites) {
-        sprite->movementVec.y -= 9.81f * deltaTime;
+    for (Entity* entity: entities) {
+        entity->movementVec.y -= 9.81f * deltaTime;
 
-        sprite->pos.x += sprite->movementVec.x * sprite->speedModifier * deltaTime;
-        sprite->pos.y += sprite->movementVec.y * sprite->speedModifier * deltaTime;
+        entity->pos.x += entity->movementVec.x * entity->speedModifier * deltaTime;
+        entity->pos.y += entity->movementVec.y * entity->speedModifier * deltaTime;
 
-        if (sprite->pos.y <= -0.9) {
-            sprite->pos.y = -0.9;
-            sprite->movementVec.y = 0;
-            sprite->onGround = true;
+        if (entity->pos.y <= -0.9) {
+            entity->pos.y = -0.9;
+            entity->movementVec.y = 0;
+            entity->onGround = true;
         }
 
-        if (sprite->pos.x > 1)
-            sprite->pos.x = 1;
-        if (sprite->pos.x < -1)
-            sprite->pos.x = -1;
-
-
+        if (entity->pos.x > 1)
+            entity->pos.x = 1;
+        if (entity->pos.x < -1)
+            entity->pos.x = -1;
 
     }
 }
 
-void PhysicsEngine::registerSprite(Sprite *sprite) {
- sprites.push_back(sprite);
+void PhysicsEngine::registerEntity(Entity *entity) {
+    entities.push_back(entity);
 }

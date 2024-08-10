@@ -5,79 +5,87 @@
 #include "InputHandler.h"
 #include "Configuration.h"
 #include "Global.h"
-#include "SpriteStates.h"
+#include "entity/SpriteStates.h"
+#include "Rhythm.h"
 
 #include <GLFW/glfw3.h>
 
 void InputHandler::processMouseInput() {
 
-    if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
+    if (glfwGetInputMode(app->window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
         return;
     }
 
     double xposIn, yposIn;
-    glfwGetCursorPos(window, &xposIn, &yposIn);
+    glfwGetCursorPos(app->window, &xposIn, &yposIn);
 
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
+    int xpos = (int)xposIn;
+    int ypos = (int)yposIn;
 
-    /*if (Global::player->getCamera().firstMouse) {
-        Global::player->getCamera().lastMousePos[0] = xpos;
-        Global::player->getCamera().lastMousePos[1] = ypos;
-        Global::player->getCamera().firstMouse = false;
+    if (xpos > Configuration::windowWidth) {
+        xpos = Configuration::windowWidth;
+        glfwSetCursorPos(app->window, xpos, ypos);
+    }
+    else if (xpos < -Configuration::windowWidth) {
+        xpos = -Configuration::windowWidth;
+        glfwSetCursorPos(app->window, xpos, ypos);
+    }
+    if (ypos > Configuration::windowHeight) {
+        ypos = Configuration::windowHeight;
+        glfwSetCursorPos(app->window, xpos, ypos);
+    }
+    else if (ypos < -Configuration::windowHeight) {
+        ypos = -Configuration::windowHeight;
+        glfwSetCursorPos(app->window, xpos, ypos);
     }
 
-    float xoffset = xpos - Global::player->getCamera().lastMousePos[0];
-    float yoffset = Global::player->getCamera().lastMousePos[1] - ypos;
-    Global::player->getCamera().lastMousePos[0] = xpos;
-    Global::player->getCamera().lastMousePos[1] = ypos;
+    float xoffset = xpos - app->uiRenderer->previousCursorPos.x;
+    float yoffset = ypos - app->uiRenderer->previousCursorPos.y;
+    app->uiRenderer->previousCursorPos.x = app->uiRenderer->getCursor().pos.x;
+    app->uiRenderer->previousCursorPos.y = app->uiRenderer->getCursor().pos.y;
 
-    float sensitivity = 0.1f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
+    xoffset *= Configuration::mouseSensitivity;
+    yoffset *= Configuration::mouseSensitivity;
 
-    Global::player->getCamera().yaw += xoffset;
-    Global::player->getCamera().pitch += yoffset;
+    glm::vec2 newPos = { (app->uiRenderer->previousCursorPos.x + xoffset) / (float)Configuration::windowWidth,
+                         - (app->uiRenderer->previousCursorPos.y + yoffset) / (float)Configuration::windowHeight};
+    app->uiRenderer->getCursor().pos = newPos;
 
-    if (Global::player->getCamera().pitch > 89.0f)
-        Global::player->getCamera().pitch = 89.0f;
-    if (Global::player->getCamera().pitch < -89.0f)
-        Global::player->getCamera().pitch = -89.0f;*/
 
 }
 
 void InputHandler::processKeyboardInput(double deltaTime) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        int mode = glfwGetInputMode(window, GLFW_CURSOR);
-        glfwSetInputMode(window, GLFW_CURSOR, mode == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
-    } else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(app->window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        int mode = glfwGetInputMode(app->window, GLFW_CURSOR);
+        glfwSetInputMode(app->window, GLFW_CURSOR, mode == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+    } else if (glfwGetKey(app->window, GLFW_KEY_Q) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(app->window, true);
     }
 
-    Sprite& player = *Global::player;
+    Entity& player = *Global::player;
     player.previousPos = player.pos;
     //if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     //    player.pos += cameraSpeed * player.getCamera().front;
     //if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     //    player.pos -= cameraSpeed * player.getCamera().front;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+    if (glfwGetKey(app->window, GLFW_KEY_A) == GLFW_PRESS) {
         player.movementVec.x = -1.0;
         player.invertTex = true;
         if (player.stateMachine.getState() != PLAYER_JUMP)
             player.stateMachine.changeState(PLAYER_RUN);
     }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+    if (glfwGetKey(app->window, GLFW_KEY_D) == GLFW_PRESS) {
         player.movementVec.x = 1.0;
         player.invertTex = false;
         if (player.stateMachine.getState() != PLAYER_JUMP)
             player.stateMachine.changeState(PLAYER_RUN);
     }
-    else if(glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE) {
+    else if(glfwGetKey(app->window, GLFW_KEY_A) == GLFW_RELEASE) {
         player.movementVec.x = 0;
         if (player.stateMachine.getState() != PLAYER_JUMP)
         player.stateMachine.changeState(PLAYER_IDLE);
     }
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (player.onGround) {
             player.movementVec.y = 3.5;
             player.onGround = false;

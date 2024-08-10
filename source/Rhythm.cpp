@@ -102,6 +102,7 @@ void Rhythm::init() {
     glEnable( GL_DEBUG_OUTPUT );
     glDebugMessageCallback( glErrorCallback, nullptr );
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
     srand((unsigned int)glfwGetTime());
 
     initAssets();
@@ -109,8 +110,11 @@ void Rhythm::init() {
     Global::init();
 
     world = new World();
-    inputHandler = new InputHandler(window);
+    inputHandler = new InputHandler(this);
     physicsEngine = new PhysicsEngine();
+    uiRenderer = new UiRenderer();
+
+    Global::cursor = &uiRenderer->getCursor();
 }
 
 void Rhythm::mainLoop() {
@@ -134,6 +138,8 @@ void Rhythm::mainLoop() {
         world->onUpdate(now - lastTime);
         world->onRender();
 
+        uiRenderer->onRender();
+
         lastTime = now;
 
         renderImGui();
@@ -143,6 +149,9 @@ void Rhythm::mainLoop() {
 
 void Rhythm::cleanup() {
     delete inputHandler;
+    delete uiRenderer;
+    delete physicsEngine;
+    delete world;
     delete Global::player; //TODO
 
     ImGui_ImplOpenGL3_Shutdown();
