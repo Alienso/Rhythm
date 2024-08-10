@@ -110,6 +110,7 @@ void Rhythm::init() {
 
     world = new World();
     inputHandler = new InputHandler(window);
+    physicsEngine = new PhysicsEngine();
 }
 
 void Rhythm::mainLoop() {
@@ -127,6 +128,8 @@ void Rhythm::mainLoop() {
 
         inputHandler->processKeyboardInput(now - lastTime);
         inputHandler->processMouseInput();
+
+        physicsEngine->onUpdate(now - lastTime);
 
         world->onUpdate(now - lastTime);
         world->onRender();

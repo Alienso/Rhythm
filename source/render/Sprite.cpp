@@ -4,7 +4,7 @@
 
 #include "Sprite.h"
 
-Sprite::Sprite(Texture* tex, unsigned int states, unsigned int stages) :maxStates(states), maxAnimationStages(stages), texture(tex) {
+Sprite::Sprite(Texture* tex) : texture(tex) {
 
 }
 

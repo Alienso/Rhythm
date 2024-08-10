@@ -12,6 +12,7 @@
 #include "render/buffer/GlBufferWrapper.h"
 
 #include "Configuration.h"
+#include "SpriteStateMachine.h"
 
 inline float quadVertices[] = {
         // positions // texture Coords
@@ -38,7 +39,7 @@ inline float quadVerticesScaled[] = {
 class Sprite {
 
 public:
-    explicit Sprite(Texture* texture, unsigned int states, unsigned int stages);
+    explicit Sprite(Texture* texture);
     [[nodiscard]] Texture* getTexture() const;
 
     void bind() const;
@@ -47,10 +48,13 @@ public:
     glm::vec2 scale = {1.0,1.0};
     float rotation = 0;
 
-    unsigned int state = 0;
-    unsigned int animationStage = 0;
-    unsigned int maxStates;
-    unsigned int maxAnimationStages;
+    glm::vec2 previousPos = {0,0};
+    glm::vec2 movementVec = {0,0};
+
+    float speedModifier = 1.0f;
+    bool onGround = true;
+
+    SpriteStateMachine stateMachine;
 
 private:
     Texture* texture = nullptr;

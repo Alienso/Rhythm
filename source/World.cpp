@@ -30,15 +30,18 @@ void World::onRender() {
     shader->use();
 
     Global::player->bind();
+
+    SpriteStateMachine& anim = Global::player->stateMachine;
+
     shader->setInt("texture1", 0);
     shader->setVec2("translation", Global::player->pos);
     shader->setFloat("rotation", Global::player->rotation);
     shader->setVec2("scale", Global::player->scale);
-    shader->setUInt("column", Global::player->animationStage);
-    shader->setUInt("columnMax", Global::player->maxAnimationStages);
-    shader->setUInt("row", Global::player->state);
-    shader->setUInt("rowMax", Global::player->maxStates);
-    //shader->setFloat("uTime", (float)glfwGetTime());
+    shader->setUInt("column", anim.getAnimationState());
+    shader->setUInt("columnMax", anim.getTextureWidth());
+    shader->setUInt("row", anim.getState());
+    shader->setUInt("rowMax", anim.getStateCount());
+    shader->setFloat("time", (float)glfwGetTime());
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
     //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -53,8 +56,8 @@ void World::onImGuiRender() {
 
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
-    ImGui::SliderInt("State", (int*)&Global::player->state, 0, 10);
-    ImGui::SliderInt("AnimationState", (int*)&Global::player->animationStage, 0, 10);
+    ImGui::SliderInt("State", (int*)&Global::player->stateMachine.state, 0, 10);
+    ImGui::SliderFloat("AnimationSpeed", (float*)&Global::player->stateMachine.animationSpeed, 0, 1);
 
     ImGui::End();
 }

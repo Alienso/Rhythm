@@ -10,6 +10,7 @@
 #include "AssetManager.h"
 #include "render/Texture.h"
 #include "render/Shader.h"
+#include "PhysicsEngine.h"
 
 class GLFWwindow;
 
@@ -34,6 +35,7 @@ private:
 
     World* world = nullptr;
     InputHandler* inputHandler = nullptr;
+    PhysicsEngine* physicsEngine = nullptr;
     GLFWwindow* window = nullptr;
     AssetManager<Texture> textureManager;
     AssetManager<Shader> shaderManager;

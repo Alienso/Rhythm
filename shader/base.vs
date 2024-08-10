@@ -13,6 +13,8 @@ uniform uint rowMax;
 uniform uint column;
 uniform uint columnMax;
 
+uniform float time;
+
 void main(){
 
 	mat3 translationMatrix;

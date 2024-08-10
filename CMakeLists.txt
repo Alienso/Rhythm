@@ -48,7 +48,7 @@ add_executable(Rhythm main.cpp
         source/Configuration.cpp source/Configuration.h
         source/InputHandler.cpp source/InputHandler.h
         source/render/Sprite.cpp source/render/Sprite.h
-        source/Assets.cpp source/Assets.h)
+        source/Assets.cpp source/Assets.h source/SpriteStateMachine.cpp source/SpriteStateMachine.h source/PhysicsEngine.cpp source/PhysicsEngine.h source/SpriteStates.h)
 
 if (WIN32)
     target_link_libraries(Rhythm glfw3 gdi32 opengl32)
