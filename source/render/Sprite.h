@@ -53,6 +53,7 @@ public:
 
     float speedModifier = 1.0f;
     bool onGround = true;
+    bool invertTex = false;
 
     SpriteStateMachine stateMachine;
 

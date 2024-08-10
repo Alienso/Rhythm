@@ -17,8 +17,8 @@ void PhysicsEngine::onUpdate(double deltaTime) {
         sprite->pos.x += sprite->movementVec.x * sprite->speedModifier * deltaTime;
         sprite->pos.y += sprite->movementVec.y * sprite->speedModifier * deltaTime;
 
-        if (sprite->pos.y < 0) {
-            sprite->pos.y = 0;
+        if (sprite->pos.y <= -0.9) {
+            sprite->pos.y = -0.9;
             sprite->movementVec.y = 0;
             sprite->onGround = true;
         }

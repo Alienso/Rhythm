@@ -54,30 +54,42 @@ void InputHandler::processKeyboardInput(double deltaTime) {
         glfwSetWindowShouldClose(window, true);
     }
 
-    Global::player->previousPos = Global::player->pos;
+    Sprite& player = *Global::player;
+    player.previousPos = player.pos;
     //if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    //    Global::player->pos += cameraSpeed * Global::player->getCamera().front;
+    //    player.pos += cameraSpeed * player.getCamera().front;
     //if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    //    Global::player->pos -= cameraSpeed * Global::player->getCamera().front;
+    //    player.pos -= cameraSpeed * player.getCamera().front;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        Global::player->movementVec.x = -1.0;
-        Global::player->stateMachine.changeState(PLAYER_RUN);
+        player.movementVec.x = -1.0;
+        player.invertTex = true;
+        if (player.stateMachine.getState() != PLAYER_JUMP)
+            player.stateMachine.changeState(PLAYER_RUN);
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        Global::player->movementVec.x = 1.0;
-        Global::player->stateMachine.changeState(PLAYER_RUN);
+        player.movementVec.x = 1.0;
+        player.invertTex = false;
+        if (player.stateMachine.getState() != PLAYER_JUMP)
+            player.stateMachine.changeState(PLAYER_RUN);
     }
     else if(glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE) {
-        Global::player->movementVec.x = 0;
-        Global::player->stateMachine.changeState(PLAYER_IDLE);
+        player.movementVec.x = 0;
+        if (player.stateMachine.getState() != PLAYER_JUMP)
+        player.stateMachine.changeState(PLAYER_IDLE);
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        if (Global::player->onGround) {
-            Global::player->movementVec.y = 3.5;
-            Global::player->onGround = false;
-            Global::player->stateMachine.changeState(PLAYER_JUMP);
+        if (player.onGround) {
+            player.movementVec.y = 3.5;
+            player.onGround = false;
+            player.stateMachine.changeState(PLAYER_JUMP);
         }
     }
+    if (player.onGround){
+        if (player.movementVec.x == 0 && player.movementVec.y == 0)
+            player.stateMachine.changeState(PLAYER_IDLE);
+        else
+            player.stateMachine.changeState(PLAYER_RUN);
+    }
     //if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-    //    Global::player->pos += cameraSpeed * glm::vec3(0.0f, -1.0f, 0.0f);
+    //    player.pos += cameraSpeed * glm::vec3(0.0f, -1.0f, 0.0f);
 }

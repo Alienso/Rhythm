@@ -41,6 +41,7 @@ void World::onRender() {
     shader->setUInt("columnMax", anim.getTextureWidth());
     shader->setUInt("row", anim.getState());
     shader->setUInt("rowMax", anim.getStateCount());
+    shader->setBool("invertTex", Global::player->invertTex);
     shader->setFloat("time", (float)glfwGetTime());
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
