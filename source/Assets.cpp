@@ -11,10 +11,14 @@ void Rhythm::initAssets(){
     Textures::BACKGROUND = textureManager.createAsset("resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
     Textures::BIKER = textureManager.createAsset("resource/texture/character/Biker/Biker.png", GL_RGBA);
     Textures::CURSOR = textureManager.createAsset("resource/texture/cursor_white.png", GL_RGBA);
-    Textures::PISTOL = textureManager.createAsset("resource/texture/weapon/pistol.png", GL_RGBA);
+    Textures::PISTOL = textureManager.createAsset("resource/texture/weapon/pistol_rotated.png", GL_RGBA);
+    Textures::MIST = textureManager.createAsset("resource/texture/particle/mist64.png", GL_RGBA);
 
     Shaders::ENTITY = shaderManager.createAsset("shader/base.vs", "shader/base.fs");
     Shaders::SPRITE = shaderManager.createAsset("shader/sprite.vs", "shader/base.fs");
     Shaders::TEXTURE = shaderManager.createAsset("shader/texture.vs", "shader/texture.fs");
     Shaders::TEXTURE_MONO = shaderManager.createAsset("shader/texture.vs", "shader/texture_mono.fs");
+
+    Sounds::BASE = soundManager.createAsset("resource/sound/effect/pistol_gunshot.wav");
+    Sounds::MTYN = soundManager.createAsset("resource/sound/music/More_Than_You_Know.wav");
 }

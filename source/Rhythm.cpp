@@ -17,6 +17,7 @@
 #include "Global.h"
 
 #include <iostream>
+#include <unistd.h>
 
 void scrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
 
@@ -41,7 +42,7 @@ void Rhythm::initGlfw(){
 
     //glfwWindowHint(GLFW_SAMPLES, 4);
 
-    //window = glfwCreateWindow(Configuration::windowWidth, Configuration::windowHeight, "Voxel", glfwGetPrimaryMonitor(), nullptr);
+    //window = glfwCreateWindow(Configuration::windowWidth, Configuration::windowHeight, "Rhythm", glfwGetPrimaryMonitor(), nullptr);
     window = glfwCreateWindow(Configuration::windowWidth, Configuration::windowHeight, "Rhythm", nullptr, nullptr);
     if (window == nullptr){
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -50,12 +51,12 @@ void Rhythm::initGlfw(){
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
 
-    /*GLFWimage images[1];
-    images[0].pixels = stbi_load("icon.png", &images[0].width, &images[0].height, nullptr, 4); //rgba channels
+    GLFWimage images[1];
+    images[0].pixels = stbi_load("resource/icon.png", &images[0].width, &images[0].height, nullptr, 4); //rgba channels
     glfwSetWindowIcon(window, 1, images);
-    stbi_image_free(images[0].pixels);*/
+    stbi_image_free(images[0].pixels);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to initialize GLAD" << std::endl;
@@ -63,10 +64,10 @@ void Rhythm::initGlfw(){
     }
 
     glEnable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
     //glEnable(GL_MULTISAMPLE);
     //glEnable(GL_CULL_FACE);
     //glEnable(GL_DEPTH_TEST);
-    glDisable(GL_DEPTH_TEST);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glfwSetScrollCallback(window, scrollCallback);
@@ -112,13 +113,13 @@ void Rhythm::init() {
     world = new World();
     inputHandler = new InputHandler(this);
     physicsEngine = new PhysicsEngine();
+    soundEngine = new SoundEngine;
     uiRenderer = new UiRenderer();
 
     Global::cursor = &uiRenderer->getCursor();
 }
 
 void Rhythm::mainLoop() {
-
     lastTime = glfwGetTime();
 
     while (shouldContinue) {

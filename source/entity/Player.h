@@ -16,6 +16,7 @@ public:
 
     void onUpdate();
 
+    Entity mist{Textures::MIST};
     Sprite weapon{Textures::PISTOL};
 };
 

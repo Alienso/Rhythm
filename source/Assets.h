@@ -9,6 +9,7 @@
 
 #include "render/Texture.h"
 #include "render/Shader.h"
+#include "sound/Sound.h"
 
 class Textures{
 public:
@@ -17,6 +18,7 @@ public:
     static inline Texture* BIKER;
     static inline Texture* CURSOR;
     static inline Texture* PISTOL;
+    static inline Texture* MIST;
 };
 
 class Shaders{
@@ -25,6 +27,12 @@ public:
     static inline Shader* SPRITE;
     static inline Shader* TEXTURE;
     static inline Shader* TEXTURE_MONO;
+};
+
+class Sounds{
+public:
+    static inline Sound* BASE;
+    static inline Sound* MTYN;
 };
 
 #endif //RHYTHM_ASSETS_H

@@ -12,6 +12,8 @@
 #include "render/Shader.h"
 #include "PhysicsEngine.h"
 #include "render/UiRenderer.h"
+#include "sound/Sound.h"
+#include "sound/SoundEngine.h"
 
 class GLFWwindow;
 
@@ -19,6 +21,8 @@ class Rhythm {
 public:
     Rhythm() = default;
     void run();
+
+    friend InputHandler;
 
 private:
     void init();
@@ -37,12 +41,12 @@ private:
     World* world = nullptr;
     InputHandler* inputHandler = nullptr;
     PhysicsEngine* physicsEngine = nullptr;
+    SoundEngine* soundEngine = nullptr;
     UiRenderer* uiRenderer = nullptr;
     GLFWwindow* window = nullptr;
     AssetManager<Texture> textureManager;
     AssetManager<Shader> shaderManager;
-
-    friend InputHandler;
+    AssetManager<Sound> soundManager;
 
 };
 

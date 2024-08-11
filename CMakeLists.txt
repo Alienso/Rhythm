@@ -15,6 +15,7 @@ include_directories(${PROJECT_SOURCE_DIR}/source)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 link_directories(${PROJECT_SOURCE_DIR}/lib)
+link_directories(${PROJECT_SOURCE_DIR}/lib/portaudio)
 if (WIN32)
     link_directories(${PROJECT_SOURCE_DIR}/lib/GLFW/lib-mingw-w64)
 endif(WIN32)
@@ -48,13 +49,13 @@ add_executable(Rhythm main.cpp
         source/Configuration.cpp source/Configuration.h
         source/InputHandler.cpp source/InputHandler.h
         source/entity/Sprite.cpp source/entity/Sprite.h
-        source/Assets.cpp source/Assets.h source/entity/SpriteStateMachine.cpp source/entity/SpriteStateMachine.h source/PhysicsEngine.cpp source/PhysicsEngine.h source/entity/SpriteStates.h source/entity/Entity.cpp source/entity/Entity.h source/render/UiRenderer.cpp source/render/UiRenderer.h source/entity/Player.cpp source/entity/Player.h)
+        source/Assets.cpp source/Assets.h source/entity/SpriteStateMachine.cpp source/entity/SpriteStateMachine.h source/PhysicsEngine.cpp source/PhysicsEngine.h source/entity/SpriteStates.h source/entity/Entity.cpp source/entity/Entity.h source/render/UiRenderer.cpp source/render/UiRenderer.h source/entity/Player.cpp source/entity/Player.h source/sound/SoundEngine.cpp source/sound/SoundEngine.h source/sound/Sound.cpp source/sound/Sound.h source/sound/WavFileReader.h)
 
 if (WIN32)
-    target_link_libraries(Rhythm glfw3 gdi32 opengl32)
+    target_link_libraries(Rhythm glfw3 gdi32 opengl32 pthread portaudio)
 endif(WIN32)
 if (UNIX)
-    target_link_libraries(Rhythm glfw3 GL X11)
+    target_link_libraries(Rhythm glfw3 GL X11 pthread portaudio)
 endif(UNIX)
 
 add_custom_command(TARGET Rhythm PRE_BUILD
@@ -64,3 +65,7 @@ add_custom_command(TARGET Rhythm PRE_BUILD
 add_custom_command(TARGET Rhythm PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/resource $<TARGET_FILE_DIR:Rhythm>/resource)
+
+add_custom_command(TARGET Rhythm PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/lib/portaudio $<TARGET_FILE_DIR:Rhythm>)

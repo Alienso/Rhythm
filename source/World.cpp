@@ -25,12 +25,14 @@ void World::onRender() {
 
     //Draw player
     Global::player->onRender();
+    Global::player->mist.onRender();
     Global::player->weapon.onRender();
 
 }
 
 void World::onUpdate(double deltaTime) {
     Global::player->onUpdate();
+
 }
 
 void World::onImGuiRender() {

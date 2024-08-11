@@ -7,9 +7,14 @@
 
 Player::Player(Texture *texture) : Entity(texture) {
     weapon.scale = {0.025, 0.025};
+    mist.scale = {0.05, 0.05};
+    mist.stateMachine = SpriteStateMachine(1, 15);
+    mist.stateMachine.setTexturesCount({15});
+    mist.stateMachine.animationSpeed = 1.2f;
 }
 
 void Player::onUpdate() {
     weapon.pos = {pos.x, pos.y + 0.1};
-    weapon.rotation = atan2((Global::cursor->pos.y - weapon.pos.y), (Global::cursor->pos.x - weapon.pos.x)) - 3.1415/4.0; //TODO fix this texture to not do this offset
+    mist.pos = weapon.pos;
+    weapon.rotation = atan2((Global::cursor->pos.y - weapon.pos.y), (Global::cursor->pos.x - weapon.pos.x));
 }

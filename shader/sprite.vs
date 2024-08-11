@@ -27,6 +27,8 @@ void main(){
     scaleMatrix[1] = vec3(0,scale.y,0);
     scaleMatrix[2] = vec3(0,0,1);
 
+    mat3 transformationMatrix;
+    if (rotation != 0){
         mat3 aspectFix;
         aspectFix[0] = vec3(0.5625,0,0);
         aspectFix[1] = vec3(0,1,0);
@@ -37,8 +39,10 @@ void main(){
         aspectFix2[1] = vec3(0,1,0);
         aspectFix2[2] = vec3(0,0,1);
 
-    //mat3 transformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-    mat3 transformationMatrix = translationMatrix * aspectFix * rotationMatrix * aspectFix2 * scaleMatrix; //TODO
+        transformationMatrix = translationMatrix * aspectFix * rotationMatrix * aspectFix2 * scaleMatrix; //TODO
+    }else{
+        transformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+    }
     gl_Position = vec4(transformationMatrix * vec3(aPos, 1.0f), 1.0f);
 
 	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
