@@ -14,10 +14,17 @@ class Player : public Entity{
 public:
     explicit Player(Texture* texture);
 
-    void onUpdate();
+    void onUpdate(float deltaTime);
+    [[nodiscard]] bool canAttack() const;
+    void attack();
 
     Entity mist{Textures::MIST};
     Sprite weapon{Textures::PISTOL};
+
+    float attackCD = 0.2;
+
+private:
+
 };
 
 

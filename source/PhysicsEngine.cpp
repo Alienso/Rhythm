@@ -9,7 +9,7 @@ PhysicsEngine::PhysicsEngine() {
     entities.push_back(Global::player);
 }
 
-void PhysicsEngine::onUpdate(double deltaTime) {
+void PhysicsEngine::onUpdate(float deltaTime) {
 
     for (Entity* entity: entities) {
         entity->movementVec.y -= 9.81f * deltaTime;

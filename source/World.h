@@ -14,7 +14,7 @@ public:
     World();
 
     void onRender();
-    void onUpdate(double deltaTime);
+    void onUpdate(float deltaTime);
     void onImGuiRender();
 
 private:

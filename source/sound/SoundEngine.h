@@ -15,12 +15,16 @@ public:
     SoundEngine();
     ~SoundEngine();
 
-    void play(Sound* sound);
+    void play(Sound* sound, float volume = 1.0);
     void stop(SoundInstance* sound);
     void pause(SoundInstance* sound);
 
+    void onUpdate(float deltaTime);
+
 private:
     static const inline int FRAMES_PER_BUFFER = 1024;
+    std::vector<SoundInstance*> soundsPlaying{10};
+    float onUpdateTimer = 1.0f;
 };
 
 

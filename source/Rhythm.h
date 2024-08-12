@@ -36,7 +36,7 @@ private:
     void renderImGui();
 
     bool shouldContinue = true;
-    double lastTime = 0;
+    float lastTime = 0;
 
     World* world = nullptr;
     InputHandler* inputHandler = nullptr;

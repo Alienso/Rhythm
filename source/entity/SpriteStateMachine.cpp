@@ -3,6 +3,7 @@
 //
 
 #include <cstdlib>
+#include <iostream>
 #include "SpriteStateMachine.h"
 #include "GLFW/glfw3.h"
 
@@ -32,6 +33,7 @@ void SpriteStateMachine::changeState(unsigned int state) {
     if (state == this->state)
         return;
     if (state >= transitions.size()){
+        std::cout << "state > transitions.size()\n";
         exit(1);
     }
     startTime = (float)glfwGetTime();

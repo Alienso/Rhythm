@@ -51,7 +51,21 @@ void InputHandler::processMouseInput() {
                          - (app->uiRenderer->previousCursorPos.y + yoffset) / (float)Configuration::windowHeight};
     app->uiRenderer->getCursor().pos = newPos;
 
+}
 
+void InputHandler::processMouseClickInput() {
+
+    if (glfwGetInputMode(app->window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
+        return;
+    }
+
+    if (glfwGetMouseButton(app->window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
+        if (Global::player->canAttack()) {
+            app->soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, 0.6);
+            //player shoot
+            Global::player->attack();
+        }
+    }
 }
 
 void InputHandler::processKeyboardInput(double deltaTime) {
@@ -64,10 +78,7 @@ void InputHandler::processKeyboardInput(double deltaTime) {
 
     Entity& player = *Global::player;
     player.previousPos = player.pos;
-    //if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    //    player.pos += cameraSpeed * player.getCamera().front;
-    //if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    //    player.pos -= cameraSpeed * player.getCamera().front;
+
     if (glfwGetKey(app->window, GLFW_KEY_A) == GLFW_PRESS) {
         player.movementVec.x = -1.0;
         player.invertTex = true;
@@ -98,6 +109,4 @@ void InputHandler::processKeyboardInput(double deltaTime) {
         else
             player.stateMachine.changeState(PLAYER_RUN);
     }
-    //if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-    //    player.pos += cameraSpeed * glm::vec3(0.0f, -1.0f, 0.0f);
 }

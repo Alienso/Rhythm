@@ -52,11 +52,11 @@ Sound::Sound(const char *path) {
     sampleRate = wavHeader.SamplesPerSec;
     numChannels = wavHeader.NumOfChan;
 
-    std::cout << "Sampling Rate              :" << wavHeader.SamplesPerSec << '\n';
-    std::cout << "Number of channels         :" << wavHeader.NumOfChan << '\n';
+    //std::cout << "Sampling Rate              :" << wavHeader.SamplesPerSec << '\n';
+    //std::cout << "Number of channels         :" << wavHeader.NumOfChan << '\n';
 }
 
-SoundInstance::SoundInstance(Sound *sound) : sound(sound) {
+SoundInstance::SoundInstance(Sound *sound, float volume) : volume(volume), sound(sound) {
 
 }
 

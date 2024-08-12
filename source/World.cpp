@@ -30,8 +30,8 @@ void World::onRender() {
 
 }
 
-void World::onUpdate(double deltaTime) {
-    Global::player->onUpdate();
+void World::onUpdate(float deltaTime) {
+    Global::player->onUpdate(deltaTime);
 
 }
 

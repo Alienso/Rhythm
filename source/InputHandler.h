@@ -13,6 +13,7 @@ class InputHandler {
 public:
     explicit InputHandler(Rhythm* app) : app(app){}
     void processMouseInput();
+    void processMouseClickInput();
     void processKeyboardInput(double deltaTime);
 
 private:

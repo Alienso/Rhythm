@@ -14,7 +14,7 @@ class PhysicsEngine {
 public:
 
     PhysicsEngine();
-    void onUpdate(double deltaTime);
+    void onUpdate(float deltaTime);
     void registerEntity(Entity* entity);
 
 private:

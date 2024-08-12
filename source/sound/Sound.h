@@ -28,12 +28,13 @@ private:
 
 class SoundInstance{
 public:
-    explicit SoundInstance(Sound* sound);
+    explicit SoundInstance(Sound* sound, float volume = 1.0);
 
     [[nodiscard]] int16_t getNextValue();
     [[nodiscard]] unsigned int getOffset() const;
     [[nodiscard]] size_t getDataSize() const;
     PaStream *paStream = nullptr;
+    float volume = 1.0;
 private:
     unsigned int offset = 0;
     Sound* sound = nullptr;

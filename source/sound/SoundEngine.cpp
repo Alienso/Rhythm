@@ -15,9 +15,12 @@ static int audioCallback( const void *inputBuffer, void *outputBuffer,
 SoundEngine::SoundEngine() {
     PaError err = Pa_Initialize();
     if (err != paNoError){
-        std::cout << "Pa_init";
+        std::cout << err << "Pa_init";
         exit(1);
     }
+
+    for (auto & i : soundsPlaying)
+        i = nullptr;
 
     play(Sounds::MTYN);
 }
@@ -26,7 +29,26 @@ SoundEngine::~SoundEngine() {
     Pa_Terminate();
 }
 
-void SoundEngine::play(Sound *sound) {
+void SoundEngine::onUpdate(float deltaTime){
+
+    if (onUpdateTimer > 0){
+        onUpdateTimer-=deltaTime;
+        return;
+    }
+    onUpdateTimer = 1.0f;
+
+    for (auto & sound : soundsPlaying){
+        if (sound != nullptr){
+            if(!Pa_IsStreamActive( sound->paStream )){
+                stop(sound);
+                delete sound;
+                sound = nullptr;
+            }
+        }
+    }
+}
+
+void SoundEngine::play(Sound *sound, float volume) {
 
     PaStreamParameters outputParameters;
     outputParameters.device = Pa_GetDefaultOutputDevice();
@@ -39,7 +61,7 @@ void SoundEngine::play(Sound *sound) {
     outputParameters.suggestedLatency = Pa_GetDeviceInfo( outputParameters.device )->defaultLowOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = nullptr;
 
-    auto* soundInstance = new SoundInstance(sound);
+    auto* soundInstance = new SoundInstance(sound, volume);
     PaError err = Pa_OpenStream(
             &soundInstance->paStream,
             nullptr,
@@ -49,15 +71,37 @@ void SoundEngine::play(Sound *sound) {
             0,
             audioCallback,
             soundInstance );
-    if( err != paNoError ) exit(1);
+    if( err != paNoError ){
+        std::cout << err << "Pa_Open\n";
+        exit(1);
+    }
 
     err = Pa_StartStream( soundInstance->paStream );
-    if( err != paNoError ) exit(1);
+    if( err != paNoError ){
+        std::cout << err << "Pa_Start\n";
+        exit(1);
+    }
+
+    bool soundAdded = false;
+    for (auto & s : soundsPlaying){
+        if (s == nullptr){
+            s = soundInstance;
+            soundAdded = true;
+            break;
+        }
+    }
+    if (!soundAdded){
+        soundsPlaying.push_back(soundInstance);
+    }
+
 }
 
-void SoundEngine::stop(SoundInstance* sound) { //TODO
+void SoundEngine::stop(SoundInstance* sound) {
     PaError err = Pa_CloseStream( sound->paStream );
-    if( err != paNoError ) exit(1);
+    if( err != paNoError ) {
+        std::cout << err << "Pa_Close\n";
+        exit(1);
+    }
 }
 
 void SoundEngine::pause(SoundInstance* sound) {
@@ -72,14 +116,12 @@ static int audioCallback( const void *inputBuffer, void *outputBuffer,
     unsigned int i;
     auto *out = (int16_t *)outputBuffer;
     auto *sound = (SoundInstance*)userData;
-    if (sound->getOffset() + framesPerBuffer >= sound->getDataSize()){
-        PaError err = Pa_CloseStream( sound->paStream );
-        if( err != paNoError ) exit(1);
+    if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){ //TODO some frames are not being played (< 2*framesPerBuffer)
         return paComplete;
     }
     for( i=0; i<framesPerBuffer; i++ ){
-        *out++ = sound->getNextValue();
-        *out++ = sound->getNextValue();
+        *out++ = sound->getNextValue() * sound->volume;
+        *out++ = sound->getNextValue() * sound->volume;
     }
 
     return paContinue;

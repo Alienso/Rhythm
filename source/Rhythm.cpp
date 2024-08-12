@@ -51,7 +51,7 @@ void Rhythm::initGlfw(){
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSwapInterval(0);
+    glfwSwapInterval(1);
 
     GLFWimage images[1];
     images[0].pixels = stbi_load("resource/icon.png", &images[0].width, &images[0].height, nullptr, 4); //rgba channels
@@ -113,7 +113,7 @@ void Rhythm::init() {
     world = new World();
     inputHandler = new InputHandler(this);
     physicsEngine = new PhysicsEngine();
-    soundEngine = new SoundEngine;
+    soundEngine = new SoundEngine();
     uiRenderer = new UiRenderer();
 
     Global::cursor = &uiRenderer->getCursor();
@@ -129,14 +129,17 @@ void Rhythm::mainLoop() {
         //PROFILE_SCOPE("mainLoop");
         glfwPollEvents();
 
-        double now = glfwGetTime();
+        auto now = (float)glfwGetTime();
+        float diff = now - lastTime;
 
-        inputHandler->processKeyboardInput(now - lastTime);
+        inputHandler->processKeyboardInput(diff);
+        inputHandler->processMouseClickInput();
         inputHandler->processMouseInput();
 
-        physicsEngine->onUpdate(now - lastTime);
+        physicsEngine->onUpdate(diff);
+        soundEngine->onUpdate(diff);
 
-        world->onUpdate(now - lastTime);
+        world->onUpdate(diff);
         world->onRender();
 
         uiRenderer->onRender();
