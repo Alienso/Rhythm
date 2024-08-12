@@ -16,8 +16,8 @@ public:
     ~SoundEngine();
 
     void play(Sound* sound);
-    void stop(Sound* sound);
-    void pause(Sound* sound);
+    void stop(SoundInstance* sound);
+    void pause(SoundInstance* sound);
 
 private:
     static const inline int FRAMES_PER_BUFFER = 1024;

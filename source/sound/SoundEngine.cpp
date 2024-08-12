@@ -37,29 +37,30 @@ void SoundEngine::play(Sound *sound) {
     outputParameters.channelCount = sound->numChannels;
     outputParameters.sampleFormat = paInt16;
     outputParameters.suggestedLatency = Pa_GetDeviceInfo( outputParameters.device )->defaultLowOutputLatency;
-    outputParameters.hostApiSpecificStreamInfo = NULL;
+    outputParameters.hostApiSpecificStreamInfo = nullptr;
 
+    auto* soundInstance = new SoundInstance(sound);
     PaError err = Pa_OpenStream(
-            &sound->paStream,
-            NULL,
+            &soundInstance->paStream,
+            nullptr,
             &outputParameters,
             sound->sampleRate,
             FRAMES_PER_BUFFER,
             0,
             audioCallback,
-            sound );
+            soundInstance );
     if( err != paNoError ) exit(1);
 
-    err = Pa_StartStream( sound->paStream );
+    err = Pa_StartStream( soundInstance->paStream );
     if( err != paNoError ) exit(1);
 }
 
-void SoundEngine::stop(Sound* sound) {
+void SoundEngine::stop(SoundInstance* sound) { //TODO
     PaError err = Pa_CloseStream( sound->paStream );
     if( err != paNoError ) exit(1);
 }
 
-void SoundEngine::pause(Sound* sound) {
+void SoundEngine::pause(SoundInstance* sound) {
 }
 
 static int audioCallback( const void *inputBuffer, void *outputBuffer,
@@ -70,13 +71,15 @@ static int audioCallback( const void *inputBuffer, void *outputBuffer,
 
     unsigned int i;
     auto *out = (int16_t *)outputBuffer;
-    auto *sound = (Sound*)userData;
-    if (sound->dataIndex + framesPerBuffer >= sound->audioData.size()){ //TODO check
+    auto *sound = (SoundInstance*)userData;
+    if (sound->getOffset() + framesPerBuffer >= sound->getDataSize()){
+        PaError err = Pa_CloseStream( sound->paStream );
+        if( err != paNoError ) exit(1);
         return paComplete;
     }
     for( i=0; i<framesPerBuffer; i++ ){
-        *out++ = sound->audioData[sound->dataIndex++];
-        *out++ = sound->audioData[sound->dataIndex++];
+        *out++ = sound->getNextValue();
+        *out++ = sound->getNextValue();
     }
 
     return paContinue;

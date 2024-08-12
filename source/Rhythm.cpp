@@ -152,6 +152,7 @@ void Rhythm::cleanup() {
     delete inputHandler;
     delete uiRenderer;
     delete physicsEngine;
+    delete soundEngine;
     delete world;
     delete Global::player; //TODO
 

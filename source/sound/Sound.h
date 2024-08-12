@@ -10,18 +10,33 @@
 #include <cstdint>
 #include "portaudio.h"
 
+class SoundInstance;
+
 class Sound {
 
 public:
     explicit Sound(const char* path);
-
     unsigned int ID;
-    int dataIndex = 0; //TODO fix class
-    std::vector<int16_t> audioData;
     unsigned short numChannels = 0;
     unsigned int sampleRate = 0;
+
+    friend SoundInstance;
+
+private:
+    std::vector<int16_t> audioData;
+};
+
+class SoundInstance{
+public:
+    explicit SoundInstance(Sound* sound);
+
+    [[nodiscard]] int16_t getNextValue();
+    [[nodiscard]] unsigned int getOffset() const;
+    [[nodiscard]] size_t getDataSize() const;
     PaStream *paStream = nullptr;
 private:
+    unsigned int offset = 0;
+    Sound* sound = nullptr;
 };
 
 

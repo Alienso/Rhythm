@@ -27,7 +27,8 @@ typedef struct  WAV_HEADER{
 
 Sound::Sound(const char *path) {
 
-    //TODO ID?
+    static int indexID = 0;
+    ID = indexID++;
     FILE * infile = fopen(path,"rb");		// Open wave file in read mode
 
     wav_hdr wavHeader;
@@ -53,4 +54,20 @@ Sound::Sound(const char *path) {
 
     std::cout << "Sampling Rate              :" << wavHeader.SamplesPerSec << '\n';
     std::cout << "Number of channels         :" << wavHeader.NumOfChan << '\n';
+}
+
+SoundInstance::SoundInstance(Sound *sound) : sound(sound) {
+
+}
+
+size_t SoundInstance::getDataSize() const {
+    return sound->audioData.size();
+}
+
+int16_t SoundInstance::getNextValue() {
+    return sound->audioData[offset++];
+}
+
+unsigned int SoundInstance::getOffset() const {
+    return offset;
 }
