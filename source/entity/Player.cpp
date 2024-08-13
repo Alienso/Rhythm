@@ -3,7 +3,7 @@
 //
 
 #include "Player.h"
-#include "Global.h"
+#include "reference/Global.h"
 
 Player::Player(Texture *texture) : Entity(texture) {
     weapon.scale = {0.025, 0.025};

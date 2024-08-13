@@ -4,7 +4,7 @@
 
 #include "Sprite.h"
 #include "render/Shader.h"
-#include "Assets.h"
+#include "reference/Reference.h"
 #include "glad.h"
 
 Sprite::Sprite(Texture* tex) : texture(tex) {

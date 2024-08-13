@@ -3,8 +3,8 @@
 //
 
 #include "InputHandler.h"
-#include "Configuration.h"
-#include "Global.h"
+#include "reference/Configuration.h"
+#include "reference/Global.h"
 #include "entity/SpriteStates.h"
 #include "Rhythm.h"
 
@@ -64,6 +64,7 @@ void InputHandler::processMouseClickInput() {
             app->soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, 0.6);
             //player shoot
             Global::player->attack();
+            app->particleManager->spawnParticle(Particles::REVOLVER_SHOOT);
         }
     }
 }
@@ -102,6 +103,9 @@ void InputHandler::processKeyboardInput(double deltaTime) {
             player.onGround = false;
             player.stateMachine.changeState(PLAYER_JUMP);
         }
+    }else if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_RELEASE){
+        if (player.movementVec.y > 0)
+            player.movementVec.y /= 3;
     }
     if (player.onGround){
         if (player.movementVec.x == 0 && player.movementVec.y == 0)

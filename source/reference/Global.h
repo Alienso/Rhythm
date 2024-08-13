@@ -5,7 +5,7 @@
 #ifndef RHYTHM_GLOBAL_H
 #define RHYTHM_GLOBAL_H
 
-#include "Assets.h"
+#include "Reference.h"
 #include "entity/Player.h"
 
 class Global{

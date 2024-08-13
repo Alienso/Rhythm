@@ -10,6 +10,7 @@
 #include "render/Texture.h"
 #include "render/Shader.h"
 #include "sound/Sound.h"
+#include "entity/Particle.h"
 
 class Textures{
 public:
@@ -32,9 +33,15 @@ public:
 class Sounds{
 public:
     static inline Sound* MTYN;
+    static inline Sound* DISSOLUTION;
     static inline Sound* REVOLVER_SHOOT;
     static inline Sound* REVOLVER_SHOOT_WEAK;
     static inline Sound* SLASH_1;
+};
+
+class Particles{
+public:
+    static inline Particle* REVOLVER_SHOOT;
 };
 
 #endif //RHYTHM_ASSETS_H

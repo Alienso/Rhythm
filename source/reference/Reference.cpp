@@ -3,7 +3,7 @@
 //
 
 #include "Rhythm.h"
-#include "Assets.h"
+#include "Reference.h"
 #include "glad.h"
 
 void Rhythm::initAssets(){
@@ -20,7 +20,12 @@ void Rhythm::initAssets(){
     Shaders::TEXTURE_MONO = shaderManager.createAsset("shader/texture.vs", "shader/texture_mono.fs");
 
     Sounds::MTYN = soundManager.createAsset("resource/sound/music/More_Than_You_Know.wav");
+    Sounds::DISSOLUTION = soundManager.createAsset("resource/sound/music/dissolution.wav");
     Sounds::REVOLVER_SHOOT = soundManager.createAsset("resource/sound/effect/pistol_gunshot2.wav");
     Sounds::REVOLVER_SHOOT_WEAK = soundManager.createAsset("resource/sound/effect/pistol_weak2.wav");
     Sounds::SLASH_1 = soundManager.createAsset("resource/sound/effect/slash_1.wav");
+}
+
+void Rhythm::initObjects(){
+    Particles::REVOLVER_SHOOT = new Particle(Textures::CURSOR, 1.0);
 }

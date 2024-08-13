@@ -4,13 +4,10 @@
 
 #include "SoundEngine.h"
 #include "iostream"
-#include "Assets.h"
+#include "reference/Reference.h"
 
-static int audioCallback( const void *inputBuffer, void *outputBuffer,
-                         unsigned long framesPerBuffer,
-                         const PaStreamCallbackTimeInfo* timeInfo,
-                         PaStreamCallbackFlags statusFlags,
-                         void *userData );
+static int audioCallback(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
+static int audioCallbackMono(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
 
 SoundEngine::SoundEngine() {
     PaError err = Pa_Initialize();
@@ -22,7 +19,7 @@ SoundEngine::SoundEngine() {
     for (auto & i : soundsPlaying)
         i = nullptr;
 
-    play(Sounds::MTYN);
+    //play(Sounds::MTYN);
 }
 
 SoundEngine::~SoundEngine() {
@@ -62,6 +59,9 @@ void SoundEngine::play(Sound *sound, float volume) {
     outputParameters.hostApiSpecificStreamInfo = nullptr;
 
     auto* soundInstance = new SoundInstance(sound, volume);
+    int (*callbackFunction) (const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
+    callbackFunction = sound->numChannels == 1 ? audioCallbackMono : audioCallback;
+
     PaError err = Pa_OpenStream(
             &soundInstance->paStream,
             nullptr,
@@ -69,7 +69,7 @@ void SoundEngine::play(Sound *sound, float volume) {
             sound->sampleRate,
             FRAMES_PER_BUFFER,
             0,
-            audioCallback,
+            callbackFunction,
             soundInstance );
     if( err != paNoError ){
         std::cout << err << "Pa_Open\n";
@@ -121,6 +121,25 @@ static int audioCallback( const void *inputBuffer, void *outputBuffer,
     }
     for( i=0; i<framesPerBuffer; i++ ){
         *out++ = sound->getNextValue() * sound->volume;
+        *out++ = sound->getNextValue() * sound->volume;
+    }
+
+    return paContinue;
+}
+
+static int audioCallbackMono( const void *inputBuffer, void *outputBuffer,
+                          unsigned long framesPerBuffer,
+                          const PaStreamCallbackTimeInfo* timeInfo,
+                          PaStreamCallbackFlags statusFlags,
+                          void *userData ){
+
+    unsigned int i;
+    auto *out = (int16_t *)outputBuffer;
+    auto *sound = (SoundInstance*)userData;
+    if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){ //TODO some frames are not being played (< 2*framesPerBuffer)
+        return paComplete;
+    }
+    for( i=0; i<framesPerBuffer; i++ ){
         *out++ = sound->getNextValue() * sound->volume;
     }
 

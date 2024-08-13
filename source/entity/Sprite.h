@@ -11,7 +11,7 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "render/buffer/GlBufferWrapper.h"
 
-#include "Configuration.h"
+#include "reference/Configuration.h"
 #include "entity/SpriteStateMachine.h"
 
 inline float quadVertices[] = {

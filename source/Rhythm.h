@@ -14,6 +14,7 @@
 #include "render/UiRenderer.h"
 #include "sound/Sound.h"
 #include "sound/SoundEngine.h"
+#include "ParticleManager.h"
 
 class GLFWwindow;
 
@@ -32,6 +33,7 @@ private:
     void initGlfw();
     void initImGui();
     void initAssets();
+    void initObjects();
 
     void renderImGui();
 
@@ -42,6 +44,7 @@ private:
     InputHandler* inputHandler = nullptr;
     PhysicsEngine* physicsEngine = nullptr;
     SoundEngine* soundEngine = nullptr;
+    ParticleManager* particleManager = nullptr;
     UiRenderer* uiRenderer = nullptr;
     GLFWwindow* window = nullptr;
     AssetManager<Texture> textureManager;

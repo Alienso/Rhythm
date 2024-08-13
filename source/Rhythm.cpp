@@ -12,9 +12,9 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 #include "stb_image.h"
-#include "Configuration.h"
+#include "reference/Configuration.h"
 #include "InputHandler.h"
-#include "Global.h"
+#include "reference/Global.h"
 
 #include <iostream>
 #include <unistd.h>
@@ -107,6 +107,7 @@ void Rhythm::init() {
     srand((unsigned int)glfwGetTime());
 
     initAssets();
+    initObjects();
 
     Global::init();
 
@@ -114,6 +115,7 @@ void Rhythm::init() {
     inputHandler = new InputHandler(this);
     physicsEngine = new PhysicsEngine();
     soundEngine = new SoundEngine();
+    particleManager = new ParticleManager();
     uiRenderer = new UiRenderer();
 
     Global::cursor = &uiRenderer->getCursor();
@@ -138,9 +140,12 @@ void Rhythm::mainLoop() {
 
         physicsEngine->onUpdate(diff);
         soundEngine->onUpdate(diff);
+        particleManager->onUpdate(diff);
 
         world->onUpdate(diff);
         world->onRender();
+
+        particleManager->onRender();
 
         uiRenderer->onRender();
 

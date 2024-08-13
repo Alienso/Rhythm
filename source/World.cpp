@@ -3,10 +3,10 @@
 //
 
 #include "World.h"
-#include "Assets.h"
+#include "reference/Reference.h"
 #include "render/Shader.h"
 #include "glad.h"
-#include "Global.h"
+#include "reference/Global.h"
 #include "imgui/imgui.h"
 
 World::World() {

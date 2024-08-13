@@ -3,7 +3,7 @@
 //
 
 #include "PhysicsEngine.h"
-#include "Global.h"
+#include "reference/Global.h"
 
 PhysicsEngine::PhysicsEngine() {
     entities.push_back(Global::player);

@@ -19,6 +19,8 @@ public:
     unsigned int ID;
     unsigned short numChannels = 0;
     unsigned int sampleRate = 0;
+    unsigned int bpm = 0;
+    unsigned int beatInitialOffset = 0;
 
     friend SoundInstance;
 
