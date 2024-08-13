@@ -6,6 +6,7 @@
 #include "render/Shader.h"
 #include "reference/Reference.h"
 #include "glad.h"
+#include "GLFW/glfw3.h"
 
 Sprite::Sprite(Texture* tex) : texture(tex) {
 
@@ -20,7 +21,7 @@ void Sprite::bind() const {
     glBufferWrapper.va->bind();
 }
 
-void Sprite::onRender() const {
+/*void Sprite::onRender() const { //Old impl
     Shader *shader = Shaders::SPRITE;
     shader->use();
     bind();
@@ -28,5 +29,23 @@ void Sprite::onRender() const {
     shader->setVec2("translation", pos);
     shader->setFloat("rotation", rotation);
     shader->setVec2("scale", scale);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+}*/
+
+void Sprite::onRender() const {
+    Shader* shader = Shaders::SPRITE;
+    shader->use();
+    bind();
+    shader->setInt("texture1", 0);
+    shader->setVec2("translation", pos);
+    shader->setFloat("rotation", rotation);
+    shader->setVec2("scale", scale);
+    shader->setUInt("column", stateMachine.getAnimationState());
+    shader->setUInt("columnMax", stateMachine.getTextureWidth());
+    shader->setUInt("row", stateMachine.getState());
+    shader->setUInt("rowMax", stateMachine.getStateCount());
+    shader->setBool("invertTex", invertTex);
+    shader->setFloat("time", (float)glfwGetTime());
+
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }

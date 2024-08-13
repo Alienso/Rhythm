@@ -12,7 +12,7 @@ UiRenderer::UiRenderer() {
 
 void UiRenderer::onRender() {
     //draw Mouse
-    Shader *shader = Shaders::SPRITE;
+    Shader *shader = Shaders::SPRITE_STATIC;
     shader->use();
 
     cursor.bind();

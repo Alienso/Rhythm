@@ -8,13 +8,13 @@ Particle::Particle(Texture *texture, float lifeTime) : Sprite(texture), lifetime
 
 }
 
-ParticleInstance::ParticleInstance(Particle *particle, float lifeTime) : particle(particle) {
+ParticleInstance::ParticleInstance(Particle *particle, glm::vec2 pos, float lifeTime) : particle(particle) { //TODO pos?
     if (lifeTime > 0)
         this->lifetime = lifeTime;
     else this->lifetime = particle->lifetime;
 }
 
-void ParticleInstance::revive(Particle *particle, float lifeTime) {
+void ParticleInstance::revive(Particle *particle, glm::vec2 pos, float lifeTime) {
     this->particle = particle;
     if (lifeTime > 0) {
         this->lifetime = lifeTime;

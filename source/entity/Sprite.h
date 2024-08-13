@@ -48,6 +48,9 @@ public:
     glm::vec2 pos = {0,0};
     glm::vec2 scale = {1.0,1.0};
     float rotation = 0;
+    bool invertTex = false;
+
+    SpriteStateMachine stateMachine;
 
 protected:
     Texture* texture = nullptr;

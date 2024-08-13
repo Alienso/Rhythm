@@ -20,8 +20,8 @@ private:
 
 class ParticleInstance{
 public:
-    explicit ParticleInstance(Particle* particle, float lifeTime = 0.0);
-    void revive(Particle* particle, float lifeTime = 0); //TODO maybe not allow different particle type
+    explicit ParticleInstance(Particle* particle, glm::vec2 pos, float lifeTime = 0.0);
+    void revive(Particle* particle, glm::vec2 pos, float lifeTime = 0); //TODO maybe not allow different particle type
 
     void onUpdate(float deltaTime);
     void onRender();

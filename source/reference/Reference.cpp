@@ -14,8 +14,10 @@ void Rhythm::initAssets(){
     Textures::PISTOL = textureManager.createAsset("resource/texture/weapon/pistol_rotated.png", GL_RGBA);
     Textures::MIST = textureManager.createAsset("resource/texture/particle/mist64.png", GL_RGBA);
 
-    Shaders::ENTITY = shaderManager.createAsset("shader/base.vs", "shader/base.fs");
-    Shaders::SPRITE = shaderManager.createAsset("shader/sprite.vs", "shader/base.fs");
+    Textures::PARTICLE_GUNSHOT = textureManager.createAsset("resource/texture/particle/gunshot.png", GL_RGBA);
+
+    Shaders::SPRITE = shaderManager.createAsset("shader/sprite.vs", "shader/sprite.fs");
+    Shaders::SPRITE_STATIC = shaderManager.createAsset("shader/sprite_static.vs", "shader/sprite.fs");
     Shaders::TEXTURE = shaderManager.createAsset("shader/texture.vs", "shader/texture.fs");
     Shaders::TEXTURE_MONO = shaderManager.createAsset("shader/texture.vs", "shader/texture_mono.fs");
 
@@ -27,5 +29,8 @@ void Rhythm::initAssets(){
 }
 
 void Rhythm::initObjects(){
-    Particles::REVOLVER_SHOOT = new Particle(Textures::CURSOR, 1.0);
+    Particles::REVOLVER_SHOOT = new Particle(Textures::PARTICLE_GUNSHOT, 1.0);
+    Particles::REVOLVER_SHOOT->scale = {0.01, 0.01};
+    Particles::REVOLVER_SHOOT->stateMachine = SpriteStateMachine(1,5);
+    Particles::REVOLVER_SHOOT->stateMachine.setTexturesCount({5});
 }

@@ -8,6 +8,15 @@ uniform vec2 translation;
 uniform float rotation;
 uniform vec2 scale;
 
+uniform uint row;
+uniform uint rowMax;
+uniform uint column;
+uniform uint columnMax;
+
+uniform bool invertTex;
+
+uniform float time;
+
 void main(){
 
 	mat3 translationMatrix;
@@ -43,7 +52,12 @@ void main(){
     }else{
         transformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
     }
+
     gl_Position = vec4(transformationMatrix * vec3(aPos, 1.0f), 1.0f);
 
-	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+    if (invertTex){
+	    TexCoord = vec2((float(column) - aTexCoord.x + 1.0) / columnMax, (float(rowMax - 1 - row) + aTexCoord.y) / rowMax);
+	}else{
+	    TexCoord = vec2((float(column) + aTexCoord.x) / columnMax, (float(rowMax - 1 - row) + aTexCoord.y) / rowMax);
+	}
 }

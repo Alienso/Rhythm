@@ -64,7 +64,7 @@ void InputHandler::processMouseClickInput() {
             app->soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, 0.6);
             //player shoot
             Global::player->attack();
-            app->particleManager->spawnParticle(Particles::REVOLVER_SHOOT);
+            app->particleManager->spawnParticle(Particles::REVOLVER_SHOOT, Global::player->pos);
         }
     }
 }

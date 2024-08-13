@@ -20,12 +20,14 @@ public:
     static inline Texture* CURSOR;
     static inline Texture* PISTOL;
     static inline Texture* MIST;
+
+    static inline Texture* PARTICLE_GUNSHOT;
 };
 
 class Shaders{
 public:
-    static inline Shader* ENTITY;
     static inline Shader* SPRITE;
+    static inline Shader* SPRITE_STATIC;
     static inline Shader* TEXTURE;
     static inline Shader* TEXTURE_MONO;
 };

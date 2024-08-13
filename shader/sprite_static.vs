@@ -8,15 +8,6 @@ uniform vec2 translation;
 uniform float rotation;
 uniform vec2 scale;
 
-uniform uint row;
-uniform uint rowMax;
-uniform uint column;
-uniform uint columnMax;
-
-uniform bool invertTex;
-
-uniform float time;
-
 void main(){
 
 	mat3 translationMatrix;
@@ -36,12 +27,23 @@ void main(){
     scaleMatrix[1] = vec3(0,scale.y,0);
     scaleMatrix[2] = vec3(0,0,1);
 
-    mat3 transformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+    mat3 transformationMatrix;
+    if (rotation != 0){
+        mat3 aspectFix;
+        aspectFix[0] = vec3(0.5625,0,0);
+        aspectFix[1] = vec3(0,1,0);
+        aspectFix[2] = vec3(0,0,1);
+
+        mat3 aspectFix2;
+        aspectFix2[0] = vec3(1.78888,0,0);
+        aspectFix2[1] = vec3(0,1,0);
+        aspectFix2[2] = vec3(0,0,1);
+
+        transformationMatrix = translationMatrix * aspectFix * rotationMatrix * aspectFix2 * scaleMatrix; //TODO
+    }else{
+        transformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+    }
     gl_Position = vec4(transformationMatrix * vec3(aPos, 1.0f), 1.0f);
 
-    if (invertTex){
-	    TexCoord = vec2((float(column) - aTexCoord.x + 1.0) / columnMax, (float(rowMax - 1 - row) + aTexCoord.y) / rowMax);
-	}else{
-	    TexCoord = vec2((float(column) + aTexCoord.x) / columnMax, (float(rowMax - 1 - row) + aTexCoord.y) / rowMax);
-	}
+	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
 }

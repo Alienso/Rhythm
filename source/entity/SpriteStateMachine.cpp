@@ -9,6 +9,8 @@
 
 SpriteStateMachine::SpriteStateMachine() {
     startTime = (float)glfwGetTime();
+    transitions.resize(1);
+    textureCountForState.push_back(1);
 }
 
 SpriteStateMachine::SpriteStateMachine(unsigned int states, unsigned int textureWidth) : textureWidth(textureWidth) {

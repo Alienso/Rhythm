@@ -30,7 +30,7 @@ public:
 
 private:
     unsigned int state = 0;
-    std::vector<std::vector<unsigned int>> transitions;
+    std::vector<std::vector<unsigned int>> transitions; //TODO some of this fields don't need to be in each instance of the class
     std::vector<unsigned int> textureCountForState;
     unsigned int textureWidth = 1;
     float startTime;

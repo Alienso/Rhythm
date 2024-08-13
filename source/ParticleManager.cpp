@@ -8,24 +8,25 @@ ParticleManager::ParticleManager() {
 
 }
 
-void ParticleManager::spawnParticle(Particle *particle, float lifetime) { //TODO refactor
+void ParticleManager::spawnParticle(Particle *particle, glm::vec2 pos, float lifetime) { //TODO refactor
 
     bool spawned = false;
     for (ParticleInstance& p : particles){
         if (p.isDead()){
-            p.revive(particle, lifetime);
+            p.revive(particle, pos, lifetime);
             spawned = true;
             break;
         }
     }
     if (!spawned){
-        particles.emplace_back(particle, lifetime);
+        particles.emplace_back(particle, pos, lifetime);
     }
 }
 
 void ParticleManager::onUpdate(float deltaTime) {
     for (ParticleInstance& p : particles){
-        p.onUpdate(deltaTime);
+        if (!p.isDead())
+            p.onUpdate(deltaTime);
     }
 }
 
