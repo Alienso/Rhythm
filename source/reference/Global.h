@@ -7,6 +7,8 @@
 
 #include "Reference.h"
 #include "entity/Player.h"
+#include "sound/SoundEngine.h"
+#include "ParticleManager.h"
 
 class Global{
 public:
@@ -27,6 +29,9 @@ public:
     }
     static inline Player* player = nullptr; //TODO make it not pointer
     static inline Sprite* cursor = nullptr;
+
+    static inline SoundEngine* soundEngine = nullptr;
+    static inline ParticleManager* particleManager = nullptr;
 };
 
 #endif //RHYTHM_GLOBAL_H

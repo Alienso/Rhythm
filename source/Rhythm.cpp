@@ -119,6 +119,8 @@ void Rhythm::init() {
     uiRenderer = new UiRenderer();
 
     Global::cursor = &uiRenderer->getCursor();
+    Global::particleManager = particleManager;
+    Global::soundEngine = soundEngine;
 }
 
 void Rhythm::mainLoop() {

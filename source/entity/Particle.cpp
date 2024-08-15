@@ -22,7 +22,7 @@ ParticleInstance::ParticleInstance(Particle *particle, AffineTransformations& tr
     rotation = trans.rotation;
     scale = trans.scale;
 
-    stateMachine = SpriteStateMachine(1,particle->animationStates);
+    stateMachine = SpriteStateMachine(1,particle->animationStates); //TODO depending on animation states and lifetime, increase or decrease animation speed
     stateMachine.setTexturesCount({particle->animationStates});
 }
 

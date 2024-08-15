@@ -29,4 +29,11 @@ bool Player::canAttack() const {
 
 void Player::attack() {
     attackCD = 0.2;
+
+    Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, 0.6);
+    auto trans = Particles::REVOLVER_SHOOT->getDefaultTransformations();
+    glm::vec2 normalizedWeaponDirection = glm::normalize(glm::vec2(Global::cursor->pos.x - weapon.pos.x, Global::cursor->pos.y - weapon.pos.y));
+    trans.translation = { weapon.pos.x + normalizedWeaponDirection.x / 8.0, weapon.pos.y + normalizedWeaponDirection.y / 8.0 };
+    trans.rotation = weapon.rotation + M_PI/4.0;
+    Global::particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
 }
