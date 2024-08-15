@@ -29,8 +29,6 @@ void Rhythm::initAssets(){
 }
 
 void Rhythm::initObjects(){
-    Particles::REVOLVER_SHOOT = new Particle(Textures::PARTICLE_GUNSHOT, 1.0);
-    Particles::REVOLVER_SHOOT->scale = {0.01, 0.01};
-    Particles::REVOLVER_SHOOT->stateMachine = SpriteStateMachine(1,5);
-    Particles::REVOLVER_SHOOT->stateMachine.setTexturesCount({5});
+    AffineTransformations trans({0,0}, {0.05,0.05}, M_PI/4.0);
+    Particles::REVOLVER_SHOOT = new Particle(Textures::PARTICLE_GUNSHOT, 5, trans, 0.25);
 }

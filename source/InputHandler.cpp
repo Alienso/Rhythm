@@ -64,7 +64,11 @@ void InputHandler::processMouseClickInput() {
             app->soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, 0.6);
             //player shoot
             Global::player->attack();
-            app->particleManager->spawnParticle(Particles::REVOLVER_SHOOT, Global::player->pos);
+            auto trans = Particles::REVOLVER_SHOOT->getDefaultTransformations();
+            glm::vec2 normalizedWeaponDirection = glm::normalize(glm::vec2(Global::cursor->pos.x - Global::player->weapon.pos.x, Global::cursor->pos.y - Global::player->weapon.pos.y));
+            trans.translation = { Global::player->weapon.pos.x + normalizedWeaponDirection.x / 8.0, Global::player->weapon.pos.y + normalizedWeaponDirection.y / 8.0 };
+            trans.rotation = Global::player->weapon.rotation + M_PI/4.0;
+            app->particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
         }
     }
 }

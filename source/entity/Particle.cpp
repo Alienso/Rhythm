@@ -4,22 +4,38 @@
 
 #include "Particle.h"
 
-Particle::Particle(Texture *texture, float lifeTime) : Sprite(texture), lifetime(lifeTime){
+Particle::Particle(Texture *texture, unsigned int animationStates, AffineTransformations &transformations, float lifeTime)
+            : texture(texture), affineTransformations(transformations), animationStates(animationStates),lifetime(lifeTime) {
 
 }
 
-ParticleInstance::ParticleInstance(Particle *particle, glm::vec2 pos, float lifeTime) : particle(particle) { //TODO pos?
+AffineTransformations Particle::getDefaultTransformations() const {
+    return affineTransformations;
+}
+
+ParticleInstance::ParticleInstance(Particle *particle, AffineTransformations& trans, float lifeTime) : Sprite(particle->texture), particle(particle) {
     if (lifeTime > 0)
         this->lifetime = lifeTime;
     else this->lifetime = particle->lifetime;
+
+    pos = trans.translation;
+    rotation = trans.rotation;
+    scale = trans.scale;
+
+    stateMachine = SpriteStateMachine(1,particle->animationStates);
+    stateMachine.setTexturesCount({particle->animationStates});
 }
 
-void ParticleInstance::revive(Particle *particle, glm::vec2 pos, float lifeTime) {
+void ParticleInstance::revive(Particle *particle, AffineTransformations& trans, float lifeTime) { //TODO this will not work if Particle type changes
     this->particle = particle;
     if (lifeTime > 0) {
         this->lifetime = lifeTime;
     }else
         this->lifetime = particle->lifetime;
+
+    pos = trans.translation;
+    rotation = trans.rotation;
+    scale = trans.scale;
 }
 
 void ParticleInstance::onUpdate(float deltaTime) {
@@ -33,8 +49,4 @@ bool ParticleInstance::isDead() const {
 
 float ParticleInstance::getRemainingLife() const {
     return lifetime;
-}
-
-void ParticleInstance::onRender() {
-    particle->onRender();
 }

@@ -36,6 +36,13 @@ inline float quadVerticesScaled[] = {
         1.0f/Configuration::aspectRatio, -1.0f, 1.0f, 0.0f,
 };
 
+struct AffineTransformations{
+    AffineTransformations(glm::vec2 translation, glm::vec2 scale, float rotation) : translation(translation), scale(scale), rotation(rotation){}
+    glm::vec2 translation = {0,0};
+    glm::vec2 scale = {1.0,1.0};
+    float rotation = 0;
+};
+
 class Sprite {
 
 public:

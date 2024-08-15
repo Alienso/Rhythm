@@ -9,22 +9,27 @@
 
 class ParticleInstance;
 
-class Particle : public Sprite{
+class Particle{
 public:
-    explicit Particle(Texture* texture, float lifetime = 0.0);
+    explicit Particle(Texture* texture, unsigned int animationStates, AffineTransformations& transformations, float lifetime);
+
+    [[nodiscard]] AffineTransformations getDefaultTransformations() const;
 
     friend ParticleInstance;
 private:
+    Texture* texture;
+    AffineTransformations affineTransformations;
+    unsigned int animationStates;
     float lifetime;
+
 };
 
-class ParticleInstance{
+class ParticleInstance : public Sprite{
 public:
-    explicit ParticleInstance(Particle* particle, glm::vec2 pos, float lifeTime = 0.0);
-    void revive(Particle* particle, glm::vec2 pos, float lifeTime = 0); //TODO maybe not allow different particle type
+    explicit ParticleInstance(Particle* particle, AffineTransformations& trans, float lifeTime = 0.0);
+    void revive(Particle* particle, AffineTransformations& trans, float lifeTime = 0); //TODO maybe not allow different particle type
 
     void onUpdate(float deltaTime);
-    void onRender();
 
     [[nodiscard]] bool isDead() const;
     [[nodiscard]] float getRemainingLife() const;

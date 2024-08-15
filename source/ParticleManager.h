@@ -12,7 +12,7 @@
 class ParticleManager {
 public:
     ParticleManager();
-    void spawnParticle(Particle* particle, glm::vec2 pos, float lifetime = 0.0);
+    void spawnParticle(Particle* particle, AffineTransformations& trans, float lifetime = 0.0);
 
     void onUpdate(float deltaTime);
     void onRender();
