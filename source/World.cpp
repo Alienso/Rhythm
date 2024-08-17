@@ -40,7 +40,9 @@ void World::onImGuiRender() {
 
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
-    ImGui::SliderFloat("AnimationSpeed", (float*)&Global::player->stateMachine.animationSpeed, 0, 1);
+    //ImGui::SliderFloat("AnimationSpeed", (float*)&Global::player->stateMachine.animationSpeed, 0, 1);
+    ImGui::Text("Score: %d", score);
+    ImGui::Text("Score: %.2f", score / 48000.0);
 
     ImGui::End();
 }

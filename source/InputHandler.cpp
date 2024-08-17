@@ -48,7 +48,7 @@ void InputHandler::processMouseInput() {
     yoffset *= Configuration::mouseSensitivity;
 
     glm::vec2 newPos = { (app->uiRenderer->previousCursorPos.x + xoffset) / (float)Configuration::windowWidth,
-                         - (app->uiRenderer->previousCursorPos.y + yoffset) / (float)Configuration::windowHeight};
+                         - (app->uiRenderer->previousCursorPos.y + yoffset) / (float)Configuration::windowHeight };
     app->uiRenderer->getCursor().pos = newPos;
 
 }
@@ -62,6 +62,7 @@ void InputHandler::processMouseClickInput() {
     if (glfwGetMouseButton(app->window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
         if (Global::player->canAttack()) {
             Global::player->attack();
+            World::score=Global::soundEngine->doAction();
         }
     }
 }

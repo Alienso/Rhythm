@@ -19,7 +19,8 @@ SoundEngine::SoundEngine() {
     for (auto & i : soundsPlaying)
         i = nullptr;
 
-    //play(Sounds::MTYN);
+    play(Sounds::DISSOLUTION, 0.2f);
+    currentSong = soundsPlaying[0];
 }
 
 SoundEngine::~SoundEngine() {
@@ -38,6 +39,7 @@ void SoundEngine::onUpdate(float deltaTime){
         if (sound != nullptr){
             if(!Pa_IsStreamActive( sound->paStream )){
                 stop(sound);
+                if (sound == currentSong) currentSong = nullptr;
                 delete sound;
                 sound = nullptr;
             }
@@ -105,6 +107,30 @@ void SoundEngine::stop(SoundInstance* sound) {
 }
 
 void SoundEngine::pause(SoundInstance* sound) {
+}
+
+int SoundEngine::doAction() const {
+
+    //TODO next/previous beat can be calculated from one, no need to calculate both
+    unsigned long nextBeat = currentSong->getNextBeatOffset();
+    unsigned long previousBeat = currentSong->getPreviousBeatOffset();
+    std::cout << "Next: " << nextBeat << '\n';
+    std::cout << "Prev: " << previousBeat << '\n';
+
+    unsigned long current = currentSong->getOffset() / currentSong->getNumberOfChannels();
+    std::cout << "Current: " << current << '\n';
+    std::cout << "N-P: " << nextBeat - previousBeat << '\n';
+    std::cout << "---------------------\n";
+
+
+    unsigned long nextOffset = abs((long)nextBeat - (long)current);
+    unsigned long previousOffset = abs((long)previousBeat - (long)current);
+    //std::cout << "Next: " << nextOffset << '\n';
+    //std::cout << "Prev: " << previousOffset << '\n';
+
+    unsigned long missOffset = nextOffset < previousOffset ? nextOffset : previousOffset;
+    //return (float)(missOffset) / (float)currentSong->getSampleRate() < 0.2f;
+    return missOffset;
 }
 
 static int audioCallback( const void *inputBuffer, void *outputBuffer,

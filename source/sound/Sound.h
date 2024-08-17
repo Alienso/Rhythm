@@ -15,12 +15,12 @@ class SoundInstance;
 class Sound {
 
 public:
-    explicit Sound(const char* path);
+    explicit Sound(const char* path, unsigned int bpm = 60, unsigned int initialOffset = 0);
     unsigned int ID;
     unsigned short numChannels = 0;
     unsigned int sampleRate = 0;
-    unsigned int bpm = 0;
-    unsigned int beatInitialOffset = 0;
+    unsigned int bpm;
+    unsigned int beatInitialOffset;
 
     friend SoundInstance;
 
@@ -33,12 +33,19 @@ public:
     explicit SoundInstance(Sound* sound, float volume = 1.0);
 
     [[nodiscard]] int16_t getNextValue();
-    [[nodiscard]] unsigned int getOffset() const;
+    [[nodiscard]] unsigned long getOffset() const;
     [[nodiscard]] size_t getDataSize() const;
+    [[nodiscard]] unsigned int getSampleRate() const;
+    [[nodiscard]] unsigned int getNumberOfChannels() const;
+    [[nodiscard]] unsigned long getNextBeatOffset() const;
+    [[nodiscard]] unsigned long getPreviousBeatOffset() const;
+
     PaStream *paStream = nullptr;
     float volume = 1.0;
+    float spb;
+
 private:
-    unsigned int offset = 0;
+    unsigned long offset = 0;
     Sound* sound = nullptr;
 };
 

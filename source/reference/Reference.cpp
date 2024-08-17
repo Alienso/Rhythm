@@ -21,8 +21,8 @@ void Rhythm::initAssets(){
     Shaders::TEXTURE = shaderManager.createAsset("shader/texture.vs", "shader/texture.fs");
     Shaders::TEXTURE_MONO = shaderManager.createAsset("shader/texture.vs", "shader/texture_mono.fs");
 
-    Sounds::MTYN = soundManager.createAsset("resource/sound/music/More_Than_You_Know.wav");
-    Sounds::DISSOLUTION = soundManager.createAsset("resource/sound/music/dissolution.wav");
+    Sounds::MTYN = soundManager.createAsset("resource/sound/music/More_Than_You_Know.wav", 123, 18000);
+    Sounds::DISSOLUTION = soundManager.createAsset("resource/sound/music/dissolution.wav", 140, 2000);
     Sounds::REVOLVER_SHOOT = soundManager.createAsset("resource/sound/effect/pistol_gunshot2.wav");
     Sounds::REVOLVER_SHOOT_WEAK = soundManager.createAsset("resource/sound/effect/pistol_weak2.wav");
     Sounds::SLASH_1 = soundManager.createAsset("resource/sound/effect/slash_1.wav");

@@ -20,6 +20,9 @@ public:
     void pause(SoundInstance* sound);
 
     void onUpdate(float deltaTime);
+    [[nodiscard]] int doAction() const;
+
+    SoundInstance* currentSong = nullptr; //TODO move
 
 private:
     static const inline int FRAMES_PER_BUFFER = 1024;

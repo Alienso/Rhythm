@@ -17,7 +17,9 @@ public:
     void onUpdate(float deltaTime);
     void onImGuiRender();
 
+    static inline int score = 0;
 private:
+
     GlBufferWrapper background{quadVertices, sizeof(quadVertices) / sizeof(float)};
 };
 

@@ -12,7 +12,10 @@ PhysicsEngine::PhysicsEngine() {
 void PhysicsEngine::onUpdate(float deltaTime) {
 
     for (Entity* entity: entities) {
-        entity->movementVec.y -= 9.81f * deltaTime;
+        float gravityStr = 9.81;
+        if (entity->movementVec.y < 0)
+            gravityStr*=1.5;
+        entity->movementVec.y -= gravityStr * deltaTime;
 
         entity->pos.x += entity->movementVec.x * entity->speedModifier * deltaTime;
         entity->pos.y += entity->movementVec.y * entity->speedModifier * deltaTime;

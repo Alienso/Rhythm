@@ -4,6 +4,7 @@
 
 #include <cstdio>
 #include <iostream>
+#include <cmath>
 #include "Sound.h"
 
 typedef struct  WAV_HEADER{
@@ -25,10 +26,11 @@ typedef struct  WAV_HEADER{
     uint32_t        Subchunk2Size;  // Sampled data length
 } wav_hdr;
 
-Sound::Sound(const char *path) {
+Sound::Sound(const char *path, unsigned int bpm, unsigned int initialOffset) : bpm(bpm), beatInitialOffset(initialOffset) {
 
     static int indexID = 0;
     ID = indexID++;
+
     FILE * infile = fopen(path,"rb");		// Open wave file in read mode
 
     wav_hdr wavHeader;
@@ -57,7 +59,7 @@ Sound::Sound(const char *path) {
 }
 
 SoundInstance::SoundInstance(Sound *sound, float volume) : volume(volume), sound(sound) {
-
+    spb = 60.0f/(float)sound->bpm;
 }
 
 size_t SoundInstance::getDataSize() const {
@@ -68,6 +70,37 @@ int16_t SoundInstance::getNextValue() {
     return sound->audioData[offset++];
 }
 
-unsigned int SoundInstance::getOffset() const {
+unsigned long SoundInstance::getOffset() const {
     return offset;
+}
+
+unsigned int SoundInstance::getNumberOfChannels() const{
+    return sound->numChannels;
+}
+
+unsigned int SoundInstance::getSampleRate() const {
+    return sound->sampleRate;
+}
+
+unsigned long SoundInstance::getNextBeatOffset() const{
+    float currentSecond = (offset/sound->numChannels)*1.0f/sound->sampleRate;
+    float nextBeat = currentSecond + (spb - fmodf(currentSecond - sound->beatInitialOffset * 1.0 / sound->sampleRate, spb));
+    unsigned long ret = nextBeat * sound->sampleRate;
+    if (ret < offset/sound->numChannels){
+        std::cout << "Err: Next < Current: " << ret << " " << offset/sound->numChannels << '\n';
+        ret += spb * sound->sampleRate;
+    }
+    return ret;
+}
+
+unsigned long SoundInstance::getPreviousBeatOffset() const{
+    unsigned long realOffset = offset/sound->numChannels;
+    float currentSecond = realOffset*1.0f/sound->sampleRate;
+    float previousBeat = currentSecond - fmodf(currentSecond - sound->beatInitialOffset * 1.0 / sound->sampleRate, spb);
+    unsigned long ret = previousBeat * sound->sampleRate;
+    if (ret > offset/sound->numChannels){
+        std::cout << "Err: Prev > Current: " << ret << " " << realOffset << '\n';
+        ret -= spb * sound->sampleRate;
+    }
+    return ret;
 }
