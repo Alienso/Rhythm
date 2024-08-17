@@ -20,7 +20,8 @@ public:
     static inline Texture* CURSOR;
     static inline Texture* PISTOL;
     static inline Texture* MIST;
-
+    static inline Texture* MULTIPLIER_FRAME;
+    static inline Texture* FLAME_CIRCLE;
     static inline Texture* PARTICLE_GUNSHOT;
 };
 

@@ -12,6 +12,12 @@ Sprite::Sprite(Texture* tex) : texture(tex) {
 
 }
 
+Sprite::Sprite(Texture *texture, unsigned int animationStates) : texture(texture) {
+    stateMachine = SpriteStateMachine(1, animationStates);
+    stateMachine.setTexturesCount({animationStates});
+}
+
+
 Texture *Sprite::getTexture() const {
     return texture;
 }
@@ -20,17 +26,6 @@ void Sprite::bind() const {
     getTexture()->bind(0);
     glBufferWrapper.va->bind();
 }
-
-/*void Sprite::onRender() const { //Old impl
-    Shader *shader = Shaders::SPRITE;
-    shader->use();
-    bind();
-    shader->setInt("texture1", 0);
-    shader->setVec2("translation", pos);
-    shader->setFloat("rotation", rotation);
-    shader->setVec2("scale", scale);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-}*/
 
 void Sprite::onRender() const {
     Shader* shader = Shaders::SPRITE;

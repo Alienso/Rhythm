@@ -47,6 +47,7 @@ class Sprite {
 
 public:
     explicit Sprite(Texture* texture);
+    Sprite(Texture* texture, unsigned int animationStates);
     [[nodiscard]] Texture* getTexture() const;
 
     void bind() const;

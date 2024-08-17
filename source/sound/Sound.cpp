@@ -83,24 +83,21 @@ unsigned int SoundInstance::getSampleRate() const {
 }
 
 unsigned long SoundInstance::getNextBeatOffset() const{
-    float currentSecond = (offset/sound->numChannels)*1.0f/sound->sampleRate;
-    float nextBeat = currentSecond + (spb - fmodf(currentSecond - sound->beatInitialOffset * 1.0 / sound->sampleRate, spb));
+    float currentSecond = offset/sound->numChannels * 1.0f /sound->sampleRate;
+    float nextBeat = currentSecond - fmodf(currentSecond - sound->beatInitialOffset * 1.0f / sound->sampleRate, spb)+ spb;
     unsigned long ret = nextBeat * sound->sampleRate;
     if (ret < offset/sound->numChannels){
         std::cout << "Err: Next < Current: " << ret << " " << offset/sound->numChannels << '\n';
-        ret += spb * sound->sampleRate;
     }
     return ret;
 }
 
 unsigned long SoundInstance::getPreviousBeatOffset() const{
-    unsigned long realOffset = offset/sound->numChannels;
-    float currentSecond = realOffset*1.0f/sound->sampleRate;
-    float previousBeat = currentSecond - fmodf(currentSecond - sound->beatInitialOffset * 1.0 / sound->sampleRate, spb);
+    float currentSecond = offset/sound->numChannels * 1.0f / sound->sampleRate;
+    float previousBeat = currentSecond - fmodf(currentSecond - sound->beatInitialOffset * 1.0f / sound->sampleRate, spb);
     unsigned long ret = previousBeat * sound->sampleRate;
     if (ret > offset/sound->numChannels){
-        std::cout << "Err: Prev > Current: " << ret << " " << realOffset << '\n';
-        ret -= spb * sound->sampleRate;
+        std::cout << "Err: Prev > Current: " << ret << " " << offset/sound->numChannels << '\n';
     }
     return ret;
 }

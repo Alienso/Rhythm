@@ -114,21 +114,21 @@ int SoundEngine::doAction() const {
     //TODO next/previous beat can be calculated from one, no need to calculate both
     unsigned long nextBeat = currentSong->getNextBeatOffset();
     unsigned long previousBeat = currentSong->getPreviousBeatOffset();
-    std::cout << "Next: " << nextBeat << '\n';
-    std::cout << "Prev: " << previousBeat << '\n';
+    //std::cout << "Next: " << nextBeat << '\n';
+    //std::cout << "Prev: " << previousBeat << '\n';
 
     unsigned long current = currentSong->getOffset() / currentSong->getNumberOfChannels();
-    std::cout << "Current: " << current << '\n';
+    /*std::cout << "Current: " << current << '\n';
     std::cout << "N-P: " << nextBeat - previousBeat << '\n';
-    std::cout << "---------------------\n";
+    std::cout << "---------------------\n";*/
 
 
-    unsigned long nextOffset = abs((long)nextBeat - (long)current);
-    unsigned long previousOffset = abs((long)previousBeat - (long)current);
+    int nextOffset = abs((long)nextBeat - (long)current);
+    int previousOffset = abs((long)previousBeat - (long)current);
     //std::cout << "Next: " << nextOffset << '\n';
     //std::cout << "Prev: " << previousOffset << '\n';
 
-    unsigned long missOffset = nextOffset < previousOffset ? nextOffset : previousOffset;
+    int missOffset = nextOffset < previousOffset ? nextOffset : previousOffset;
     //return (float)(missOffset) / (float)currentSong->getSampleRate() < 0.2f;
     return missOffset;
 }
@@ -139,13 +139,12 @@ static int audioCallback( const void *inputBuffer, void *outputBuffer,
                          PaStreamCallbackFlags statusFlags,
                          void *userData ){
 
-    unsigned int i;
     auto *out = (int16_t *)outputBuffer;
     auto *sound = (SoundInstance*)userData;
     if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){ //TODO some frames are not being played (< 2*framesPerBuffer)
         return paComplete;
     }
-    for( i=0; i<framesPerBuffer; i++ ){
+    for(size_t i=0; i<framesPerBuffer; i++ ){
         *out++ = sound->getNextValue() * sound->volume;
         *out++ = sound->getNextValue() * sound->volume;
     }
@@ -159,13 +158,12 @@ static int audioCallbackMono( const void *inputBuffer, void *outputBuffer,
                           PaStreamCallbackFlags statusFlags,
                           void *userData ){
 
-    unsigned int i;
     auto *out = (int16_t *)outputBuffer;
     auto *sound = (SoundInstance*)userData;
     if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){ //TODO some frames are not being played (< 2*framesPerBuffer)
         return paComplete;
     }
-    for( i=0; i<framesPerBuffer; i++ ){
+    for(size_t i=0; i<framesPerBuffer; i++ ){
         *out++ = sound->getNextValue() * sound->volume;
     }
 

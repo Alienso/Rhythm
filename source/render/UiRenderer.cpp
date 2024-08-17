@@ -8,6 +8,11 @@
 
 UiRenderer::UiRenderer() {
     cursor.scale = {0.025,0.025};
+    multiplierFrame.pos = {0.0, 0.8};
+    multiplierFrame.scale = {0.15,0.15};
+
+    multiplierFlame.pos= {0.0,0.8};
+    multiplierFlame.scale = {0.2,0.2};
 }
 
 void UiRenderer::onRender() {
@@ -21,6 +26,17 @@ void UiRenderer::onRender() {
     shader->setFloat("rotation", cursor.rotation);
     shader->setVec2("scale", cursor.scale);
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    multiplierFlame.onRender();
+
+    shader->use();
+    multiplierFrame.bind();
+    shader->setInt("texture1", 0);
+    shader->setVec2("translation", multiplierFrame.pos);
+    shader->setFloat("rotation", multiplierFrame.rotation);
+    shader->setVec2("scale", multiplierFrame.scale);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
 }
 
 Sprite &UiRenderer::getCursor() {

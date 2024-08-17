@@ -32,7 +32,6 @@ void World::onRender() {
 
 void World::onUpdate(float deltaTime) {
     Global::player->onUpdate(deltaTime);
-
 }
 
 void World::onImGuiRender() {

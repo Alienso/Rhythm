@@ -9,12 +9,17 @@
 void Rhythm::initAssets(){
     Textures::BLANK = textureManager.createAsset("resource/texture/blank.png", GL_RGBA);
     Textures::BACKGROUND = textureManager.createAsset("resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
-    Textures::BIKER = textureManager.createAsset("resource/texture/character/Biker/Biker.png", GL_RGBA);
-    Textures::CURSOR = textureManager.createAsset("resource/texture/cursor_white.png", GL_RGBA);
-    Textures::PISTOL = textureManager.createAsset("resource/texture/weapon/pistol_rotated.png", GL_RGBA);
-    Textures::MIST = textureManager.createAsset("resource/texture/particle/mist64.png", GL_RGBA);
 
+    Textures::BIKER = textureManager.createAsset("resource/texture/character/Biker/Biker.png", GL_RGBA);
+
+    Textures::CURSOR = textureManager.createAsset("resource/texture/ui/cursor_white.png", GL_RGBA);
+    Textures::MULTIPLIER_FRAME = textureManager.createAsset("resource/texture/ui/multiplier_frame.png", GL_RGBA);
+
+    Textures::PISTOL = textureManager.createAsset("resource/texture/weapon/pistol_rotated.png", GL_RGBA);
+
+    Textures::MIST = textureManager.createAsset("resource/texture/particle/mist64.png", GL_RGBA);
     Textures::PARTICLE_GUNSHOT = textureManager.createAsset("resource/texture/particle/gunshot.png", GL_RGBA);
+    Textures::FLAME_CIRCLE = textureManager.createAsset("resource/texture/particle/flame_circle.png", GL_RGBA);
 
     Shaders::SPRITE = shaderManager.createAsset("shader/sprite.vs", "shader/sprite.fs");
     Shaders::SPRITE_STATIC = shaderManager.createAsset("shader/sprite_static.vs", "shader/sprite.fs");
