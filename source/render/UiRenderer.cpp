@@ -8,11 +8,13 @@
 
 UiRenderer::UiRenderer() {
     cursor.scale = {0.025,0.025};
-    multiplierFrame.pos = {0.0, 0.8};
+
+    multiplierFrame.translate = {0.0, 0.8};
     multiplierFrame.scale = {0.15,0.15};
 
-    multiplierFlame.pos= {0.0,0.8};
+    multiplierFlame.translate= {0.0,0.8};
     multiplierFlame.scale = {0.2,0.2};
+    multiplierFlame.stateMachine.animationSpeed = 1.05;
 }
 
 void UiRenderer::onRender() {
@@ -22,7 +24,7 @@ void UiRenderer::onRender() {
 
     cursor.bind();
     shader->setInt("texture1", 0);
-    shader->setVec2("translation", cursor.pos);
+    shader->setVec2("translation", cursor.translate);
     shader->setFloat("rotation", cursor.rotation);
     shader->setVec2("scale", cursor.scale);
     glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -32,7 +34,7 @@ void UiRenderer::onRender() {
     shader->use();
     multiplierFrame.bind();
     shader->setInt("texture1", 0);
-    shader->setVec2("translation", multiplierFrame.pos);
+    shader->setVec2("translation", multiplierFrame.translate);
     shader->setFloat("rotation", multiplierFrame.rotation);
     shader->setVec2("scale", multiplierFrame.scale);
     glDrawArrays(GL_TRIANGLES, 0, 6);

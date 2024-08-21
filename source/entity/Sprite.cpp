@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "render/Shader.h"
 #include "reference/Reference.h"
+#include "Entity.h"
 #include "glad.h"
 #include "GLFW/glfw3.h"
 
@@ -32,7 +33,9 @@ void Sprite::onRender() const {
     shader->use();
     bind();
     shader->setInt("texture1", 0);
-    shader->setVec2("translation", pos);
+    if (parent != nullptr)
+        shader->setVec2("translation", translate + parent->pos);
+    else shader->setVec2("translation", translate);
     shader->setFloat("rotation", rotation);
     shader->setVec2("scale", scale);
     shader->setUInt("column", stateMachine.getAnimationState());

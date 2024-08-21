@@ -8,16 +8,21 @@
 
 #include "Sprite.h"
 
-class Entity : public Sprite{
+class Entity{
 
 public:
     explicit Entity(Texture* texture);
 
+    void onRender() const;
+
+    glm::vec2 pos = {0,0};
     glm::vec2 previousPos = {0,0};
     glm::vec2 movementVec = {0,0};
 
     float speedModifier = 1.0f;
     bool onGround = true;
+
+    Sprite sprite;
 
 };
 

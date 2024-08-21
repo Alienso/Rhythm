@@ -18,7 +18,7 @@ ParticleInstance::ParticleInstance(Particle *particle, AffineTransformations& tr
         this->lifetime = lifeTime;
     else this->lifetime = particle->lifetime;
 
-    pos = trans.translation;
+    translate = trans.translation;
     rotation = trans.rotation;
     scale = trans.scale;
 
@@ -33,7 +33,7 @@ void ParticleInstance::revive(Particle *particle, AffineTransformations& trans, 
     }else
         this->lifetime = particle->lifetime;
 
-    pos = trans.translation;
+    translate = trans.translation;
     rotation = trans.rotation;
     scale = trans.scale;
 }

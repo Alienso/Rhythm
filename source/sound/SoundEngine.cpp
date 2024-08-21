@@ -16,11 +16,11 @@ SoundEngine::SoundEngine() {
         exit(1);
     }
 
-    for (auto & i : soundsPlaying)
+    for (auto &i : soundsPlaying)
         i = nullptr;
 
-    play(Sounds::DISSOLUTION, 0.2f);
-    currentSong = soundsPlaying[0];
+    play(Sounds::DISSOLUTION, 0.1f);
+    currentSong = soundsPlaying[0]; //TODO
 }
 
 SoundEngine::~SoundEngine() {

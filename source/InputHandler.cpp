@@ -41,15 +41,15 @@ void InputHandler::processMouseInput() {
 
     float xoffset = xpos - app->uiRenderer->previousCursorPos.x;
     float yoffset = ypos - app->uiRenderer->previousCursorPos.y;
-    app->uiRenderer->previousCursorPos.x = app->uiRenderer->getCursor().pos.x;
-    app->uiRenderer->previousCursorPos.y = app->uiRenderer->getCursor().pos.y;
+    app->uiRenderer->previousCursorPos.x = app->uiRenderer->getCursor().translate.x;
+    app->uiRenderer->previousCursorPos.y = app->uiRenderer->getCursor().translate.y;
 
     xoffset *= Configuration::mouseSensitivity;
     yoffset *= Configuration::mouseSensitivity;
 
     glm::vec2 newPos = { (app->uiRenderer->previousCursorPos.x + xoffset) / (float)Configuration::windowWidth,
                          - (app->uiRenderer->previousCursorPos.y + yoffset) / (float)Configuration::windowHeight };
-    app->uiRenderer->getCursor().pos = newPos;
+    app->uiRenderer->getCursor().translate = newPos;
 
 }
 
@@ -80,26 +80,26 @@ void InputHandler::processKeyboardInput(double deltaTime) {
 
     if (glfwGetKey(app->window, GLFW_KEY_A) == GLFW_PRESS) {
         player.movementVec.x = -1.0;
-        player.invertTex = true;
-        if (player.stateMachine.getState() != PLAYER_JUMP)
-            player.stateMachine.changeState(PLAYER_RUN);
+        player.sprite.invertTex = true;
+        if (player.sprite.stateMachine.getState() != PLAYER_JUMP)
+            player.sprite.stateMachine.changeState(PLAYER_RUN);
     }
     if (glfwGetKey(app->window, GLFW_KEY_D) == GLFW_PRESS) {
         player.movementVec.x = 1.0;
-        player.invertTex = false;
-        if (player.stateMachine.getState() != PLAYER_JUMP)
-            player.stateMachine.changeState(PLAYER_RUN);
+        player.sprite.invertTex = false;
+        if (player.sprite.stateMachine.getState() != PLAYER_JUMP)
+            player.sprite.stateMachine.changeState(PLAYER_RUN);
     }
     else if(glfwGetKey(app->window, GLFW_KEY_A) == GLFW_RELEASE) {
         player.movementVec.x = 0;
-        if (player.stateMachine.getState() != PLAYER_JUMP)
-        player.stateMachine.changeState(PLAYER_IDLE);
+        if (player.sprite.stateMachine.getState() != PLAYER_JUMP)
+        player.sprite.stateMachine.changeState(PLAYER_IDLE);
     }
     if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (player.onGround) {
             player.movementVec.y = 3.5;
             player.onGround = false;
-            player.stateMachine.changeState(PLAYER_JUMP);
+            player.sprite.stateMachine.changeState(PLAYER_JUMP);
         }
     }else if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_RELEASE){
         if (player.movementVec.y > 0)
@@ -107,8 +107,8 @@ void InputHandler::processKeyboardInput(double deltaTime) {
     }
     if (player.onGround){
         if (player.movementVec.x == 0 && player.movementVec.y == 0)
-            player.stateMachine.changeState(PLAYER_IDLE);
+            player.sprite.stateMachine.changeState(PLAYER_IDLE);
         else
-            player.stateMachine.changeState(PLAYER_RUN);
+            player.sprite.stateMachine.changeState(PLAYER_RUN);
     }
 }

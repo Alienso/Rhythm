@@ -22,7 +22,6 @@ private:
     Sprite cursor{Textures::CURSOR};
     Sprite multiplierFrame{Textures::MULTIPLIER_FRAME};
     Sprite multiplierFlame{Textures::FLAME_CIRCLE, 12};
-
 };
 
 

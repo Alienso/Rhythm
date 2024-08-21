@@ -43,6 +43,8 @@ struct AffineTransformations{
     float rotation = 0;
 };
 
+class Entity;
+
 class Sprite {
 
 public:
@@ -53,15 +55,17 @@ public:
     void bind() const;
     void onRender() const;
 
-    glm::vec2 pos = {0,0};
+    glm::vec2 translate = {0,0};
     glm::vec2 scale = {1.0,1.0};
     float rotation = 0;
     bool invertTex = false;
 
     SpriteStateMachine stateMachine;
+    friend Entity;
 
 protected:
     Texture* texture = nullptr;
+    Entity* parent = nullptr;
     GlBufferWrapper glBufferWrapper{quadVerticesScaled, sizeof(quadVerticesScaled) / sizeof(float)};
 };
 
