@@ -18,7 +18,6 @@ public:
     void onUpdate() override;
 
     bool isAlive = true;
-    float speed
 protected:
     std::vector<AiTaskBase*> aiTasks;
     AiTaskBase* currentTask = nullptr;
