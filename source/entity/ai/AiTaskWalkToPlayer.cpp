@@ -5,7 +5,7 @@
 #include "AiTaskWalkToPlayer.h"
 #include "reference/Global.h"
 
-AiTaskWalkToPlayer::AiTaskWalkToPlayer(Entity *entity) : entity(entity) {
+AiTaskWalkToPlayer::AiTaskWalkToPlayer(EntityLiving *entity) : entity(entity) {
 
 }
 
@@ -14,20 +14,19 @@ bool AiTaskWalkToPlayer::shouldExecute() {
 }
 
 bool AiTaskWalkToPlayer::shouldContinueExecuting() {
-    return true;
+    return abs(Global::player->pos.x - entity->pos.x) > entity->sprite.scale.x / 4;
 }
 
 void AiTaskWalkToPlayer::startExecuting() {
-    AiTaskBase::startExecuting();
+    entity->sprite.stateMachine.changeState(2); //TODO
 }
 
-void AiTaskWalkToPlayer::updateTask() {
-    float x = Global::player->pos.x*0.02f - entity->pos.x*0.02f;
-    entity->pos += glm::vec2{x, 0}; //TODO have speed var?
-    if (x < 0){
-        entity->sprite.invertTex = false;
-    }else{
-        entity->sprite.invertTex = true;
-    }
+void AiTaskWalkToPlayer::resetTask() {
+    entity->sprite.stateMachine.changeState(0); //TODO
+}
 
+void AiTaskWalkToPlayer::updateTask(float deltaTime) {
+    float direction = Global::player->pos.x > entity->pos.x ? 1.0 : -1.0;
+    entity->pos += glm::vec2{direction * entity->speedModifier * deltaTime, 0};
+    entity->sprite.invertTex = direction > 0;
 }

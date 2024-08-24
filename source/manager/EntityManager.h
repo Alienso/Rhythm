@@ -13,10 +13,10 @@ public:
     ~EntityManager();
 
     void onUpdate(float deltaTime);
-    void spawnEntity(Entity* entity);
+    void spawnEntity(EntityLiving* entity);
 
     Player player;
-    std::vector<Entity*> loadedEntities;
+    std::vector<EntityLiving*> loadedEntities;
 private:
     float onUpdateTimer = 0.0;
 

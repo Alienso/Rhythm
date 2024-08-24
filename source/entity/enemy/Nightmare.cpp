@@ -16,6 +16,8 @@ Nightmare::Nightmare() : EntityLiving(Textures::NIGHTMARE) {
     sprite.stateMachine.animationSpeed = 0.7f;
     sprite.stateMachine.changeState(0);
 
+    speedModifier = 0.5f;
+
     aiTasks.push_back(new AiTaskWalkToPlayer(this));
 }
 

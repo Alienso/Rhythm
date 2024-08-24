@@ -17,6 +17,6 @@ void Entity::onRender() const {
     sprite.onRender();
 }
 
-void Entity::onUpdate() {
+void Entity::onUpdate(float deltaTime) {
 
 }

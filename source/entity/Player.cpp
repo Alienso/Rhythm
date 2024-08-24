@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "reference/Global.h"
 
-Player::Player() : Entity(Textures::BIKER) {
+Player::Player() : EntityLiving(Textures::BIKER) {
 
     Global::physicsEngine->registerEntity(this);
     Global::player = this;
@@ -31,6 +31,10 @@ Player::Player() : Entity(Textures::BIKER) {
 }
 
 void Player::onUpdate(float deltaTime) {
+
+    pos.x += movementVec.x * speedModifier * deltaTime;
+    pos.y += movementVec.y * deltaTime;
+
     weapon.translate = {pos.x, pos.y + 0.1};
     mist.pos = weapon.translate;
     weapon.rotation = atan2((Global::cursor->translate.y - weapon.translate.y), (Global::cursor->translate.x - weapon.translate.x));

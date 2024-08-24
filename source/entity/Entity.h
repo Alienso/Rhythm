@@ -15,15 +15,13 @@ public:
     virtual ~Entity();
 
     virtual void onRender() const;
-    virtual void onUpdate();
+    virtual void onUpdate(float deltaTime);
 
     glm::vec2 pos = {0,0};
     glm::vec2 previousPos = {0,0};
     glm::vec2 movementVec = {0,0};
 
-    float speedModifier = 1.0f;
     bool onGround = true;
-
     Sprite sprite;
 
 };

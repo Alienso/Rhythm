@@ -97,7 +97,7 @@ void InputHandler::processKeyboardInput(double deltaTime) {
     }
     if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (player.onGround) {
-            player.movementVec.y = 3.5;
+            player.movementVec.y = 3.5; //TODO parametrize
             player.onGround = false;
             player.sprite.stateMachine.changeState(PLAYER_JUMP);
         }

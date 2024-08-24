@@ -6,16 +6,16 @@
 #define RHYTHM_PLAYER_H
 
 
-#include "Entity.h"
+#include "EntityLiving.h"
 #include "reference/Reference.h"
 
-class Player : public Entity{
+class Player : public EntityLiving{
 
 public:
     Player();
     ~Player() override = default;
 
-    void onUpdate(float deltaTime);
+    void onUpdate(float deltaTime) override;
     [[nodiscard]] bool canAttack() const;
     void attack();
 

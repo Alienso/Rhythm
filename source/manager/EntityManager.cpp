@@ -9,7 +9,7 @@
 EntityManager::EntityManager() : player() {
     Global::entityManger = this;
 
-    Nightmare* nightmare = new Nightmare();
+    auto* nightmare = new Nightmare();
     loadedEntities.push_back(nightmare);
 }
 
@@ -18,7 +18,7 @@ EntityManager::~EntityManager() {
         delete loadedEntity;
 }
 
-void EntityManager::spawnEntity(Entity *entity) {
+void EntityManager::spawnEntity(EntityLiving *entity) {
     this->loadedEntities.push_back(entity);
 }
 
@@ -26,10 +26,10 @@ void EntityManager::onUpdate(float deltaTime) {
 
     //TODO make entity updates less frequent?
     for (auto& entity: loadedEntities){
-        /*if (entity.isDead){ //TODO
-            loadedEntities.remove(entity);
-        }*/
-        entity->onUpdate();
+        if (!entity->isAlive){
+            //loadedEntities.remove(entity);//TODO
+        }
+        entity->onUpdate(deltaTime);
     }
 
     if (onUpdateTimer > 0){

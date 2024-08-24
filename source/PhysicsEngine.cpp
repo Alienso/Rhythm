@@ -17,10 +17,7 @@ void PhysicsEngine::onUpdate(float deltaTime) {
             gravityStr*=1.5;
         entity->movementVec.y -= gravityStr * deltaTime;
 
-        entity->pos.x += entity->movementVec.x * entity->speedModifier * deltaTime; //TODO move this somewhere else since this fields need to go to EntityLiving
-        entity->pos.y += entity->movementVec.y * entity->speedModifier * deltaTime;
-
-        if (entity->pos.y - (entity->sprite.scale.y) <= -0.9f) {
+        if (entity->pos.y - (entity->sprite.scale.y) <= -0.9f && entity->movementVec.y < 0) {
             entity->pos.y = -0.9f + (entity->sprite.scale.y);
             entity->movementVec.y = 0;
             entity->onGround = true;
@@ -30,7 +27,6 @@ void PhysicsEngine::onUpdate(float deltaTime) {
             entity->pos.x = 1;
         if (entity->pos.x < -1)
             entity->pos.x = -1;
-
     }
 }
 

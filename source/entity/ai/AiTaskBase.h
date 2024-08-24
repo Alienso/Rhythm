@@ -26,7 +26,7 @@ public:
 
     virtual void resetTask() {}
 
-    virtual void updateTask() {}
+    virtual void updateTask(float deltaTime) {}
 
 protected:
     AiTaskBase() = default;

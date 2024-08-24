@@ -7,20 +7,22 @@
 
 
 #include "AiTaskBase.h"
-#include "entity/Entity.h"
+#include "entity/EntityLiving.h"
 
 class AiTaskWalkToPlayer : public AiTaskBase {
 
 public:
-    explicit AiTaskWalkToPlayer(Entity* entity);
+    explicit AiTaskWalkToPlayer(EntityLiving* entity);
 
     bool shouldExecute() override;
     bool shouldContinueExecuting() override;
     void startExecuting() override;
-    void updateTask() override;
+    void updateTask(float deltaTime) override;
+
+    void resetTask() override;
 
 private:
-    Entity* entity;
+    EntityLiving* entity;
 };
 
 

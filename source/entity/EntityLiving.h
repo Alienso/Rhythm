@@ -15,9 +15,10 @@ public:
     explicit EntityLiving(Texture *texture);
     ~EntityLiving() override;
 
-    void onUpdate() override;
+    void onUpdate(float deltaTime) override;
 
     bool isAlive = true;
+    float speedModifier = 1.0f;
 protected:
     std::vector<AiTaskBase*> aiTasks;
     AiTaskBase* currentTask = nullptr;

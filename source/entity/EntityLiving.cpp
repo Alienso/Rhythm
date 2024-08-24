@@ -12,8 +12,10 @@ EntityLiving::~EntityLiving() {
     }
 }
 
-void EntityLiving::onUpdate() {
-    Entity::onUpdate();
+void EntityLiving::onUpdate(float deltaTime) {
+
+    pos.x += movementVec.x * speedModifier * deltaTime;
+    pos.y += movementVec.y * deltaTime;
 
     //TODO interruptible
     if (currentTask == nullptr) {
@@ -26,7 +28,7 @@ void EntityLiving::onUpdate() {
     }
 
     if (currentTask->shouldContinueExecuting()){
-        currentTask->updateTask();
+        currentTask->updateTask(deltaTime);
     }else{
         currentTask->resetTask();
         currentTask = nullptr;
