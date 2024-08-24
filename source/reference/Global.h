@@ -8,28 +8,19 @@
 #include "Reference.h"
 #include "entity/Player.h"
 #include "sound/SoundEngine.h"
-#include "ParticleManager.h"
+#include "manager/ParticleManager.h"
+#include "PhysicsEngine.h"
+#include "manager/EntityManager.h"
 
 class Global{
 public:
-    static void init(){
-        player = new Player(Textures::BIKER);
-        player->sprite.scale = glm::vec2(0.1,0.1);
-        player->sprite.stateMachine = *SpriteStateMachine(9, 8)
-                .addTransitionsForState(0, {})
-                ->addTransitionsForState(1, {})
-                ->addTransitionsForState(2, {})
-                ->addTransitionsForState(3, {})
-                ->addTransitionsForState(4, {})
-                ->addTransitionsForState(5, {})
-                ->addTransitionsForState(6, {})
-                ->addTransitionsForState(7, {})
-                ->addTransitionsForState(8, {});
-        player->sprite.stateMachine.setTexturesCount({6, 8, 6, 4, 6, 2, 4, 6, 6});
-    }
-    static inline Player* player = nullptr; //TODO make it not pointer
+    static void init(){}
+
+    static inline Player* player = nullptr; // TODO maybe use player directly from Entity Manager
     static inline Sprite* cursor = nullptr;
 
+    static inline EntityManager* entityManger = nullptr;
+    static inline PhysicsEngine* physicsEngine = nullptr;
     static inline SoundEngine* soundEngine = nullptr;
     static inline ParticleManager* particleManager = nullptr;
 };

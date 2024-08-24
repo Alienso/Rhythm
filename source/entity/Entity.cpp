@@ -9,6 +9,14 @@ Entity::Entity(Texture *texture) : sprite(texture) {
     sprite.parent = this;
 }
 
+Entity::~Entity() {
+
+}
+
 void Entity::onRender() const {
     sprite.onRender();
+}
+
+void Entity::onUpdate() {
+
 }

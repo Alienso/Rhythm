@@ -23,6 +23,11 @@ void World::onRender() {
     shader->setInt("texture1", 0);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
+    //Draw Entities
+    for (Entity* entity : Global::entityManger->loadedEntities){
+        entity->onRender();
+    }
+
     //Draw player
     Global::player->onRender();
     Global::player->mist.onRender();

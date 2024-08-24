@@ -3,9 +3,10 @@
 //
 
 #include "ParticleManager.h"
+#include "reference/Global.h"
 
 ParticleManager::ParticleManager() {
-
+    Global::particleManager = this;
 }
 
 void ParticleManager::spawnParticle(Particle *particle, AffineTransformations& trans, float lifetime) { //TODO refactor

@@ -5,11 +5,15 @@
 #include "SoundEngine.h"
 #include "iostream"
 #include "reference/Reference.h"
+#include "reference/Global.h"
 
 static int audioCallback(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
 static int audioCallbackMono(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
 
 SoundEngine::SoundEngine() {
+
+    Global::soundEngine = this;
+
     PaError err = Pa_Initialize();
     if (err != paNoError){
         std::cout << err << "Pa_init";
@@ -19,7 +23,7 @@ SoundEngine::SoundEngine() {
     for (auto &i : soundsPlaying)
         i = nullptr;
 
-    play(Sounds::DISSOLUTION, 0.1f);
+    play(Sounds::MTYN, 0.2f);
     currentSong = soundsPlaying[0]; //TODO
 }
 

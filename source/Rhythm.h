@@ -7,14 +7,15 @@
 
 #include "World.h"
 #include "InputHandler.h"
-#include "AssetManager.h"
+#include "manager/AssetManager.h"
 #include "render/Texture.h"
 #include "render/Shader.h"
 #include "PhysicsEngine.h"
 #include "render/UiRenderer.h"
 #include "sound/Sound.h"
 #include "sound/SoundEngine.h"
-#include "ParticleManager.h"
+#include "manager/ParticleManager.h"
+#include "manager/EntityManager.h"
 
 class GLFWwindow;
 
@@ -45,6 +46,7 @@ private:
     PhysicsEngine* physicsEngine = nullptr;
     SoundEngine* soundEngine = nullptr;
     ParticleManager* particleManager = nullptr;
+    EntityManager* entityManager = nullptr;
     UiRenderer* uiRenderer = nullptr;
     GLFWwindow* window = nullptr;
     AssetManager<Texture> textureManager;

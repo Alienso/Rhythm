@@ -5,7 +5,24 @@
 #include "Player.h"
 #include "reference/Global.h"
 
-Player::Player(Texture *texture) : Entity(texture) {
+Player::Player() : Entity(Textures::BIKER) {
+
+    Global::physicsEngine->registerEntity(this);
+    Global::player = this;
+
+    sprite.scale = glm::vec2(0.1,0.1);
+    sprite.stateMachine = *SpriteStateMachine(9, 8)
+            .addTransitionsForState(0, {})
+            ->addTransitionsForState(1, {})
+            ->addTransitionsForState(2, {})
+            ->addTransitionsForState(3, {})
+            ->addTransitionsForState(4, {})
+            ->addTransitionsForState(5, {})
+            ->addTransitionsForState(6, {})
+            ->addTransitionsForState(7, {})
+            ->addTransitionsForState(8, {});
+    sprite.stateMachine.setTexturesCount({6, 8, 6, 4, 6, 2, 4, 6, 6});
+
     weapon.scale = {0.025, 0.025};
     mist.sprite.scale = {0.05, 0.05};
     mist.sprite.stateMachine = SpriteStateMachine(1, 15);

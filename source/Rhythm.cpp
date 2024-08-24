@@ -117,10 +117,9 @@ void Rhythm::init() {
     soundEngine = new SoundEngine();
     particleManager = new ParticleManager();
     uiRenderer = new UiRenderer();
+    entityManager = new EntityManager();
 
     Global::cursor = &uiRenderer->getCursor();
-    Global::particleManager = particleManager;
-    Global::soundEngine = soundEngine;
 }
 
 void Rhythm::mainLoop() {
@@ -144,6 +143,8 @@ void Rhythm::mainLoop() {
         soundEngine->onUpdate(diff);
         particleManager->onUpdate(diff);
 
+        entityManager->onUpdate(diff);
+
         world->onUpdate(diff);
         world->onRender();
 
@@ -163,8 +164,8 @@ void Rhythm::cleanup() {
     delete uiRenderer;
     delete physicsEngine;
     delete soundEngine;
+    delete entityManager;
     delete world;
-    delete Global::player; //TODO
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

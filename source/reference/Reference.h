@@ -2,7 +2,7 @@
 // Created by Alienson on 3.8.2024..
 //
 
-#include "AssetManager.h"
+#include "manager/AssetManager.h"
 
 #ifndef RHYTHM_ASSETS_H
 #define RHYTHM_ASSETS_H
@@ -23,6 +23,7 @@ public:
     static inline Texture* MULTIPLIER_FRAME;
     static inline Texture* FLAME_CIRCLE;
     static inline Texture* PARTICLE_GUNSHOT;
+    static inline Texture* NIGHTMARE;
 };
 
 class Shaders{

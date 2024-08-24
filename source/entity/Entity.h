@@ -12,8 +12,10 @@ class Entity{
 
 public:
     explicit Entity(Texture* texture);
+    virtual ~Entity();
 
-    void onRender() const;
+    virtual void onRender() const;
+    virtual void onUpdate();
 
     glm::vec2 pos = {0,0};
     glm::vec2 previousPos = {0,0};

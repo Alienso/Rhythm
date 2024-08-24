@@ -44,7 +44,7 @@ add_executable(Rhythm main.cpp
         source/render/Shader.cpp source/render/Shader.h
 
         source/Rhythm.cpp source/Rhythm.h
-        source/reference/Global.h source/AssetManager.h
+        source/reference/Global.h source/manager/AssetManager.h
         source/World.cpp source/World.h
         source/reference/Configuration.cpp source/reference/Configuration.h
         source/InputHandler.cpp source/InputHandler.h
@@ -60,7 +60,7 @@ add_executable(Rhythm main.cpp
         source/sound/Sound.cpp source/sound/Sound.h
         source/sound/filter/LpFilter.cpp source/sound/filter/LpFilter.h
         source/entity/Particle.cpp source/entity/Particle.h
-        source/ParticleManager.cpp source/ParticleManager.h)
+        source/manager/ParticleManager.cpp source/manager/ParticleManager.h source/manager/EntityManager.cpp source/manager/EntityManager.h source/entity/enemy/Nightmare.cpp source/entity/enemy/Nightmare.h source/entity/ai/AiTaskBase.h source/entity/ai/AiTaskWalkToPlayer.cpp source/entity/ai/AiTaskWalkToPlayer.h source/entity/EntityLiving.cpp source/entity/EntityLiving.h)
 
 if (WIN32)
     target_link_libraries(Rhythm glfw3 gdi32 opengl32 pthread portaudio)

@@ -11,6 +11,7 @@ void Rhythm::initAssets(){
     Textures::BACKGROUND = textureManager.createAsset("resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
 
     Textures::BIKER = textureManager.createAsset("resource/texture/character/Biker/Biker.png", GL_RGBA);
+    Textures::NIGHTMARE = textureManager.createAsset("resource/texture/entity/Nightmare2.png", GL_RGBA);
 
     Textures::CURSOR = textureManager.createAsset("resource/texture/ui/cursor_white.png", GL_RGBA);
     Textures::MULTIPLIER_FRAME = textureManager.createAsset("resource/texture/ui/multiplier_frame.png", GL_RGBA);

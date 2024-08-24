@@ -6,7 +6,7 @@
 #include "reference/Global.h"
 
 PhysicsEngine::PhysicsEngine() {
-    entities.push_back(Global::player);
+    Global::physicsEngine = this;
 }
 
 void PhysicsEngine::onUpdate(float deltaTime) {
@@ -17,11 +17,11 @@ void PhysicsEngine::onUpdate(float deltaTime) {
             gravityStr*=1.5;
         entity->movementVec.y -= gravityStr * deltaTime;
 
-        entity->pos.x += entity->movementVec.x * entity->speedModifier * deltaTime;
+        entity->pos.x += entity->movementVec.x * entity->speedModifier * deltaTime; //TODO move this somewhere else since this fields need to go to EntityLiving
         entity->pos.y += entity->movementVec.y * entity->speedModifier * deltaTime;
 
-        if (entity->pos.y <= -0.9) {
-            entity->pos.y = -0.9;
+        if (entity->pos.y - (entity->sprite.scale.y) <= -0.9f) {
+            entity->pos.y = -0.9f + (entity->sprite.scale.y);
             entity->movementVec.y = 0;
             entity->onGround = true;
         }

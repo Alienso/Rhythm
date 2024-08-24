@@ -12,7 +12,8 @@
 class Player : public Entity{
 
 public:
-    explicit Player(Texture* texture);
+    Player();
+    ~Player() override = default;
 
     void onUpdate(float deltaTime);
     [[nodiscard]] bool canAttack() const;
