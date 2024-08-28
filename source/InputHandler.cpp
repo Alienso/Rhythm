@@ -62,7 +62,7 @@ void InputHandler::processMouseClickInput() {
     if (glfwGetMouseButton(app->window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
         if (Global::player->canAttack()) {
             Global::player->attack();
-            World::score=Global::soundEngine->doAction();
+            Level::score=Global::soundEngine->doAction();
         }
     }
 }
@@ -75,7 +75,7 @@ void InputHandler::processKeyboardInput(double deltaTime) {
         glfwSetWindowShouldClose(app->window, true);
     }
 
-    Entity& player = *Global::player;
+    Player& player = *Global::player;
     player.previousPos = player.pos;
 
     if (glfwGetKey(app->window, GLFW_KEY_A) == GLFW_PRESS) {

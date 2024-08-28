@@ -45,13 +45,13 @@ add_executable(Rhythm main.cpp
 
         source/Rhythm.cpp source/Rhythm.h
         source/reference/Global.h source/manager/AssetManager.h
-        source/World.cpp source/World.h
+        source/Level.cpp source/Level.h
         source/reference/Configuration.cpp source/reference/Configuration.h
         source/InputHandler.cpp source/InputHandler.h
         source/entity/Sprite.cpp source/entity/Sprite.h
         source/reference/Reference.cpp source/reference/Reference.h
         source/entity/SpriteStateMachine.cpp source/entity/SpriteStateMachine.h
-        source/PhysicsEngine.cpp source/PhysicsEngine.h
+        source/physics/PhysicsEngine.cpp source/physics/PhysicsEngine.h
         source/entity/SpriteStates.h
         source/entity/Entity.cpp source/entity/Entity.h
         source/render/UiRenderer.cpp source/render/UiRenderer.h
@@ -60,7 +60,7 @@ add_executable(Rhythm main.cpp
         source/sound/Sound.cpp source/sound/Sound.h
         source/sound/filter/LpFilter.cpp source/sound/filter/LpFilter.h
         source/entity/Particle.cpp source/entity/Particle.h
-        source/manager/ParticleManager.cpp source/manager/ParticleManager.h source/manager/EntityManager.cpp source/manager/EntityManager.h source/entity/enemy/Nightmare.cpp source/entity/enemy/Nightmare.h source/entity/ai/AiTaskBase.h source/entity/ai/AiTaskWalkToPlayer.cpp source/entity/ai/AiTaskWalkToPlayer.h source/entity/EntityLiving.cpp source/entity/EntityLiving.h)
+        source/manager/ParticleManager.cpp source/manager/ParticleManager.h source/manager/EntityManager.cpp source/manager/EntityManager.h source/entity/enemy/Nightmare.cpp source/entity/enemy/Nightmare.h source/entity/ai/AiTaskBase.h source/entity/ai/AiTaskWalkToPlayer.cpp source/entity/ai/AiTaskWalkToPlayer.h source/entity/EntityLiving.cpp source/entity/EntityLiving.h source/physics/AxisAlignedBB.cpp source/physics/AxisAlignedBB.h)
 
 if (WIN32)
     target_link_libraries(Rhythm glfw3 gdi32 opengl32 pthread portaudio)

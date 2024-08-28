@@ -42,18 +42,29 @@ Sound::Sound(const char *path, unsigned int bpm, unsigned int initialOffset) : b
     }
 
     constexpr int BUFFER_SIZE = 512;
-    int16_t buff16[BUFFER_SIZE];				// short int used for 16 bit as input data format is 16 bit PCM audio
+    int16_t buff16[BUFFER_SIZE];
+    double currentLoudness = 0, soundLoudness = 0;
+    size_t sampleCount = 0;
     if (infile){
         while (!feof(infile)){
             bytesRead = fread(buff16, sizeof(int16_t), BUFFER_SIZE / (sizeof(int16_t)), infile);
-            for (size_t i=0; i < bytesRead; i++)
+            //currentLoudness = 0;
+            for (size_t i=0; i < bytesRead; i++) {
                 audioData.push_back(buff16[i]);
+                //currentLoudness+=buff16[i] * buff16[i];
+            }
+            //soundLoudness+= log10(sqrt(currentLoudness / (double)bytesRead));
+            //sampleCount+=bytesRead;
         }
     }
+    //soundLoudness /= (double)sampleCount;
+    //soundLoudness = log10(sqrt(currentLoudness / (double)sampleCount));
 
     sampleRate = wavHeader.SamplesPerSec;
     numChannels = wavHeader.NumOfChan;
 
+    //std::cout << "Audio file: " << path << " loaded\n";
+    //std::cout << "Loudness: " << soundLoudness << '\n';
     //std::cout << "Sampling Rate              :" << wavHeader.SamplesPerSec << '\n';
     //std::cout << "Number of channels         :" << wavHeader.NumOfChan << '\n';
 }

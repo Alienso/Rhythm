@@ -8,3 +8,4 @@ int Configuration:: windowHeight = 900;
 float Configuration::aspectRatio = (float)Configuration::windowWidth / (float)Configuration::windowHeight;*/
 
 float Configuration::mouseSensitivity = 1.0f;
+float Configuration::masterVolume = 1.0f;

@@ -25,6 +25,7 @@ void EntityManager::spawnEntity(EntityLiving *entity) {
 void EntityManager::onUpdate(float deltaTime) {
 
     //TODO make entity updates less frequent?
+    // TODO these are all pointers, so this is slow.
     for (auto& entity: loadedEntities){
         if (!entity->isAlive){
             //loadedEntities.remove(entity);//TODO
@@ -32,10 +33,19 @@ void EntityManager::onUpdate(float deltaTime) {
         entity->onUpdate(deltaTime);
     }
 
+    player.onUpdate(deltaTime);
+
     if (onUpdateTimer > 0){
         onUpdateTimer-=deltaTime;
         return;
     }
     onUpdateTimer = 1.0f;
 
+}
+
+void EntityManager::onRender() const {
+    for (EntityLiving* entity : loadedEntities){
+        entity->onRender();
+    }
+    player.onRender();
 }

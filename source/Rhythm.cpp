@@ -85,7 +85,14 @@ void Rhythm::renderImGui(){
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    world->onImGuiRender();
+    ImGui::Begin("Hello, world!");
+
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    //ImGui::SliderFloat("AnimationSpeed", (float*)&Global::player->stateMachine.animationSpeed, 0, 1);
+    ImGui::Text("Score: %d", Level::score);
+    ImGui::Text("Score: %.2f", Level::score / 48000.0);
+
+    ImGui::End();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -111,7 +118,7 @@ void Rhythm::init() {
 
     Global::init();
 
-    world = new World();
+    level = new Level();
     inputHandler = new InputHandler(this);
     physicsEngine = new PhysicsEngine();
     soundEngine = new SoundEngine();
@@ -142,14 +149,12 @@ void Rhythm::mainLoop() {
         physicsEngine->onUpdate(diff);
         soundEngine->onUpdate(diff);
         particleManager->onUpdate(diff);
-
         entityManager->onUpdate(diff);
+        level->onUpdate(diff);
 
-        world->onUpdate(diff);
-        world->onRender();
-
+        level->onRender();
+        entityManager->onRender();
         particleManager->onRender();
-
         uiRenderer->onRender();
 
         lastTime = now;
@@ -165,7 +170,7 @@ void Rhythm::cleanup() {
     delete physicsEngine;
     delete soundEngine;
     delete entityManager;
-    delete world;
+    delete level;
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

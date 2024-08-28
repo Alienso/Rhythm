@@ -12,6 +12,9 @@ public:
     static inline int windowHeight = 900;
     static inline float aspectRatio = (float)windowWidth / (float)windowHeight;
     static float mouseSensitivity;
+
+    static float masterVolume;
+
     Configuration()= default;
 };
 

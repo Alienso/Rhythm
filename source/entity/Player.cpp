@@ -58,3 +58,9 @@ void Player::attack() {
     trans.rotation = weapon.rotation + M_PI/4.0;
     Global::particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
 }
+
+void Player::onRender() const {
+    Entity::onRender();
+    mist.onRender();
+    weapon.onRender();
+}

@@ -16,6 +16,8 @@ public:
     ~Player() override = default;
 
     void onUpdate(float deltaTime) override;
+    void onRender() const override;
+
     [[nodiscard]] bool canAttack() const;
     void attack();
 

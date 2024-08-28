@@ -5,12 +5,12 @@
 #ifndef RHYTHM_RHYTHM_H
 #define RHYTHM_RHYTHM_H
 
-#include "World.h"
+#include "Level.h"
 #include "InputHandler.h"
 #include "manager/AssetManager.h"
 #include "render/Texture.h"
 #include "render/Shader.h"
-#include "PhysicsEngine.h"
+#include "physics/PhysicsEngine.h"
 #include "render/UiRenderer.h"
 #include "sound/Sound.h"
 #include "sound/SoundEngine.h"
@@ -41,7 +41,7 @@ private:
     bool shouldContinue = true;
     float lastTime = 0;
 
-    World* world = nullptr;
+    Level* level = nullptr;
     InputHandler* inputHandler = nullptr;
     PhysicsEngine* physicsEngine = nullptr;
     SoundEngine* soundEngine = nullptr;

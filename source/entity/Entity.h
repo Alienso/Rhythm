@@ -7,6 +7,7 @@
 
 
 #include "Sprite.h"
+#include "physics/AxisAlignedBB.h"
 
 class Entity{
 
@@ -23,6 +24,7 @@ public:
 
     bool onGround = true;
     Sprite sprite;
+    AxisAlignedBB collisionBB;
 
 };
 

@@ -13,6 +13,8 @@ public:
     ~EntityManager();
 
     void onUpdate(float deltaTime);
+    void onRender() const;
+
     void spawnEntity(EntityLiving* entity);
 
     Player player;
