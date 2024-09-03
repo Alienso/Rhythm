@@ -39,6 +39,7 @@ class Sounds{
 public:
     static inline Sound* MTYN;
     static inline Sound* DISSOLUTION;
+    static inline Sound* DEVASTATION;
     static inline Sound* REVOLVER_SHOOT;
     static inline Sound* REVOLVER_SHOOT_WEAK;
     static inline Sound* SLASH_1;

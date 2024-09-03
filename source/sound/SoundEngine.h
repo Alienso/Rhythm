@@ -19,6 +19,8 @@ public:
     void stop(SoundInstance* sound);
     void pause(SoundInstance* sound);
 
+    void seek(int seconds); //TODO
+
     void onUpdate(float deltaTime);
     [[nodiscard]] int doAction() const;
 

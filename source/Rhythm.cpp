@@ -92,6 +92,11 @@ void Rhythm::renderImGui(){
     ImGui::Text("Score: %d", Level::score);
     ImGui::Text("Score: %.2f", Level::score / 48000.0);
 
+    if (ImGui::Button("Seek+"))
+        soundEngine->seek(10);
+    if (ImGui::Button("Seek-"))
+        soundEngine->seek(-10);
+
     ImGui::End();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

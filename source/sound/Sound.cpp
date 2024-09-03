@@ -112,3 +112,7 @@ unsigned long SoundInstance::getPreviousBeatOffset() const{
     }
     return ret;
 }
+
+void SoundInstance::seek(int seconds) {
+    offset += seconds * sound->sampleRate * sound->numChannels;
+}

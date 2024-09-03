@@ -40,6 +40,8 @@ public:
     [[nodiscard]] unsigned long getNextBeatOffset() const;
     [[nodiscard]] unsigned long getPreviousBeatOffset() const;
 
+    void seek(int seconds);
+
     PaStream *paStream = nullptr;
     float volume = 1.0;
     float spb;

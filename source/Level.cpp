@@ -13,5 +13,5 @@ void Level::onRender() {
 }
 
 void Level::onUpdate(float deltaTime) {
-    background.translate(0.001f);
+    background.translate(0.1f * deltaTime);
 }

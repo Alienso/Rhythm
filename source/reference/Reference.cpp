@@ -30,6 +30,7 @@ void Rhythm::initAssets(){
 
     Sounds::MTYN = soundManager.createAsset("resource/sound/music/More_Than_You_Know.wav", 123, 18000);
     Sounds::DISSOLUTION = soundManager.createAsset("resource/sound/music/dissolution.wav", 140, 2000);
+    Sounds::DEVASTATION = soundManager.createAsset("resource/sound/music/Devastation.wav", 130, 0);
     Sounds::REVOLVER_SHOOT = soundManager.createAsset("resource/sound/effect/pistol_gunshot2.wav");
     Sounds::REVOLVER_SHOOT_WEAK = soundManager.createAsset("resource/sound/effect/pistol_weak2.wav");
     Sounds::SLASH_1 = soundManager.createAsset("resource/sound/effect/slash_1.wav");

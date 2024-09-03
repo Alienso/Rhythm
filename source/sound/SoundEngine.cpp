@@ -23,7 +23,7 @@ SoundEngine::SoundEngine() {
     for (auto &i : soundsPlaying)
         i = nullptr;
 
-    play(Sounds::MTYN, 0.2f);
+    play(Sounds::DEVASTATION, 0.2f);
     currentSong = soundsPlaying[0]; //TODO
 }
 
@@ -135,6 +135,10 @@ int SoundEngine::doAction() const {
     int missOffset = nextOffset < previousOffset ? nextOffset : previousOffset;
     //return (float)(missOffset) / (float)currentSong->getSampleRate() < 0.2f;
     return missOffset;
+}
+
+void SoundEngine::seek(int seconds) {
+    currentSong->seek(seconds);
 }
 
 static int audioCallback( const void *inputBuffer, void *outputBuffer,
