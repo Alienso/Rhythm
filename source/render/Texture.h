@@ -19,9 +19,10 @@ public:
     void bind(unsigned int slot = 0) const;
     void unbind() const;
 
+    int width, height, bytesPerPixel;
+
 private:
     std::string filePath;
-    int width, height, bytesPerPixel;
 };
 
 

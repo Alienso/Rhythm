@@ -13,7 +13,7 @@ Texture::Texture() {
 
 }
 
-Texture::Texture(const char *path, int type) : ID(0), filePath(path), width(0), height(0), bytesPerPixel(0) {
+Texture::Texture(const char *path, int type) : ID(0), width(0), height(0), bytesPerPixel(0), filePath(path) {
 
     stbi_set_flip_vertically_on_load(1);
     glGenTextures(1, &ID);

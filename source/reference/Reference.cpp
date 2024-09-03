@@ -26,6 +26,7 @@ void Rhythm::initAssets(){
     Shaders::SPRITE_STATIC = shaderManager.createAsset("shader/sprite_static.vs", "shader/sprite.fs");
     Shaders::TEXTURE = shaderManager.createAsset("shader/texture.vs", "shader/texture.fs");
     Shaders::TEXTURE_MONO = shaderManager.createAsset("shader/texture.vs", "shader/texture_mono.fs");
+    Shaders::TEXTURE_PARALLAX = shaderManager.createAsset("shader/texture_parallax.vs", "shader/texture.fs");
 
     Sounds::MTYN = soundManager.createAsset("resource/sound/music/More_Than_You_Know.wav", 123, 18000);
     Sounds::DISSOLUTION = soundManager.createAsset("resource/sound/music/dissolution.wav", 140, 2000);

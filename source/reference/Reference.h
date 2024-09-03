@@ -32,6 +32,7 @@ public:
     static inline Shader* SPRITE_STATIC;
     static inline Shader* TEXTURE;
     static inline Shader* TEXTURE_MONO;
+    static inline Shader* TEXTURE_PARALLAX;
 };
 
 class Sounds{
