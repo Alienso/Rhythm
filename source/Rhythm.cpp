@@ -119,7 +119,6 @@ void Rhythm::init() {
     srand((unsigned int)glfwGetTime());
 
     initAssets();
-    initObjects();
 
     Global::init();
 

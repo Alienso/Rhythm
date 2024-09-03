@@ -34,7 +34,6 @@ private:
     void initGlfw();
     void initImGui();
     void initAssets();
-    void initObjects();
 
     void renderImGui();
 
