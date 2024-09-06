@@ -12,6 +12,8 @@ ParallaxTexture::ParallaxTexture(std::vector<const char *> paths, std::vector<fl
 
     assert(paths.size() == speedModifiers.size());
 
+    this->glBuffers.reserve(speedModifiers.size());
+
     for (size_t i=0; i<speedModifiers.size(); i++) {
 
         textures.push_back(new Texture(paths[i], GL_RGBA));
@@ -56,7 +58,7 @@ void ParallaxTexture::onRender() const {
 
     for (size_t i=0; i<textures.size(); i++) {
         textures[i]->bind(0);
-        glBuffers[i].va->bind();
+        glBuffers[i].va.bind();
 
         shader->setInt("texture1", 0);
         shader->setFloat("offset", offsets[i]);

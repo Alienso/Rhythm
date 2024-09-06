@@ -14,6 +14,7 @@ struct VertexBufferElement{
     unsigned int type;
     unsigned int count;
     unsigned int normalized;
+    unsigned int divisor;
 
     static unsigned int getSizeOfType(unsigned int type);
 };
@@ -23,23 +24,23 @@ private:
     std::vector<VertexBufferElement> elements;
     unsigned int stride;
 public:
-    unsigned int getStride() const;
+    [[nodiscard]] unsigned int getStride() const;
 
 public:
     VertexBufferLayout();
 
     template<typename T>
-    void push(unsigned int count){
+    void push(unsigned int count, unsigned int divisor = 0){
         if (typeid(T) == typeid(float)){
-            elements.push_back({GL_FLOAT,count,GL_FALSE});
+            elements.push_back({GL_FLOAT, count, GL_FALSE, divisor});
             stride += count * VertexBufferElement::getSizeOfType(GL_FLOAT);
         }
         if (typeid(T) == typeid(unsigned int)){
-            elements.push_back({GL_UNSIGNED_INT,count,GL_FALSE});
+            elements.push_back({GL_UNSIGNED_INT,count,GL_FALSE, divisor});
             stride += count * VertexBufferElement::getSizeOfType(GL_UNSIGNED_INT);
         }
         if (typeid(T) == typeid(unsigned char)){
-            elements.push_back({GL_UNSIGNED_BYTE,count,GL_TRUE});
+            elements.push_back({GL_UNSIGNED_BYTE,count,GL_TRUE, divisor});
             stride += count * VertexBufferElement::getSizeOfType(GL_UNSIGNED_BYTE);
         }
     }

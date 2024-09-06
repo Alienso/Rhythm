@@ -8,11 +8,11 @@
 using namespace std;
 
 VertexArray::VertexArray() {
-    glGenVertexArrays(1,&renderedID);
+    glGenVertexArrays(1,&rendererID);
 }
 
 VertexArray::~VertexArray() {
-    glDeleteVertexArrays(1,&renderedID);
+    glDeleteVertexArrays(1,&rendererID);
 }
 
 void VertexArray::addBuffer(const VertexBuffer &vb, const VertexBufferLayout &layout) {
@@ -26,13 +26,13 @@ void VertexArray::addBuffer(const VertexBuffer &vb, const VertexBufferLayout &la
         const auto& element = elements[i];
         glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), (const void*)offset);
         glEnableVertexAttribArray(i);
+        glVertexAttribDivisor(i, element.divisor);
         offset+=element.count * VertexBufferElement::getSizeOfType(element.type);
     }
-
 }
 
 void VertexArray::bind() const {
-    glBindVertexArray(renderedID);
+    glBindVertexArray(rendererID);
 }
 
 void VertexArray::unbind() const {

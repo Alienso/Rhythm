@@ -25,7 +25,7 @@ Texture *Sprite::getTexture() const {
 
 void Sprite::bind() const {
     getTexture()->bind(0);
-    glBufferWrapper.va->bind();
+    glBufferWrapper.va.bind();
 }
 
 void Sprite::onRender() const {
