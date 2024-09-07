@@ -4,6 +4,7 @@
 
 #include "VertexArray.h"
 #include "VertexBufferLayout.h"
+#include <cassert>
 
 using namespace std;
 
@@ -24,12 +25,23 @@ void VertexArray::addBuffer(const VertexBuffer &vb, const VertexBufferLayout &la
 
     for (size_t i=0; i<elements.size(); i++){
         const auto& element = elements[i];
-        glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), (const void*)offset);
         glEnableVertexAttribArray(i);
-        glVertexAttribDivisor(i, element.divisor);
+        glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), (const void*)offset);
         offset+=element.count * VertexBufferElement::getSizeOfType(element.type);
     }
 }
+
+void VertexArray::addInstanceBuffer(const VertexBuffer &vb, const VertexBufferLayout &layout, const int index) {
+    assert(layout.getElements().size() == 1);
+    this->bind();
+    vb.bind();
+
+    const auto& element = layout.getElements()[0];
+    glEnableVertexAttribArray(index);
+    glVertexAttribPointer(index, element.count, element.type, element.normalized, layout.getStride(), (const void*)nullptr);
+    glVertexAttribDivisor(index, element.divisor);
+}
+
 
 void VertexArray::bind() const {
     glBindVertexArray(rendererID);

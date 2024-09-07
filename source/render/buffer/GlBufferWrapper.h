@@ -14,9 +14,7 @@
 
 class GlBufferWrapper{
 public:
-    ~GlBufferWrapper();
     GlBufferWrapper(float* vertices, std::size_t length);
-    GlBufferWrapper(float* vertices, std::size_t length, VertexBufferLayout& layout);
 
     VertexArray va;
     VertexBuffer vb;

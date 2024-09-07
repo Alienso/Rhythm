@@ -9,6 +9,7 @@
 #include "entity/Sprite.h"
 #include "reference/Reference.h"
 #include "render/ParallaxTexture.h"
+#include "entity/SpriteInstanced.h"
 
 class Level {
 public:
@@ -19,6 +20,7 @@ public:
 
     static inline int score = 0;
 private:
+    SpriteInstanced spriteInstanced;
     ParallaxTexture background{ {"resource/texture/background/ParallaxMountain/sky.png",
                                  "resource/texture/background/ParallaxMountain/far-clouds.png",
                                  "resource/texture/background/ParallaxMountain/near-clouds.png",

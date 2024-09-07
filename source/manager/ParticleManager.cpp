@@ -7,6 +7,7 @@
 
 ParticleManager::ParticleManager() {
     Global::particleManager = this;
+    particles.reserve(100);
 }
 
 void ParticleManager::spawnParticle(Particle *particle, AffineTransformations& trans, float lifetime) { //TODO refactor

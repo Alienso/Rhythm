@@ -30,6 +30,7 @@ class Shaders{
 public:
     static inline Shader* SPRITE;
     static inline Shader* SPRITE_STATIC;
+    static inline Shader* SPRITE_INSTANCED;
     static inline Shader* TEXTURE;
     static inline Shader* TEXTURE_MONO;
     static inline Shader* TEXTURE_PARALLAX;

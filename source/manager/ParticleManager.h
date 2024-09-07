@@ -18,7 +18,7 @@ public:
     void onRender();
 
 private:
-    std::vector<ParticleInstance> particles; //TODO maybe have 2 vectors for alive and dead?
+    std::vector<ParticleInstance> particles; //TODO maybe have 2 vectors for alive and dead? //TODO reallocaiton of this vector leads to destruction of GlBufferWrappers
 };
 
 

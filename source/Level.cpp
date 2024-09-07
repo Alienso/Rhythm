@@ -31,21 +31,18 @@ Level::Level() {
         }
     }*/
 
-    /*float offset = 0.1f;
-    for(int y = -10; y < 10; y += 2)
-    {
-        for(int x = -10; x < 10; x += 2)
-        {
-            glm::vec2 translation;
+    std::vector<glm::fvec2> offsets;
+    offsets.reserve(100);
+    float offset = 0.1f;
+    for(int y = -10; y < 10; y += 2){
+        for(int x = -10; x < 10; x += 2){
+            glm::fvec2 translation;
             translation.x = (float)x / 10.0f + offset;
             translation.y = (float)y / 10.0f + offset;
-            if (sprites.find(1) == sprites.end()){
-                sprites[1] = TilePositions{Textures::BLANK};
-            }else{
-                sprites[1].positions.push_back(translation);
-            }
+            offsets.push_back(translation);
         }
-    }*/
+    }
+    spriteInstanced.initialize(Textures::CURSOR, offsets, 0.05f);
 
     //merge nearby tiles to one physics object
 
@@ -54,9 +51,7 @@ Level::Level() {
 
 void Level::onRender() {
     background.onRender();
-
-    //do instanced rendering from just 1 quad
-
+    spriteInstanced.onRender();
 }
 
 void Level::onUpdate(float deltaTime) {

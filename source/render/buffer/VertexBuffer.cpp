@@ -6,14 +6,19 @@
 
 #include "glad.h"
 
-VertexBuffer::VertexBuffer(const void *data, unsigned int size){
+VertexBuffer::VertexBuffer() {
+
+}
+
+void VertexBuffer::initialize(const void *data, unsigned int size) {
     glGenBuffers(1, &rendererID);
     glBindBuffer(GL_ARRAY_BUFFER, rendererID);
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }
 
 VertexBuffer::~VertexBuffer() {
-    glDeleteBuffers(1, &rendererID);
+    if (rendererID != (unsigned int)-1)
+        glDeleteBuffers(1, &rendererID);
 }
 
 void VertexBuffer::bind() const {
@@ -23,6 +28,7 @@ void VertexBuffer::bind() const {
 void VertexBuffer::unbind() const {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
 
 
 

@@ -26,6 +26,7 @@ static void initTextures(AssetManager<Texture>& textureManager) {
 static void initShaders(AssetManager<Shader>& shaderManager) {
     Shaders::SPRITE = shaderManager.createAsset("shader/sprite.vs", "shader/sprite.fs");
     Shaders::SPRITE_STATIC = shaderManager.createAsset("shader/sprite_static.vs", "shader/sprite.fs");
+    Shaders::SPRITE_INSTANCED = shaderManager.createAsset("shader/sprite_instanced.vs", "shader/sprite.fs");
     Shaders::TEXTURE = shaderManager.createAsset("shader/texture.vs", "shader/texture.fs");
     Shaders::TEXTURE_MONO = shaderManager.createAsset("shader/texture.vs", "shader/texture_mono.fs");
     Shaders::TEXTURE_PARALLAX = shaderManager.createAsset("shader/texture_parallax.vs", "shader/texture.fs");
