@@ -23,7 +23,7 @@ SoundEngine::SoundEngine() {
     for (auto &i : soundsPlaying)
         i = nullptr;
 
-    play(Sounds::DEVASTATION, 0.2f);
+    play(Sounds::DEVASTATION, 0.0f);
     currentSong = soundsPlaying[0]; //TODO
 }
 

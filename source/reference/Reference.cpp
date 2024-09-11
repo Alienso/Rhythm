@@ -7,20 +7,20 @@
 #include "glad.h"
 
 static void initTextures(AssetManager<Texture>& textureManager) {
-    Textures::BLANK = textureManager.createAsset("resource/texture/blank.png", GL_RGBA);
-    Textures::BACKGROUND = textureManager.createAsset("resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
+    Textures::BLANK = textureManager.createAsset(0, "resource/texture/blank.png", GL_RGBA);
+    Textures::BACKGROUND = textureManager.createAsset(1, "resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
 
-    Textures::BIKER = textureManager.createAsset("resource/texture/character/Biker/Biker.png", GL_RGBA);
-    Textures::NIGHTMARE = textureManager.createAsset("resource/texture/entity/Nightmare2.png", GL_RGBA);
+    Textures::BIKER = textureManager.createAsset(100, "resource/texture/character/Biker/Biker.png", GL_RGBA);
+    Textures::NIGHTMARE = textureManager.createAsset(101, "resource/texture/entity/Nightmare2.png", GL_RGBA);
 
-    Textures::CURSOR = textureManager.createAsset("resource/texture/ui/cursor_white.png", GL_RGBA);
-    Textures::MULTIPLIER_FRAME = textureManager.createAsset("resource/texture/ui/multiplier_frame.png", GL_RGBA);
+    Textures::CURSOR = textureManager.createAsset(200, "resource/texture/ui/cursor_white.png", GL_RGBA);
+    Textures::MULTIPLIER_FRAME = textureManager.createAsset(201, "resource/texture/ui/multiplier_frame.png", GL_RGBA);
 
-    Textures::PISTOL = textureManager.createAsset("resource/texture/weapon/pistol_rotated.png", GL_RGBA);
+    Textures::PISTOL = textureManager.createAsset(300, "resource/texture/weapon/pistol_rotated.png", GL_RGBA);
 
-    Textures::MIST = textureManager.createAsset("resource/texture/particle/mist64.png", GL_RGBA);
-    Textures::PARTICLE_GUNSHOT = textureManager.createAsset("resource/texture/particle/gunshot.png", GL_RGBA);
-    Textures::FLAME_CIRCLE = textureManager.createAsset("resource/texture/particle/flame_circle.png", GL_RGBA);
+    Textures::MIST = textureManager.createAsset(400, "resource/texture/particle/mist64.png", GL_RGBA);
+    Textures::PARTICLE_GUNSHOT = textureManager.createAsset(401, "resource/texture/particle/gunshot.png", GL_RGBA);
+    Textures::FLAME_CIRCLE = textureManager.createAsset(402, "resource/texture/particle/flame_circle.png", GL_RGBA);
 }
 
 static void initShaders(AssetManager<Shader>& shaderManager) {

@@ -17,7 +17,6 @@ public:
     void translate(glm::vec2 vec);
     [[nodiscard]] bool intersects(AxisAlignedBB& other) const;
 
-private:
     float minX,minY,maxX,maxY;
 };
 

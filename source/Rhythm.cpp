@@ -91,6 +91,8 @@ void Rhythm::renderImGui(){
     //ImGui::SliderFloat("AnimationSpeed", (float*)&Global::player->stateMachine.animationSpeed, 0, 1);
     ImGui::Text("Score: %d", Level::score);
     ImGui::Text("Score: %.2f", Level::score / 48000.0);
+    ImGui::Text("Player Pos: %.2f %.2f", entityManager->player.pos.x, entityManager->player.pos.y);
+    //ImGui::Text("Player BB: minX: %.2f, maxX: %.2f, minY: %.2f, maxY: %.2f", entityManager->player.collisionBB.minX, entityManager->player.collisionBB.maxX, entityManager->player.collisionBB.minY, entityManager->player.collisionBB.maxY);
 
     if (ImGui::Button("Seek+"))
         soundEngine->seek(10);
@@ -129,13 +131,15 @@ void Rhythm::init() {
     uiRenderer = new UiRenderer();
     entityManager = new EntityManager();
 
+    Global::textureManager = &textureManager;
     Global::cursor = &uiRenderer->getCursor();
 
-    level = new Level();
+    level = new Level("resource/level/1.lvl");
 }
 
 void Rhythm::mainLoop() {
-    lastTime = glfwGetTime();
+
+    lastTime = (float)glfwGetTime();
 
     while (shouldContinue) {
 

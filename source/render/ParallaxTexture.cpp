@@ -16,7 +16,7 @@ ParallaxTexture::ParallaxTexture(std::vector<const char *> paths, std::vector<fl
 
     for (size_t i=0; i<speedModifiers.size(); i++) {
 
-        textures.push_back(new Texture(paths[i], GL_RGBA));
+        textures.push_back(new Texture(i * 10111787, paths[i], GL_RGBA)); //TODO
 
         const float aspectRatio = (float)textures[i]->width / (float)textures[i]->height;
         float vertices[24] = {

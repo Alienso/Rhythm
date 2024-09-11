@@ -9,15 +9,14 @@
 
 #include <iostream>
 
-Texture::Texture() {
-
+Texture::Texture(unsigned int id) : ID(id) {
 }
 
-Texture::Texture(const char *path, int type) : ID(0), width(0), height(0), bytesPerPixel(0), filePath(path) {
+Texture::Texture(unsigned int id, const char *path, int type) : ID(id), width(0), height(0), bytesPerPixel(0), filePath(path) {
 
     stbi_set_flip_vertically_on_load(1);
-    glGenTextures(1, &ID);
-    glBindTexture(GL_TEXTURE_2D, ID);
+    glGenTextures(1, &rendererID);
+    glBindTexture(GL_TEXTURE_2D, rendererID);
     // set the texture wrapping parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -39,12 +38,12 @@ Texture::Texture(const char *path, int type) : ID(0), width(0), height(0), bytes
 }
 
 Texture::~Texture() {
-    glDeleteTextures(1, &ID);
+    glDeleteTextures(1, &rendererID);
 }
 
 void Texture::bind(unsigned int slot) const {
     glActiveTexture(GL_TEXTURE0 + slot);
-    glBindTexture(GL_TEXTURE_2D, ID);
+    glBindTexture(GL_TEXTURE_2D, rendererID);
 }
 
 void Texture::unbind() const {

@@ -16,9 +16,11 @@ public:
     PhysicsEngine();
     void onUpdate(float deltaTime);
     void registerEntity(Entity* entity);
+    void registerCollisionBox(AxisAlignedBB box);
 
 private:
     std::vector<Entity*> entities;
+    std::vector<AxisAlignedBB> collisionBoxes; //for terrain
 };
 
 

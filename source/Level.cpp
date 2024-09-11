@@ -2,56 +2,95 @@
 // Created by Alienson on 1.8.2024..
 //
 
+#include <fstream>
 #include "Level.h"
 #include "reference/Reference.h"
+#include "reference/Global.h"
 
 struct TilePositions{
     TilePositions() : texture(nullptr){}
     explicit TilePositions(Texture* texture) : texture(texture){}
     Texture* texture;
-    std::vector<glm::vec2> positions;
+    std::vector<glm::fvec2> positions;
 };
 
-Level::Level() {
-    //load ids from file
+Level::Level(const char* path) {
 
-    //create vector of ids for each type of texture
-
-    //create offsets for this vector
-
-    std::string file = "111111111";
-    std::unordered_map<int, TilePositions> sprites;
-    /*for (size_t i = 0; i<file.size(); i++){
-        int id = 1;
-        glm::vec2 pos{1,1};
-        if (sprites.find(id) == sprites.end()){
-            sprites[id] = TilePositions{Textures::BLANK};
-        }else{
-            sprites[id].positions.emplace_back(1,1);
-        }
-    }*/
-
-    std::vector<glm::fvec2> offsets;
-    offsets.reserve(100);
-    float offset = 0.1f;
-    for(int y = -10; y < 10; y += 2){
-        for(int x = -10; x < 10; x += 2){
-            glm::fvec2 translation;
-            translation.x = (float)x / 10.0f + offset;
-            translation.y = (float)y / 10.0f + offset;
-            offsets.push_back(translation);
-        }
-    }
-    spriteInstanced.initialize(Textures::CURSOR, offsets, 0.05f);
+    std::unordered_map<int, TilePositions> tiles = load(path);
 
     //merge nearby tiles to one physics object
 
     //add those objects to physics engine
+    glm::vec2 scaleVec = {tileScale / Configuration::aspectRatio, tileScale};
+    for (auto& tile: tiles){
+        for(glm::vec2& pos : tile.second.positions){
+            Global::physicsEngine->registerCollisionBox({pos, scaleVec});
+        }
+    }
+}
+
+std::unordered_map<int, TilePositions> Level::load(const char * path) {
+
+    //Load level data from file
+    std::ifstream inputFile(path);
+    std::string line;
+    std::unordered_map<int, TilePositions> sprites;
+
+    size_t startIndex, endIndex;
+    size_t nRows = 0;
+
+    for(int i=0; std::getline(inputFile, line); i++){
+        startIndex = 0;
+        for(int j=0;;j++) {
+            endIndex = line.find(';', startIndex);
+            if (endIndex == startIndex) {
+                startIndex = endIndex + 1;
+                continue;
+            }
+
+            if (endIndex == std::string::npos) break;
+            int id = std::stoi(line.substr(startIndex, endIndex - startIndex));
+            startIndex = endIndex + 1;
+
+            Texture* texture = Global::textureManager->getAsset(id);
+            if (sprites.find(id) == sprites.end())
+                sprites[id] = TilePositions{texture};
+            sprites[id].positions.emplace_back(j, i);
+        }
+        nRows++;
+    }
+
+    float scale = 2.0f/(float)nRows;
+    tileScale = scale;
+
+    //Normalize offsets
+    for(auto& sprite : sprites) {
+        for (auto &position: sprite.second.positions) {
+            position.x /= Configuration::aspectRatio;
+            position = position * scale;
+            position.x -= 1 - scale / 2;
+            position.y -= 1 - scale / 2;
+            position.y *= -1;
+        }
+    }
+
+    //Create sprites
+    int i=0;
+    tileSprites.reserve(sprites.size());
+    for(auto& sprite : sprites){
+        tileSprites.emplace_back();
+        tileSprites[i].initialize(sprite.second.texture, sprite.second.positions, scale/2);
+        i++;
+    }
+
+    return sprites;
 }
 
 void Level::onRender() {
     background.onRender();
-    spriteInstanced.onRender();
+
+    for(auto& sprite : tileSprites)
+        sprite.onRender();
 }
 
 void Level::onUpdate(float deltaTime) {

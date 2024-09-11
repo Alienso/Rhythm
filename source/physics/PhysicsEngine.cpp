@@ -17,11 +17,20 @@ void PhysicsEngine::onUpdate(float deltaTime) {
             gravityStr*=1.5;
         entity->movementVec.y -= gravityStr * deltaTime;
 
-        if (entity->pos.y - (entity->sprite.scale.y) <= -0.9f && entity->movementVec.y < 0) {
-            entity->pos.y = -0.9f + (entity->sprite.scale.y);
+        if (entity->pos.y - (entity->sprite.scale.y) <= -1.0f && entity->movementVec.y < 0) {
+            entity->pos.y = -1.0f + (entity->sprite.scale.y);
             entity->movementVec.y = 0;
             entity->onGround = true;
         }
+
+        if (entity->movementVec.y < 0)
+            for (AxisAlignedBB box: collisionBoxes)
+                if (box.intersects(entity->collisionBB)) {
+                    entity->pos.y = box.maxY + entity->sprite.scale.y - 0.001f; //TODO this needs to be adjusted scale(texture based) instead of real one
+                    entity->movementVec.y = 0;
+                    entity->onGround = true;
+                    break;
+                }
 
         if (entity->pos.x > 1)
             entity->pos.x = 1;
@@ -32,4 +41,8 @@ void PhysicsEngine::onUpdate(float deltaTime) {
 
 void PhysicsEngine::registerEntity(Entity *entity) {
     entities.push_back(entity);
+}
+
+void PhysicsEngine::registerCollisionBox(AxisAlignedBB box) {
+    collisionBoxes.push_back(box);
 }

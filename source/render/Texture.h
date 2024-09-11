@@ -11,9 +11,10 @@
 class Texture {
 public:
     unsigned int ID;
+    unsigned int rendererID;
 
-    Texture();
-    Texture(const char* path, int type);
+    explicit Texture(unsigned int id);
+    Texture(unsigned int id, const char* path, int type);
     ~Texture();
 
     void bind(unsigned int slot = 0) const;

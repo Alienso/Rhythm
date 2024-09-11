@@ -23,6 +23,9 @@ protected:
     std::vector<AiTaskBase*> aiTasks;
     AiTaskBase* currentTask = nullptr;
 
+protected:
+    void updateAiTasks(float deltaTime);
+
 };
 
 

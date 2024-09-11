@@ -76,7 +76,6 @@ void InputHandler::processKeyboardInput(double deltaTime) {
     }
 
     Player& player = *Global::player;
-    player.previousPos = player.pos;
 
     if (glfwGetKey(app->window, GLFW_KEY_A) == GLFW_PRESS) {
         player.movementVec.x = -1.0;

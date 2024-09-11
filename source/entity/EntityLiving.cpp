@@ -14,8 +14,19 @@ EntityLiving::~EntityLiving() {
 
 void EntityLiving::onUpdate(float deltaTime) {
 
+    collisionBB.translate(pos - previousPos); //TODO if entity is rotated x offset needs to change
+
+    previousPos = pos;
     pos.x += movementVec.x * speedModifier * deltaTime;
     pos.y += movementVec.y * deltaTime;
+
+    updateAiTasks(deltaTime);
+}
+
+void EntityLiving::updateAiTasks(float deltaTime) {
+
+    if (aiTasks.empty())
+        return;
 
     //TODO interruptible
     if (currentTask == nullptr) {
