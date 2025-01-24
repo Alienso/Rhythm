@@ -170,5 +170,3 @@ _deps
 IDEA.txt
 .idea/**
 cmake-build-debug/**
-lib/
-include/
