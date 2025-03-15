@@ -21,6 +21,9 @@ Nightmare::Nightmare() : EntityLiving(Textures::NIGHTMARE) {
 
     speedModifier = 0.5f;
 
+    collisionSprite.scale = { collisionBB.maxX - collisionBB.minX, collisionBB.maxY - collisionBB.minY };
+    collisionSprite.translate = { collisionSprite.scale.x / 2, collisionSprite.scale.y / 2 };
+
     aiTasks.push_back(new AiTaskWalkToPlayer(this));
 }
 

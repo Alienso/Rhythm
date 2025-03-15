@@ -24,6 +24,7 @@ public:
     static inline Texture* FLAME_CIRCLE;
     static inline Texture* PARTICLE_GUNSHOT;
     static inline Texture* NIGHTMARE;
+    static inline Texture* COLLISION_BOX;
 };
 
 class Shaders{

@@ -46,3 +46,7 @@ void PhysicsEngine::registerEntity(Entity *entity) {
 void PhysicsEngine::registerCollisionBox(AxisAlignedBB box) {
     collisionBoxes.push_back(box);
 }
+
+const std::vector<AxisAlignedBB> &PhysicsEngine::getCollisionBoxes() const {
+    return collisionBoxes;
+}

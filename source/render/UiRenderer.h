@@ -18,10 +18,14 @@ public:
     Sprite& getCursor();
 
     glm::vec2 previousCursorPos = {0,0}; //TODO
+    static bool renderHitBoxes;
 private:
     Sprite cursor{Textures::CURSOR};
     Sprite multiplierFrame{Textures::MULTIPLIER_FRAME};
     Sprite multiplierFlame{Textures::FLAME_CIRCLE, 12};
+    Sprite collisionBox{Textures::COLLISION_BOX};
+
+    void renderCollisionBoxes();
 };
 
 

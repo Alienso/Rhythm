@@ -9,8 +9,8 @@
 EntityManager::EntityManager() : player() {
     Global::entityManger = this;
 
-    auto* nightmare = new Nightmare();
-    loadedEntities.push_back(nightmare);
+    //auto* nightmare = new Nightmare();
+    //loadedEntities.push_back(nightmare);
 }
 
 EntityManager::~EntityManager() {

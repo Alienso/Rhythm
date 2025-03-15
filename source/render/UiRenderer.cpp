@@ -5,6 +5,10 @@
 #include "UiRenderer.h"
 #include "Shader.h"
 #include "glad.h"
+#include "physics/AxisAlignedBB.h"
+#include "reference/Global.h"
+
+bool UiRenderer::renderHitBoxes = false;
 
 UiRenderer::UiRenderer() {
     cursor.scale = {0.025,0.025};
@@ -39,6 +43,18 @@ void UiRenderer::onRender() {
     shader->setVec2("scale", multiplierFrame.scale);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
+    if (renderHitBoxes)
+        renderCollisionBoxes();
+
+}
+
+void UiRenderer::renderCollisionBoxes() {
+    const std::vector<AxisAlignedBB>& collisionBoxes = Global::physicsEngine->getCollisionBoxes();
+    for (const AxisAlignedBB& collisionBB : collisionBoxes){
+        collisionBox.scale = { (collisionBB.maxX - collisionBB.minX) * Configuration::aspectRatio / 2.0f , (collisionBB.maxY - collisionBB.minY) / 2.0f };
+        collisionBox.translate = { (collisionBB.maxX + collisionBB.minX) / 2.0f, (collisionBB.maxY + collisionBB.minY) / 2.0f };
+        collisionBox.onRender();
+    }
 }
 
 Sprite &UiRenderer::getCursor() {

@@ -33,8 +33,7 @@ void Sprite::onRender() const {
     shader->use();
     bind();
     shader->setInt("texture1", 0);
-    if (parent != nullptr)
-        shader->setVec2("translation", translate + parent->pos);
+    if (parent != nullptr) shader->setVec2("translation", translate + parent->pos);
     else shader->setVec2("translation", translate);
     shader->setFloat("rotation", rotation);
     shader->setVec2("scale", scale);

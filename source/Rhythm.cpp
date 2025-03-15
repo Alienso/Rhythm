@@ -99,6 +99,8 @@ void Rhythm::renderImGui(){
     if (ImGui::Button("Seek-"))
         soundEngine->seek(-10);
 
+    ImGui::Checkbox("Render hit-boxes", &UiRenderer::renderHitBoxes);
+
     ImGui::End();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -133,6 +135,7 @@ void Rhythm::init() {
 
     Global::textureManager = &textureManager;
     Global::cursor = &uiRenderer->getCursor();
+    Global::physicsEngine = physicsEngine;
 
     level = new Level("resource/level/1.lvl");
 }

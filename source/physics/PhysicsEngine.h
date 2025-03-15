@@ -18,6 +18,8 @@ public:
     void registerEntity(Entity* entity);
     void registerCollisionBox(AxisAlignedBB box);
 
+    [[nodiscard]] const std::vector<AxisAlignedBB>& getCollisionBoxes() const;
+
 private:
     std::vector<Entity*> entities;
     std::vector<AxisAlignedBB> collisionBoxes; //for terrain

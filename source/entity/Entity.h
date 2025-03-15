@@ -26,6 +26,8 @@ public:
     Sprite sprite;
     AxisAlignedBB collisionBB;
 
+protected:
+    Sprite collisionSprite;
 };
 
 
