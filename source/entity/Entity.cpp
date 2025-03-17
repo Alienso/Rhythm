@@ -18,7 +18,7 @@ Entity::~Entity() {
 
 void Entity::onRender() const {
     sprite.onRender();
-    if (UiRenderer::renderHitBoxes)
+    if (UiRenderer::showCollisionBoxes)
         collisionSprite.onRender();
 }
 

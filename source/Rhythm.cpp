@@ -72,6 +72,18 @@ void Rhythm::initGlfw(){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glfwSetScrollCallback(window, scrollCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    auto aspectRatio = (float)((double)Configuration::windowHeight/(double)Configuration::windowWidth);
+    float aspectFixMatrix[16] = {aspectRatio, 0, 0, 0, //GLSL aligns vec3 to vec4, so we have to add this extra zeros
+                                0, 1, 0, 0,
+                                0, 0, 1, 0,
+                                0, 0, 0, 0};
+    unsigned int uboAspectFix;
+    glGenBuffers(1, &uboAspectFix);
+    glBindBuffer(GL_UNIFORM_BUFFER, uboAspectFix);
+    glBufferData(GL_UNIFORM_BUFFER, 48, aspectFixMatrix, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, uboAspectFix);
 }
 
 void Rhythm::initImGui(){
@@ -99,7 +111,7 @@ void Rhythm::renderImGui(){
     if (ImGui::Button("Seek-"))
         soundEngine->seek(-10);
 
-    ImGui::Checkbox("Render hit-boxes", &UiRenderer::renderHitBoxes);
+    ImGui::Checkbox("Render collision boxes", &UiRenderer::showCollisionBoxes);
 
     ImGui::End();
     ImGui::Render();

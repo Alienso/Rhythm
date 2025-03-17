@@ -21,7 +21,7 @@ Level::Level(const char* path) {
     //merge nearby tiles to one physics object
 
     //add those objects to physics engine
-    glm::vec2 scaleVec = {tileScale / Configuration::aspectRatio, tileScale};
+    glm::vec2 scaleVec = {tileScale, tileScale};
     for (auto& tile: tiles){
         for(glm::vec2& pos : tile.second.positions){
             Global::physicsEngine->registerCollisionBox({pos, scaleVec});
@@ -66,8 +66,8 @@ std::unordered_map<int, TilePositions> Level::load(const char * path) {
     //Normalize offsets
     for(auto& sprite : sprites) {
         for (auto &position: sprite.second.positions) {
-            position.x /= Configuration::aspectRatio;
-            position = position * scale;
+            position *= scale;
+            position.x -= (float)Configuration::aspectRatio / 2.0f;
             position.x -= 1 - scale / 2;
             position.y -= 1 - scale / 2;
             position.y *= -1;

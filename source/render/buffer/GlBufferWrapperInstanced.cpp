@@ -11,13 +11,13 @@ GlBufferWrapperInstanced::GlBufferWrapperInstanced(){
 
 void GlBufferWrapperInstanced::initialize(std::vector<glm::fvec2>& offsets, float scale){
 
-    float quadVertices[24];
-    memcpy(quadVertices, quadVerticesScaled, sizeof(quadVertices));
+    float vertices[24];
+    memcpy(vertices, quadVertices, sizeof(vertices));
     for (int i=0; i<6; i++)
         for (int j=0; j<2; j++)
-            quadVertices[i * 4 + j] *= scale;
+            vertices[i * 4 + j] *= scale;
 
-    quadVb.initialize(quadVertices , sizeof(quadVertices));
+    quadVb.initialize(vertices , sizeof(vertices));
     instanceVb.initialize((float*)&(offsets[0]), offsets.size() * sizeof(glm::fvec2));
 
     quadLayout = VertexBufferLayout();

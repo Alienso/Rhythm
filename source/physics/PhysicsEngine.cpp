@@ -32,10 +32,10 @@ void PhysicsEngine::onUpdate(float deltaTime) {
                     break;
                 }
 
-        if (entity->pos.x > 1)
-            entity->pos.x = 1;
-        if (entity->pos.x < -1)
-            entity->pos.x = -1;
+        if (entity->pos.x > Configuration::aspectRatio)
+            entity->pos.x = Configuration::aspectRatio;
+        if (entity->pos.x < -Configuration::aspectRatio)
+            entity->pos.x = -Configuration::aspectRatio;
     }
 }
 

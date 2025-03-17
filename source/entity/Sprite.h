@@ -25,7 +25,7 @@ inline float quadVertices[] = {
         1.0f, -1.0f, 1.0f, 0.0f,
 };
 
-inline float quadVerticesScaled[] = {
+/*inline float quadVerticesScaled[] = {
         // positions // texture Coords
         -1.0f/Configuration::aspectRatio,  1.0f, 0.0f, 1.0f,
         -1.0f/Configuration::aspectRatio, -1.0f, 0.0f, 0.0f,
@@ -34,7 +34,7 @@ inline float quadVerticesScaled[] = {
         1.0f/Configuration::aspectRatio,  1.0f, 1.0f, 1.0f,
         -1.0f/Configuration::aspectRatio, -1.0f, 0.0f, 0.0f,
         1.0f/Configuration::aspectRatio, -1.0f, 1.0f, 0.0f,
-};
+};*/
 
 struct AffineTransformations{
     AffineTransformations(glm::vec2 translation, glm::vec2 scale, float rotation) : translation(translation), scale(scale), rotation(rotation){}
@@ -66,7 +66,7 @@ public:
 protected:
     Texture* texture = nullptr;
     Entity* parent = nullptr; //TODO
-    GlBufferWrapper glBufferWrapper{quadVerticesScaled, sizeof(quadVerticesScaled) / sizeof(float)};
+    GlBufferWrapper glBufferWrapper{quadVertices, sizeof(quadVertices) / sizeof(float)};
 };
 
 

@@ -20,7 +20,7 @@ static void initTextures(AssetManager<Texture>& textureManager) {
     Textures::PISTOL = textureManager.createAsset(300, "resource/texture/weapon/pistol_rotated.png", GL_RGBA);
 
     Textures::MIST = textureManager.createAsset(400, "resource/texture/particle/mist64.png", GL_RGBA);
-    Textures::PARTICLE_GUNSHOT = textureManager.createAsset(401, "resource/texture/particle/gunshot.png", GL_RGBA);
+    Textures::PARTICLE_GUNSHOT = textureManager.createAsset(401, "resource/texture/particle/gunshot2.png", GL_RGBA);
     Textures::FLAME_CIRCLE = textureManager.createAsset(402, "resource/texture/particle/flame_circle.png", GL_RGBA);
 }
 

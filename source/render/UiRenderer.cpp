@@ -8,7 +8,7 @@
 #include "physics/AxisAlignedBB.h"
 #include "reference/Global.h"
 
-bool UiRenderer::renderHitBoxes = false;
+bool UiRenderer::showCollisionBoxes = false;
 
 UiRenderer::UiRenderer() {
     cursor.scale = {0.025,0.025};
@@ -18,7 +18,7 @@ UiRenderer::UiRenderer() {
 
     multiplierFlame.translate= {0.0,0.8};
     multiplierFlame.scale = {0.2,0.2};
-    multiplierFlame.stateMachine.animationSpeed = 1.05;
+    multiplierFlame.stateMachine.animationSpeed = 0.95f;
 }
 
 void UiRenderer::onRender() {
@@ -43,7 +43,7 @@ void UiRenderer::onRender() {
     shader->setVec2("scale", multiplierFrame.scale);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    if (renderHitBoxes)
+    if (showCollisionBoxes)
         renderCollisionBoxes();
 
 }
@@ -51,7 +51,7 @@ void UiRenderer::onRender() {
 void UiRenderer::renderCollisionBoxes() {
     const std::vector<AxisAlignedBB>& collisionBoxes = Global::physicsEngine->getCollisionBoxes();
     for (const AxisAlignedBB& collisionBB : collisionBoxes){
-        collisionBox.scale = { (collisionBB.maxX - collisionBB.minX) * Configuration::aspectRatio / 2.0f , (collisionBB.maxY - collisionBB.minY) / 2.0f };
+        collisionBox.scale = { (collisionBB.maxX - collisionBB.minX) / 2.0f , (collisionBB.maxY - collisionBB.minY) / 2.0f };
         collisionBox.translate = { (collisionBB.maxX + collisionBB.minX) / 2.0f, (collisionBB.maxY + collisionBB.minY) / 2.0f };
         collisionBox.onRender();
     }

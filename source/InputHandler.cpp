@@ -44,11 +44,11 @@ void InputHandler::processMouseInput() {
     app->uiRenderer->previousCursorPos.x = app->uiRenderer->getCursor().translate.x;
     app->uiRenderer->previousCursorPos.y = app->uiRenderer->getCursor().translate.y;
 
-    xoffset *= Configuration::mouseSensitivity;
-    yoffset *= Configuration::mouseSensitivity;
+    xoffset *= Configuration::mouseSensitivity * Configuration::aspectRatio;
+    yoffset *= Configuration::mouseSensitivity * Configuration::aspectRatio;
 
     glm::vec2 newPos = { (app->uiRenderer->previousCursorPos.x + xoffset) / (float)Configuration::windowWidth,
-                         - (app->uiRenderer->previousCursorPos.y + yoffset) / (float)Configuration::windowHeight };
+                         (app->uiRenderer->previousCursorPos.y - yoffset) / (float)Configuration::windowHeight };
     app->uiRenderer->getCursor().translate = newPos;
 
 }

@@ -18,7 +18,7 @@ public:
     Sprite& getCursor();
 
     glm::vec2 previousCursorPos = {0,0}; //TODO
-    static bool renderHitBoxes;
+    static bool showCollisionBoxes;
 private:
     Sprite cursor{Textures::CURSOR};
     Sprite multiplierFrame{Textures::MULTIPLIER_FRAME};

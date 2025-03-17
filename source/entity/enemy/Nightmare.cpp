@@ -16,8 +16,8 @@ Nightmare::Nightmare() : EntityLiving(Textures::NIGHTMARE) {
     sprite.stateMachine.animationSpeed = 0.7f;
     sprite.stateMachine.changeState(0);
 
-    collisionBB = {(pos.x - 0.8333f * sprite.scale.x) / Configuration::aspectRatio, pos.y - 1.0f * sprite.scale.y,
-                   (pos.x - 0.0833f * sprite.scale.x) / Configuration::aspectRatio, pos.y + 0.4167f * sprite.scale.y}; //TODO
+    collisionBB = {(pos.x - 0.8333f * sprite.scale.x), pos.y - 1.0f * sprite.scale.y,
+                   (pos.x - 0.0833f * sprite.scale.x), pos.y + 0.4167f * sprite.scale.y}; //TODO check this
 
     speedModifier = 0.5f;
 
