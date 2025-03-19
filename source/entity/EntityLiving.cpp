@@ -4,6 +4,7 @@
 
 #include "EntityLiving.h"
 #include "SpriteStates.h"
+#include "reference/Global.h"
 
 EntityLiving::EntityLiving(Texture *texture) : Entity(texture) {}
 
@@ -17,6 +18,10 @@ void EntityLiving::onUpdate(float deltaTime) {
 
     if (!isAlive)
         return;
+
+    invincibilityTime-=deltaTime;
+    if (invincibilityTime < 0)
+        invincibilityTime = 0;
 
     collisionBB.translate(pos - previousPos); //TODO if entity is rotated x offset needs to change
 
@@ -51,13 +56,19 @@ void EntityLiving::updateAiTasks(float deltaTime) {
 }
 
 void EntityLiving::damage(int amount) {
+
+    if (invincibilityTime > 0)
+        return;
+
     health-=amount;
     sprite.stateMachine.changeState(commonStates[STATE_HURT]);
-    //schedule state change after some small time frame
+    invincibilityTime = 0.5f;
     if (health <= 0) {
+        if (isAlive){
+            sprite.stateMachine.changeState(STATE_DEATH);
+            Global::entityManger->scheduleDeSpawn(this);
+        }
         health = 0;
         isAlive = false;
-        sprite.stateMachine.changeState(STATE_DEATH);
-        //schedule despawn
     }
 }

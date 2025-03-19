@@ -28,6 +28,7 @@ protected:
     AiTaskBase* currentTask = nullptr;
     int commonStates[STATE_COUNT] = {0,0};
     int health = 20;
+    float invincibilityTime = 0;
 
 protected:
     void updateAiTasks(float deltaTime);

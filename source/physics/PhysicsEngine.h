@@ -16,6 +16,7 @@ public:
     PhysicsEngine();
     void onUpdate(float deltaTime);
     void registerEntity(Entity* entity);
+    void deleteEntity(Entity* entity);
     void registerCollisionBox(AxisAlignedBB box);
 
     [[nodiscard]] const std::vector<AxisAlignedBB>& getCollisionBoxes() const;

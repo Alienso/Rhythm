@@ -43,6 +43,16 @@ void PhysicsEngine::registerEntity(Entity *entity) {
     entities.push_back(entity);
 }
 
+void PhysicsEngine::deleteEntity(Entity *entity) {
+    for (size_t i=0; i<entities.size(); i++){
+        if (entities[i] == entity){
+            entities.erase(entities.begin() + (int)i);
+            return;
+        }
+    }
+    assert(false);
+}
+
 void PhysicsEngine::registerCollisionBox(AxisAlignedBB box) {
     collisionBoxes.push_back(box);
 }

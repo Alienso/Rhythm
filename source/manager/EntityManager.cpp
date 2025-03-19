@@ -8,6 +8,7 @@
 
 EntityManager::EntityManager() : player() {
     Global::entityManger = this;
+    entitiesToDeSpawn.reserve(5);
 
     auto* nightmare = new Nightmare();
     loadedEntities.push_back(nightmare);
@@ -27,11 +28,10 @@ void EntityManager::onUpdate(float deltaTime) {
     //TODO make entity updates less frequent?
     // TODO these are all pointers, so this is slow.
     for (auto& entity: loadedEntities){
-        if (!entity->isAlive){
-            //loadedEntities.remove(entity);//TODO
-        }
         entity->onUpdate(deltaTime);
     }
+
+    updateEntitiesToDeSpawn(deltaTime);
 
     player.onUpdate(deltaTime);
 
@@ -48,4 +48,27 @@ void EntityManager::onRender() const {
         entity->onRender();
     }
     player.onRender();
+}
+
+void EntityManager::scheduleDeSpawn(EntityLiving *entity, float time) {
+    entitiesToDeSpawn.emplace_back(entity, time);
+}
+
+void EntityManager::updateEntitiesToDeSpawn(float deltaTime) {
+    for (size_t i = 0; i < entitiesToDeSpawn.size(); i++){
+        entitiesToDeSpawn[i].timeToLive -= deltaTime;
+        if (entitiesToDeSpawn[i].timeToLive <= 0){
+            for (size_t j = 0; j<loadedEntities.size(); j++ ){
+                if (loadedEntities[j] == entitiesToDeSpawn[i].entity){
+                    loadedEntities.erase(loadedEntities.begin() + (int)j);
+                    break;
+                }
+            }
+            EntityLiving* copy = entitiesToDeSpawn[i].entity;
+            entitiesToDeSpawn.erase(entitiesToDeSpawn.begin() + (int)i);
+            Global::physicsEngine->deleteEntity(copy);
+            delete copy;
+            break;
+        }
+    }
 }

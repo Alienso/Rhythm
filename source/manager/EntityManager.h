@@ -7,6 +7,13 @@
 
 #include "entity/Player.h"
 
+//TODO
+struct EntityDeSpawn{
+    EntityDeSpawn(EntityLiving* entityLiving, float timeToLive) : entity(entityLiving), timeToLive(timeToLive){}
+    EntityLiving* entity;
+    float timeToLive;
+};
+
 class EntityManager {
 public:
     EntityManager();
@@ -16,11 +23,15 @@ public:
     void onRender() const;
 
     void spawnEntity(EntityLiving* entity);
+    void scheduleDeSpawn(EntityLiving* entity, float time = 3);
 
     Player player;
     std::vector<EntityLiving*> loadedEntities;
+    std::vector<EntityDeSpawn> entitiesToDeSpawn;
 private:
     float onUpdateTimer = 0.0;
+
+    void updateEntitiesToDeSpawn(float deltaTime);
 
 };
 
