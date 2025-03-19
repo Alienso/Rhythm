@@ -10,8 +10,8 @@ static void initTextures(AssetManager<Texture>& textureManager) {
     Textures::BLANK = textureManager.createAsset(0, "resource/texture/blank.png", GL_RGBA);
     Textures::BACKGROUND = textureManager.createAsset(1, "resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
 
-    Textures::BIKER = textureManager.createAsset(100, "resource/texture/character/Biker/Biker2.png", GL_RGBA);
-    Textures::NIGHTMARE = textureManager.createAsset(101, "resource/texture/entity/Nightmare2.png", GL_RGBA);
+    Textures::BIKER = textureManager.createAsset(100, "resource/texture/character/Biker/Biker.png", GL_RGBA);
+    Textures::NIGHTMARE = textureManager.createAsset(101, "resource/texture/entity/Nightmare.png", GL_RGBA);
 
     Textures::CURSOR = textureManager.createAsset(200, "resource/texture/ui/cursor_white.png", GL_RGBA);
     Textures::MULTIPLIER_FRAME = textureManager.createAsset(201, "resource/texture/ui/multiplier_frame.png", GL_RGBA);

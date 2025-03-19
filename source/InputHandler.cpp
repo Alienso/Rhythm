@@ -68,10 +68,15 @@ void InputHandler::processMouseClickInput() {
 }
 
 void InputHandler::processKeyboardInput(double deltaTime) {
-    if (glfwGetKey(app->window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    static bool escapeReleased = true;
+    if (glfwGetKey(app->window, GLFW_KEY_ESCAPE) == GLFW_PRESS && escapeReleased) {
         int mode = glfwGetInputMode(app->window, GLFW_CURSOR);
         glfwSetInputMode(app->window, GLFW_CURSOR, mode == GLFW_CURSOR_NORMAL ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
-    } else if (glfwGetKey(app->window, GLFW_KEY_Q) == GLFW_PRESS) {
+        escapeReleased = false;
+    } else if (glfwGetKey(app->window, GLFW_KEY_ESCAPE) == GLFW_RELEASE) {
+        escapeReleased = true;
+    }
+    if (glfwGetKey(app->window, GLFW_KEY_Q) == GLFW_PRESS) {
         glfwSetWindowShouldClose(app->window, true);
     }
 
