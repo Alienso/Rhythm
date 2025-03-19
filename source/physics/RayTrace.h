@@ -7,6 +7,7 @@
 
 
 #include "entity/Entity.h"
+#include "entity/EntityLiving.h"
 
 enum RayTraceHitType{
     HIT_TYPE_BLOCK, HIT_TYPE_ENTITY, HIT_TYPE_MISS
@@ -14,7 +15,7 @@ enum RayTraceHitType{
 
 class RayTraceResult {
 public:
-        Entity* entityHit = nullptr;
+        EntityLiving* entityHit = nullptr;
         const AxisAlignedBB* blockHit = nullptr;
         float distance;
         glm::vec2 hitPoint;

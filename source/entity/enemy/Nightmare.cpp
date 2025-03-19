@@ -14,7 +14,6 @@ Nightmare::Nightmare() : EntityLiving(Textures::NIGHTMARE) {
     sprite.stateMachine = SpriteStateMachine(3, 4);
     sprite.stateMachine.setTexturesCount({4,4,4});
     sprite.stateMachine.animationSpeed = 0.7f;
-    sprite.stateMachine.changeState(0);
 
     collisionBB = {(pos.x - 0.65f * sprite.scale.x), pos.y - 1.0f * sprite.scale.y,
                    (pos.x + 0.65f * sprite.scale.x), pos.y + 0.4167f * sprite.scale.y};

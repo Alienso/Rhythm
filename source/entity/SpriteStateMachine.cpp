@@ -2,42 +2,23 @@
 // Created by Alienson on 8.8.2024..
 //
 
-#include <cstdlib>
-#include <iostream>
 #include "SpriteStateMachine.h"
 #include "GLFW/glfw3.h"
 
+#include <utility>
+
 SpriteStateMachine::SpriteStateMachine() {
     startTime = (float)glfwGetTime();
-    transitions.resize(1);
     textureCountForState.push_back(1);
 }
 
-SpriteStateMachine::SpriteStateMachine(unsigned int states, unsigned int textureWidth) : textureWidth(textureWidth) {
+SpriteStateMachine::SpriteStateMachine(unsigned int stateCount, unsigned int textureWidth) : stateCount(stateCount), textureWidth(textureWidth) {
     startTime = (float)glfwGetTime();
-    transitions.resize(states);
-}
-
-SpriteStateMachine * SpriteStateMachine::addTransitionsForState(unsigned int state, std::vector<unsigned int> transitions) {
-    if (state >= this->transitions.size()){
-        this->transitions.resize(state + 1);
-    }
-    this->transitions[state] = transitions;
-    return this;
-}
-
-std::vector<unsigned int> &SpriteStateMachine::getTransitionsForState() {
-    return transitions[state];
 }
 
 void SpriteStateMachine::changeState(unsigned int state) {
-    //TODO
     if (state == this->state)
         return;
-    if (state >= transitions.size()){
-        std::cout << "state > transitions.size()\n";
-        exit(1);
-    }
     startTime = (float)glfwGetTime();
     this->state = state;
 }
@@ -47,7 +28,7 @@ unsigned int SpriteStateMachine::getState() const {
 }
 
 unsigned int SpriteStateMachine::getStateCount() const {
-    return transitions.size();
+    return stateCount;
 }
 
 unsigned int SpriteStateMachine::getAnimationState() const {
@@ -56,10 +37,6 @@ unsigned int SpriteStateMachine::getAnimationState() const {
 
 void SpriteStateMachine::setTexturesCount(std::vector<unsigned int> textureCount) {
     this->textureCountForState = std::move(textureCount);
-}
-
-unsigned int SpriteStateMachine::getTextureCountForState() const {
-    return textureCountForState[state];
 }
 
 unsigned int SpriteStateMachine::getTextureWidth() const {

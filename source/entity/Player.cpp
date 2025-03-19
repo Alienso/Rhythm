@@ -15,17 +15,10 @@ Player::Player() : EntityLiving(Textures::BIKER) {
     speedModifier = 1.2f;
 
     sprite.scale = glm::vec2(0.1, 0.1);
-    sprite.stateMachine = *SpriteStateMachine(9, 8)
-            .addTransitionsForState(0, {})
-            ->addTransitionsForState(1, {})
-            ->addTransitionsForState(2, {})
-            ->addTransitionsForState(3, {})
-            ->addTransitionsForState(4, {})
-            ->addTransitionsForState(5, {})
-            ->addTransitionsForState(6, {})
-            ->addTransitionsForState(7, {})
-            ->addTransitionsForState(8, {});
+    sprite.stateMachine = SpriteStateMachine(9, 8);
     sprite.stateMachine.setTexturesCount({6, 8, 6, 4, 6, 2, 4, 6, 6});
+    commonStates[STATE_DEATH] = 2;
+    commonStates[STATE_HURT] = 5;
 
     collisionBB = {(pos.x - 0.4533f * sprite.scale.x), pos.y - 1.0f * sprite.scale.y,
                    (pos.x + 0.4533f * sprite.scale.x), pos.y + 0.4167f * sprite.scale.y};
@@ -78,6 +71,10 @@ void Player::attack() {
     }
 
     Global::particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
+
+    if (rayTraceResult.hitType == HIT_TYPE_ENTITY){
+        rayTraceResult.entityHit->damage(10);
+    }
 }
 
 void Player::onRender() const {

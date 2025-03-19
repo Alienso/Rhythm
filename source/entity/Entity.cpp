@@ -12,7 +12,7 @@ Entity::Entity(Texture *texture) : sprite(texture), collisionSprite(Textures::CO
     collisionSprite.scale = {0,0};
 }
 
-Entity::~Entity() {
+Entity::~Entity() { //Do not delete, it is virtual
 
 }
 

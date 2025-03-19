@@ -3,6 +3,7 @@
 //
 
 #include "EntityLiving.h"
+#include "SpriteStates.h"
 
 EntityLiving::EntityLiving(Texture *texture) : Entity(texture) {}
 
@@ -13,6 +14,9 @@ EntityLiving::~EntityLiving() {
 }
 
 void EntityLiving::onUpdate(float deltaTime) {
+
+    if (!isAlive)
+        return;
 
     collisionBB.translate(pos - previousPos); //TODO if entity is rotated x offset needs to change
 
@@ -43,5 +47,17 @@ void EntityLiving::updateAiTasks(float deltaTime) {
     }else{
         currentTask->resetTask();
         currentTask = nullptr;
+    }
+}
+
+void EntityLiving::damage(int amount) {
+    health-=amount;
+    sprite.stateMachine.changeState(commonStates[STATE_HURT]);
+    //schedule state change after some small time frame
+    if (health <= 0) {
+        health = 0;
+        isAlive = false;
+        sprite.stateMachine.changeState(STATE_DEATH);
+        //schedule despawn
     }
 }
