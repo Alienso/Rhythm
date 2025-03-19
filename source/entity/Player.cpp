@@ -4,6 +4,7 @@
 
 #include "Player.h"
 #include "reference/Global.h"
+#include "physics/RayTrace.h"
 
 #include <cmath>
 
@@ -61,10 +62,21 @@ void Player::attack() {
     attackCD = 0.2;
 
     Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, 0.6);
+
     auto trans = Particles::REVOLVER_SHOOT->getDefaultTransformations();
-    trans.translation = { weapon.translate.x, weapon.translate.y};
-    trans.rotation = weapon.rotation - (float)M_PI/2.0f;
-    trans.scale = {0.05, 2.0};
+
+    RayTraceResult rayTraceResult = RayTracer::rayTrace(weapon.translate, Global::cursor->translate);
+    if (rayTraceResult.hitType != HIT_TYPE_MISS){
+        glm::vec2 offset = {(rayTraceResult.hitPoint.x - weapon.translate.x) / 2.0f, (rayTraceResult.hitPoint.y - weapon.translate.y) / 2.0};
+        trans.scale = {0.05, rayTraceResult.distance / 2.0};
+        trans.translation = weapon.translate + offset;
+        trans.rotation = weapon.rotation - (float) M_PI / 2.0f;
+    } else {
+        trans.translation = {weapon.translate.x, weapon.translate.y}; //TODO
+        trans.rotation = weapon.rotation - (float) M_PI / 2.0f;
+        trans.scale = {0.05, 2.0};
+    }
+
     Global::particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
 }
 
