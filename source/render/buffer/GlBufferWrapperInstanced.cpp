@@ -5,6 +5,8 @@
 #include "GlBufferWrapperInstanced.h"
 #include "entity/Sprite.h"
 
+#include <cstring>
+
 GlBufferWrapperInstanced::GlBufferWrapperInstanced(){
 
 }

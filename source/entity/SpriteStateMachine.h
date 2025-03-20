@@ -6,7 +6,6 @@
 #define RHYTHM_SPRITESTATEMACHINE_H
 
 #include <vector>
-#include <array>
 
 class SpriteStateMachine {
 

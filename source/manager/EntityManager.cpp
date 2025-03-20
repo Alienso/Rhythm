@@ -15,8 +15,9 @@ EntityManager::EntityManager() : player() {
 }
 
 EntityManager::~EntityManager() {
-    for(auto &loadedEntity : loadedEntities)
+    for(auto &loadedEntity : loadedEntities) {
         delete loadedEntity;
+    }
 }
 
 void EntityManager::spawnEntity(EntityLiving *entity) {

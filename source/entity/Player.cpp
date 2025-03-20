@@ -72,9 +72,8 @@ void Player::attack() {
 
     Global::particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
 
-    if (rayTraceResult.hitType == HIT_TYPE_ENTITY){
+    if (rayTraceResult.hitType == HIT_TYPE_ENTITY)
         rayTraceResult.entityHit->damage(10);
-    }
 }
 
 void Player::onRender() const {

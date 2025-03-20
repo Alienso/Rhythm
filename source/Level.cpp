@@ -2,10 +2,11 @@
 // Created by Alienson on 1.8.2024..
 //
 
-#include <fstream>
 #include "Level.h"
 #include "reference/Reference.h"
 #include "reference/Global.h"
+
+#include <fstream>
 
 struct TilePositions{
     TilePositions() : texture(nullptr){}
@@ -16,7 +17,8 @@ struct TilePositions{
 
 Level::Level(const char* path) {
 
-    std::unordered_map<int, TilePositions> tiles = load(path);
+    std::unordered_map<int, TilePositions> tiles;
+    load(path, tiles);
 
     //merge nearby tiles to one physics object
 
@@ -29,12 +31,11 @@ Level::Level(const char* path) {
     }
 }
 
-std::unordered_map<int, TilePositions> Level::load(const char * path) {
+void Level::load(const char * path, std::unordered_map<int, TilePositions>& sprites) {
 
     //Load level data from file
     std::ifstream inputFile(path);
     std::string line;
-    std::unordered_map<int, TilePositions> sprites;
 
     size_t startIndex, endIndex;
     size_t nRows = 0;
@@ -75,15 +76,13 @@ std::unordered_map<int, TilePositions> Level::load(const char * path) {
     }
 
     //Create sprites
-    int i=0;
+    unsigned int i=0;
     tileSprites.reserve(sprites.size());
     for(auto& sprite : sprites){
         tileSprites.emplace_back();
         tileSprites[i].initialize(sprite.second.texture, sprite.second.positions, scale/2);
         i++;
     }
-
-    return sprites;
 }
 
 void Level::onRender() {

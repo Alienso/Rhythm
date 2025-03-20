@@ -31,10 +31,10 @@ private:
                                  "resource/texture/background/ParallaxMountain/far-mountains.png",
                                  "resource/texture/background/ParallaxMountain/mountains.png",
                                  "resource/texture/background/ParallaxMountain/trees.png"},
-                                {0.1f, 0.3f, 0.5f, 0.6f, 0.6f, 1.0f} };
+                                 {0.1f, 0.3f, 0.5f, 0.6f, 0.6f, 1.0f} };
 
 private:
-    std::unordered_map<int, TilePositions> load(const char* path);
+    void load(const char* path, std::unordered_map<int, TilePositions>& sprites);
 };
 
 

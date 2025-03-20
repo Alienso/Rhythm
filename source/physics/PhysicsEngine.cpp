@@ -24,13 +24,14 @@ void PhysicsEngine::onUpdate(float deltaTime) {
         }
 
         if (entity->movementVec.y < 0)
-            for (AxisAlignedBB box: collisionBoxes)
+            for (AxisAlignedBB box: collisionBoxes){
                 if (box.intersects(entity->collisionBB)) {
                     entity->pos.y = box.maxY + entity->sprite.scale.y - 0.001f; //TODO this needs to be adjusted scale(texture based) instead of real one
                     entity->movementVec.y = 0;
                     entity->onGround = true;
                     break;
                 }
+            }
 
         if (entity->pos.x > Configuration::aspectRatio)
             entity->pos.x = Configuration::aspectRatio;
