@@ -4,7 +4,7 @@
 
 #include "Rhythm.h"
 #include "Reference.h"
-#include "glad.h"
+#include "glad/glad.h"
 
 static void initTextures(AssetManager<Texture>& textureManager) {
     Textures::BLANK = textureManager.createAsset(0, "resource/texture/blank.png", GL_RGBA);

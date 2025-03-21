@@ -3,7 +3,7 @@
 //
 
 #include "SoundEngine.h"
-#include "iostream"
+#include <iostream>
 #include "reference/Reference.h"
 #include "reference/Global.h"
 
@@ -127,8 +127,8 @@ int SoundEngine::doAction() const {
     std::cout << "---------------------\n";*/
 
 
-    int nextOffset = abs((long)nextBeat - (long)current);
-    int previousOffset = abs((long)previousBeat - (long)current);
+    int nextOffset = glm::abs((long)nextBeat - (long)current);
+    int previousOffset = glm::abs((long)previousBeat - (long)current);
     //std::cout << "Next: " << nextOffset << '\n';
     //std::cout << "Prev: " << previousOffset << '\n';
 

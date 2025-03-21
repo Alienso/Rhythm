@@ -14,7 +14,7 @@ bool AiTaskWalkToPlayer::shouldExecute() {
 }
 
 bool AiTaskWalkToPlayer::shouldContinueExecuting() {
-    return abs(Global::player->pos.x - entity->pos.x) > entity->sprite.scale.x / 4;
+    return glm::abs(Global::player->pos.x - entity->pos.x) > entity->sprite.scale.x / 4.0f;
 }
 
 void AiTaskWalkToPlayer::startExecuting() {
@@ -26,7 +26,7 @@ void AiTaskWalkToPlayer::resetTask() {
 }
 
 void AiTaskWalkToPlayer::updateTask(float deltaTime) {
-    float direction = Global::player->pos.x > entity->pos.x ? 1.0 : -1.0;
+    float direction = Global::player->pos.x > entity->pos.x ? 1.0f : -1.0f;
     entity->pos += glm::vec2{direction * entity->speedModifier * deltaTime, 0};
     entity->sprite.invertTex = direction > 0;
 }

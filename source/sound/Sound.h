@@ -5,7 +5,6 @@
 #ifndef RHYTHM_SOUND_H
 #define RHYTHM_SOUND_H
 
-
 #include <vector>
 #include <cstdint>
 #include "portaudio.h"

@@ -15,7 +15,7 @@ struct TilePositions;
 
 class Level {
 public:
-    Level(const char* path);
+    explicit Level(const char* path);
 
     void onRender();
     void onUpdate(float deltaTime);
@@ -34,7 +34,7 @@ private:
                                  {0.1f, 0.3f, 0.5f, 0.6f, 0.6f, 1.0f} };
 
 private:
-    void load(const char* path, std::unordered_map<int, TilePositions>& sprites);
+    void load(const char* path, std::unordered_map<unsigned int, TilePositions>& sprites);
 };
 
 

@@ -4,7 +4,7 @@
 
 #include "ShaderStorageBuffer.h"
 
-#include "glad.h"
+#include "glad/glad.h"
 
 ShaderStorageBuffer::ShaderStorageBuffer() {
 }

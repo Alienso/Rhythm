@@ -5,7 +5,7 @@
 #ifndef GRASSTERRAIN_VERTEXBUFFERLAYOUT_H
 #define GRASSTERRAIN_VERTEXBUFFERLAYOUT_H
 
-#include "glad.h"
+#include "glad/glad.h"
 
 #include <vector>
 #include <typeinfo>

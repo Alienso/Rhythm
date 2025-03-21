@@ -26,7 +26,7 @@ public:
 protected:
     std::vector<AiTaskBase*> aiTasks;
     AiTaskBase* currentTask = nullptr;
-    int commonStates[STATE_COUNT] = {0,0};
+    unsigned int commonStates[STATE_COUNT] = {0,0};
     int health = 20;
     float invincibilityTime = 0;
 

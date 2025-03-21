@@ -83,13 +83,13 @@ void InputHandler::processKeyboardInput(double deltaTime) {
     Player& player = *Global::player;
 
     if (glfwGetKey(app->window, GLFW_KEY_A) == GLFW_PRESS) {
-        player.movementVec.x = -1.0;
+        player.movementVec.x = -1.0f;
         player.sprite.invertTex = true;
         if (player.sprite.stateMachine.getState() != PLAYER_JUMP)
             player.sprite.stateMachine.changeState(PLAYER_RUN);
     }
     if (glfwGetKey(app->window, GLFW_KEY_D) == GLFW_PRESS) {
-        player.movementVec.x = 1.0;
+        player.movementVec.x = 1.0f;
         player.sprite.invertTex = false;
         if (player.sprite.stateMachine.getState() != PLAYER_JUMP)
             player.sprite.stateMachine.changeState(PLAYER_RUN);
@@ -101,7 +101,7 @@ void InputHandler::processKeyboardInput(double deltaTime) {
     }
     if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (player.onGround) {
-            player.movementVec.y = 3.5; //TODO parametrize
+            player.movementVec.y = 3.5f; //TODO parametrize
             player.onGround = false;
             player.sprite.stateMachine.changeState(PLAYER_JUMP);
         }

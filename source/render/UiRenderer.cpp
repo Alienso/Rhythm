@@ -4,7 +4,7 @@
 
 #include "UiRenderer.h"
 #include "Shader.h"
-#include "glad.h"
+#include "glad/glad.h"
 #include "physics/AxisAlignedBB.h"
 #include "reference/Global.h"
 

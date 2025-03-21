@@ -4,7 +4,7 @@
 
 #include "IndexBuffer.h"
 
-#include "glad.h"
+#include "glad/glad.h"
 
 IndexBuffer::IndexBuffer() {
 }

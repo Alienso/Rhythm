@@ -4,7 +4,7 @@
 
 #include "UniformBuffer.h"
 
-#include "glad.h"
+#include "glad/glad.h"
 
 UniformBuffer::UniformBuffer() {
 }

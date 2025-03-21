@@ -1,0 +1,18 @@
+{
+  "dependencies": [
+    "glad",
+    "glfw3",
+    "glm",
+    {
+      "name": "imgui",
+      "version>=": "1.89.7",
+      "features": [
+        "glfw-binding",
+        "opengl3-binding"
+      ]
+    },
+    "opengl",
+    "portaudio",
+    "stb"
+  ]
+}

@@ -170,3 +170,4 @@ _deps
 IDEA.txt
 .idea/**
 cmake-build-debug/**
+vcpkg_installed/**

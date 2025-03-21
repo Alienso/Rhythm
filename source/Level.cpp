@@ -17,7 +17,7 @@ struct TilePositions{
 
 Level::Level(const char* path) {
 
-    std::unordered_map<int, TilePositions> tiles;
+    std::unordered_map<unsigned int, TilePositions> tiles;
     load(path, tiles);
 
     //merge nearby tiles to one physics object
@@ -31,7 +31,7 @@ Level::Level(const char* path) {
     }
 }
 
-void Level::load(const char * path, std::unordered_map<int, TilePositions>& sprites) {
+void Level::load(const char * path, std::unordered_map<unsigned int, TilePositions>& sprites) {
 
     //Load level data from file
     std::ifstream inputFile(path);
@@ -50,7 +50,7 @@ void Level::load(const char * path, std::unordered_map<int, TilePositions>& spri
             }
 
             if (endIndex == std::string::npos) break;
-            int id = std::stoi(line.substr(startIndex, endIndex - startIndex));
+            unsigned int id = std::stoi(line.substr(startIndex, endIndex - startIndex));
             startIndex = endIndex + 1;
 
             Texture* texture = Global::textureManager->getAsset(id);
@@ -68,7 +68,7 @@ void Level::load(const char * path, std::unordered_map<int, TilePositions>& spri
     for(auto& sprite : sprites) {
         for (auto &position: sprite.second.positions) {
             position *= scale;
-            position.x -= (float)Configuration::aspectRatio / 2.0f;
+            position.x -= Configuration::aspectRatio / 2.0f;
             position.x -= 1 - scale / 2;
             position.y -= 1 - scale / 2;
             position.y *= -1;

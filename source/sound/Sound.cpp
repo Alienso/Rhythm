@@ -28,13 +28,13 @@ typedef struct  WAV_HEADER{
 
 Sound::Sound(const char *path, unsigned int bpm, unsigned int initialOffset) : bpm(bpm), beatInitialOffset(initialOffset) {
 
-    static int indexID = 0;
+    static unsigned int indexID = 0;
     ID = indexID++;
 
     FILE * infile = fopen(path,"rb");		// Open wave file in read mode
 
     wav_hdr wavHeader;
-    int headerSize = sizeof(wav_hdr);
+    size_t headerSize = sizeof(wav_hdr);
     size_t bytesRead = fread(&wavHeader, 1, headerSize, infile);
     if (bytesRead == 0){
         std::cout << "Could not read WAV header\n";

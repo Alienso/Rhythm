@@ -1,4 +1,11 @@
 cmake_minimum_required(VERSION 3.23)
+
+#set(CMAKE_TOOLCHAIN_FILE ${ENV}/scripts/buildsystems/vcpkg.cmake)
+if (WIN32)
+    set(VCPKG_TARGET_TRIPLET x64-mingw-dynamic)
+    set(VCPKG_HOST_TRIPLET x64-mingw-dynamic)
+endif(WIN32)
+
 project(Rhythm)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -9,27 +16,20 @@ endif(WIN32)
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-parameter -g -O0 -fsanitize=address -fsanitize=undefined")
 endif(UNIX)
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+
+find_package(glfw3 REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(portaudio REQUIRED)
+find_package(glad REQUIRED)
+find_package(imgui REQUIRED)
+find_package(glm REQUIRED)
+find_package(Stb REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR}/source)
-include_directories(${PROJECT_SOURCE_DIR}/include)
 
-link_directories(${PROJECT_SOURCE_DIR}/lib)
-link_directories(${PROJECT_SOURCE_DIR}/lib/portaudio)
-if (WIN32)
-    link_directories(${PROJECT_SOURCE_DIR}/lib/GLFW/lib-mingw-w64)
-endif(WIN32)
+remove_definitions(-D_PA_ENABLE_DEBUG_OUTPUT)
 
 add_executable(Rhythm main.cpp
-
-        include/imgui/imgui.cpp include/imgui/imgui.h
-        include/imgui/imgui_draw.cpp
-        include/imgui/imgui_tables.cpp include/imgui/imgui_widgets.cpp
-        include/imgui/imgui_impl_glfw.h include/imgui/imgui_impl_glfw.cpp
-        include/imgui/imgui_impl_opengl3.h include/imgui/imgui_impl_opengl3.cpp
-
-        include/stb_image.cpp include/stb_image.h
-        include/glad.c include/glad.h
 
         source/render/buffer/VertexBuffer.cpp source/render/buffer/VertexBuffer.h
         source/render/buffer/IndexBuffer.cpp source/render/buffer/IndexBuffer.h
@@ -60,13 +60,23 @@ add_executable(Rhythm main.cpp
         source/sound/Sound.cpp source/sound/Sound.h
         source/sound/filter/LpFilter.cpp source/sound/filter/LpFilter.h
         source/entity/Particle.cpp source/entity/Particle.h
-        source/manager/ParticleManager.cpp source/manager/ParticleManager.h source/manager/EntityManager.cpp source/manager/EntityManager.h source/entity/enemy/Nightmare.cpp source/entity/enemy/Nightmare.h source/entity/ai/AiTaskBase.h source/entity/ai/AiTaskWalkToPlayer.cpp source/entity/ai/AiTaskWalkToPlayer.h source/entity/EntityLiving.cpp source/entity/EntityLiving.h source/physics/AxisAlignedBB.cpp source/physics/AxisAlignedBB.h source/render/ParallaxTexture.cpp source/render/ParallaxTexture.h source/entity/SpriteInstanced.cpp source/entity/SpriteInstanced.h source/render/buffer/GlBufferWrapperInstanced.cpp source/render/buffer/GlBufferWrapperInstanced.h source/physics/RayTrace.cpp source/physics/RayTrace.h)
+        source/manager/ParticleManager.cpp source/manager/ParticleManager.h
+        source/manager/EntityManager.cpp source/manager/EntityManager.h
+        source/entity/enemy/Nightmare.cpp source/entity/enemy/Nightmare.h
+        source/entity/ai/AiTaskBase.h
+        source/entity/ai/AiTaskWalkToPlayer.cpp source/entity/ai/AiTaskWalkToPlayer.h
+        source/entity/EntityLiving.cpp source/entity/EntityLiving.h
+        source/physics/AxisAlignedBB.cpp source/physics/AxisAlignedBB.h
+        source/render/ParallaxTexture.cpp source/render/ParallaxTexture.h
+        source/entity/SpriteInstanced.cpp source/entity/SpriteInstanced.h
+        source/render/buffer/GlBufferWrapperInstanced.cpp source/render/buffer/GlBufferWrapperInstanced.h
+        source/physics/RayTrace.cpp source/physics/RayTrace.h)
 
 if (WIN32)
-    target_link_libraries(Rhythm glfw3 gdi32 opengl32 pthread portaudio)
+    target_link_libraries(Rhythm glad::glad imgui::imgui glfw gdi32 opengl32 pthread portaudio)
 endif(WIN32)
 if (UNIX)
-    target_link_libraries(Rhythm glfw3 GL X11 pthread portaudio)
+    target_link_libraries(Rhythm glad::glad imgui::imgui glfw GL X11 pthread portaudio)
 endif(UNIX)
 
 add_custom_command(TARGET Rhythm PRE_BUILD
@@ -76,7 +86,3 @@ add_custom_command(TARGET Rhythm PRE_BUILD
 add_custom_command(TARGET Rhythm PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/resource $<TARGET_FILE_DIR:Rhythm>/resource)
-
-add_custom_command(TARGET Rhythm PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${PROJECT_SOURCE_DIR}/lib/portaudio $<TARGET_FILE_DIR:Rhythm>)

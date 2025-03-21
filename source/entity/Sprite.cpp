@@ -6,7 +6,7 @@
 #include "render/Shader.h"
 #include "reference/Reference.h"
 #include "Entity.h"
-#include "glad.h"
+#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
 Sprite::Sprite(Texture* tex) : texture(tex) {

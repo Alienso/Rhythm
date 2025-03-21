@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include "glad.h"
+#include "glad/glad.h"
 
 FrameBuffer::FrameBuffer(FrameBufferType type) {
     glGenFramebuffers(1, &rendererID);
