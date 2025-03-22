@@ -95,3 +95,7 @@ void Level::onRender() {
 void Level::onUpdate(float deltaTime) {
     background.translate(0.1f * deltaTime);
 }
+
+void Level::increaseScore(unsigned int amount, float scoreMultiplier) {
+    score+= amount * Global::player->getRhythmMultiplier()->score * scoreMultiplier;
+}

@@ -6,7 +6,21 @@
 #include "reference/Global.h"
 #include "physics/RayTrace.h"
 
-#include <cmath>
+std::array<RhythmMultiplier*, 5> RhythmMultiplier::levels = { new RhythmMultiplier(1,1,100),
+                                                            new RhythmMultiplier(1,2,250),
+                                                            new RhythmMultiplier(2,4,400),
+                                                            new RhythmMultiplier(4,8,600),
+                                                            new RhythmMultiplier(8,16,900) };
+
+RhythmMultiplier::RhythmMultiplier(unsigned short damage, unsigned short score, unsigned int comboPointsRequired) : damage(damage), score(score), comboPointsRequired(comboPointsRequired){
+
+}
+
+void RhythmMultiplier::cleanUp() {
+    for (RhythmMultiplier* level : RhythmMultiplier::levels){
+        delete level;
+    }
+}
 
 Player::Player() : EntityLiving(Textures::BIKER) {
 
@@ -23,61 +37,63 @@ Player::Player() : EntityLiving(Textures::BIKER) {
     collisionBB = {(pos.x - 0.4533f * sprite.scale.x), pos.y - 1.0f * sprite.scale.y,
                    (pos.x + 0.4533f * sprite.scale.x), pos.y + 0.4167f * sprite.scale.y};
 
-    weapon.scale = {0.025, 0.025};
-    mist.sprite.scale = {0.05, 0.05};
-    mist.sprite.stateMachine = SpriteStateMachine(1, 15);
-    mist.sprite.stateMachine.setTexturesCount({15});
-    mist.sprite.stateMachine.animationSpeed = 1.2f;
-
     collisionSprite.scale = { (collisionBB.maxX - collisionBB.minX) / 2.0f, (collisionBB.maxY - collisionBB.minY) / 2.0f };
     collisionSprite.translate = { (collisionBB.maxX + collisionBB.minX) / 2.0f, (collisionBB.maxY + collisionBB.minY) / 2.0f };
 
 }
 
 void Player::onUpdate(float deltaTime) {
-
     EntityLiving::onUpdate(deltaTime);
-
-    weapon.translate = {pos.x, pos.y + 0.1};
-    mist.pos = weapon.translate;
-    weapon.rotation = std::atan2((Global::cursor->translate.y - weapon.translate.y), (Global::cursor->translate.x - weapon.translate.x));
-
-    if (attackCD > 0){
-        attackCD-=deltaTime;
+    weapon->onUpdate(deltaTime, pos);
+    if (comboDecayTimer <= 0) {
+        comboDecayTimer -= deltaTime;
+        increaseComboPoints(-(Configuration::comboDecayAmount * deltaTime));
     }
-}
-
-bool Player::canAttack() const {
-    return attackCD <= 0.0;
-}
-
-void Player::attack() {
-    attackCD = 0.2;
-
-    Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, 0.6);
-
-    auto trans = Particles::REVOLVER_SHOOT->getDefaultTransformations();
-
-    RayTraceResult rayTraceResult = RayTracer::rayTrace(weapon.translate, Global::cursor->translate);
-    if (rayTraceResult.hitType != HIT_TYPE_MISS){
-        glm::vec2 offset = {(rayTraceResult.hitPoint.x - weapon.translate.x) / 2.0f, (rayTraceResult.hitPoint.y - weapon.translate.y) / 2.0};
-        trans.scale = {0.05, rayTraceResult.distance / 2.0};
-        trans.translation = weapon.translate + offset;
-        trans.rotation = weapon.rotation - (float) M_PI / 2.0f;
-    } else {
-        trans.translation = {weapon.translate.x, weapon.translate.y}; //TODO
-        trans.rotation = weapon.rotation - (float) M_PI / 2.0f;
-        trans.scale = {0.05, 2.0};
-    }
-
-    Global::particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
-
-    if (rayTraceResult.hitType == HIT_TYPE_ENTITY)
-        rayTraceResult.entityHit->damage(10);
 }
 
 void Player::onRender() const {
     Entity::onRender();
-    mist.onRender();
-    weapon.onRender();
+    weapon->onRender();
+}
+
+bool Player::canAttack() const {
+    return weapon->canAttack();
+}
+
+void Player::attack(BeatOffset* beatOffset) {
+    weapon->onAttack(beatOffset);
+}
+
+void Player::increaseComboPoints(float value) {
+    comboPoints+= value;
+    if (value > 0)
+        resetBeatDecay();
+    if (comboPoints < 0)
+        comboPoints = 0;
+    else if (comboPoints > RhythmMultiplier::levels[RhythmMultiplier::levels.size() - 1]->comboPointsRequired)
+        comboPoints = RhythmMultiplier::levels[RhythmMultiplier::levels.size() - 1]->comboPointsRequired;
+    if ((unsigned int)comboPoints < getRhythmMultiplier()->comboPointsRequired){
+        if (rhythmMultiplierIndex != 0)
+            rhythmMultiplierIndex--;
+    }
+    if ((unsigned int)comboPoints >= getNextRhythmMultiplier()->comboPointsRequired){
+        rhythmMultiplierIndex++;
+        if (rhythmMultiplierIndex > RhythmMultiplier::levels.size() - 1)
+            rhythmMultiplierIndex = RhythmMultiplier::levels.size() - 1;
+    }
+}
+
+RhythmMultiplier *Player::getRhythmMultiplier() const {
+    assert(rhythmMultiplierIndex < RhythmMultiplier::levels.size());
+    return RhythmMultiplier::levels[rhythmMultiplierIndex];
+}
+RhythmMultiplier *Player::getNextRhythmMultiplier() const {
+    assert(rhythmMultiplierIndex < RhythmMultiplier::levels.size());
+    if (rhythmMultiplierIndex == RhythmMultiplier::levels.size() - 1)
+        return RhythmMultiplier::levels[rhythmMultiplierIndex];
+    return RhythmMultiplier::levels[rhythmMultiplierIndex + 1];
+}
+
+void Player::resetBeatDecay() {
+    comboDecayTimer = Configuration::comboDecayDelay;
 }

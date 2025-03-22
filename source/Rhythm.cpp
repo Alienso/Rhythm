@@ -17,6 +17,7 @@
 #include "reference/Configuration.h"
 #include "InputHandler.h"
 #include "reference/Global.h"
+#include "sound/BeatOffset.h"
 
 #include <iostream>
 #include <unistd.h>
@@ -104,7 +105,6 @@ void Rhythm::renderImGui(){
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
     //ImGui::SliderFloat("AnimationSpeed", (float*)&Global::player->stateMachine.animationSpeed, 0, 1);
     ImGui::Text("Score: %d", Level::score);
-    ImGui::Text("Score: %.2f", Level::score / 48000.0);
     ImGui::Text("Player Pos: %.2f %.2f", entityManager->player.pos.x, entityManager->player.pos.y);
     //ImGui::Text("Player BB: minX: %.2f, maxX: %.2f, minY: %.2f, maxY: %.2f", entityManager->player.collisionBB.minX, entityManager->player.collisionBB.maxX, entityManager->player.collisionBB.minY, entityManager->player.collisionBB.maxY);
 
@@ -114,6 +114,9 @@ void Rhythm::renderImGui(){
         soundEngine->seek(-10);
 
     ImGui::Checkbox("Render collision boxes", &UiRenderer::showCollisionBoxes);
+
+    ImGui::Text("ComboPoints: %f", Global::player->comboPoints);
+    ImGui::Text("Multiplier: %i", Global::player->rhythmMultiplierIndex);
 
     ImGui::End();
     ImGui::Render();
@@ -197,6 +200,9 @@ void Rhythm::cleanup() {
     delete soundEngine;
     delete entityManager;
     delete level;
+
+    RhythmMultiplier::cleanUp();
+    BeatOffset::cleanUp();
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

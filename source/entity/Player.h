@@ -8,6 +8,23 @@
 
 #include "EntityLiving.h"
 #include "reference/Reference.h"
+#include "weapon/RangedWeaponBase.h"
+#include "weapon/PistolWeapon.h"
+#include "sound/BeatOffset.h"
+
+class Rhythm;
+
+class RhythmMultiplier{
+public:
+    RhythmMultiplier(unsigned short damage, unsigned short score, unsigned int comboPointsRequired);
+    static void cleanUp();
+
+    unsigned short damage;
+    unsigned short score;
+    unsigned int comboPointsRequired;
+
+    static std::array<RhythmMultiplier*, 5> levels;
+};
 
 class Player : public EntityLiving{
 
@@ -19,14 +36,21 @@ public:
     void onRender() const override;
 
     [[nodiscard]] bool canAttack() const;
-    void attack();
+    void attack(BeatOffset* beatOffset);
+    void increaseComboPoints(float value);
+    [[nodiscard]] RhythmMultiplier* getRhythmMultiplier() const;
+    [[nodiscard]] RhythmMultiplier* getNextRhythmMultiplier() const;
 
-    Entity mist{Textures::MIST};
-    Sprite weapon{Textures::PISTOL};
-
-    float attackCD = 0.2;
+    RangedWeaponBase* weapon = new PistolWeapon();
 
 private:
+    float comboDecayTimer = 0;
+    float comboPoints = 0.0f;
+    unsigned int rhythmMultiplierIndex = 0;
+
+    void resetBeatDecay();
+
+    friend Rhythm;
 
 };
 

@@ -34,6 +34,7 @@ static void initShaders(AssetManager<Shader>& shaderManager) {
 }
 
 static void initSounds(AssetManager<Sound>& soundManager){
+    Sounds::BEAT_MISS = soundManager.createAsset("resource/sound/effect/beat_miss.wav");
     Sounds::MTYN = soundManager.createAsset("resource/sound/music/More_Than_You_Know.wav", 123, 18000);
     Sounds::DISSOLUTION = soundManager.createAsset("resource/sound/music/dissolution.wav", 140, 2000);
     Sounds::DEVASTATION = soundManager.createAsset("resource/sound/music/Devastation.wav", 130, 0);

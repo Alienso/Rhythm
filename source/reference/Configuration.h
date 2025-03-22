@@ -15,6 +15,9 @@ public:
 
     static float masterVolume;
 
+    static unsigned int comboDecayAmount; //per second
+    static float comboDecayDelay; //in seconds
+
     Configuration()= default;
 };
 

@@ -9,3 +9,6 @@ float Configuration::aspectRatio = (float)Configuration::windowWidth / (float)Co
 
 float Configuration::mouseSensitivity = 1.0f;
 float Configuration::masterVolume = 1.0f;
+
+float Configuration::comboDecayDelay = 2.0f;
+unsigned int Configuration::comboDecayAmount = 10;

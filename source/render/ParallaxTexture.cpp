@@ -23,11 +23,11 @@ ParallaxTexture::ParallaxTexture(std::vector<const char *> paths, std::vector<fl
                 // positions // texture Coords
                 -1.0f,  1.0f, 0.0f, 1.0f,
                 -1.0f, -1.0f, 0.0f, 0.0f,
-                1.0f,  1.0f, 1.0f/aspectRatio, 1.0f,
+                1.0f,  1.0f, 1.0f / aspectRatio * Configuration::aspectRatio, 1.0f,
 
-                1.0f,  1.0f, 1.0f/aspectRatio, 1.0f,
+                1.0f,  1.0f, 1.0f / aspectRatio * Configuration::aspectRatio, 1.0f,
                 -1.0f, -1.0f, 0.0f, 0.0f,
-                1.0f, -1.0f, 1.0f/aspectRatio, 0.0f,
+                1.0f, -1.0f, 1.0f / aspectRatio * Configuration::aspectRatio, 0.0f,
         };
 
         this->aspectRatios.push_back(aspectRatio);

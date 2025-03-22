@@ -113,8 +113,7 @@ void SoundEngine::stop(SoundInstance* sound) {
 void SoundEngine::pause(SoundInstance* sound) {
 }
 
-int SoundEngine::doAction() const {
-
+BeatOffset* SoundEngine::getBeatOffset() const {
     //TODO next/previous beat can be calculated from one, no need to calculate both
     unsigned long nextBeat = currentSong->getNextBeatOffset();
     unsigned long previousBeat = currentSong->getPreviousBeatOffset();
@@ -134,7 +133,8 @@ int SoundEngine::doAction() const {
 
     int missOffset = nextOffset < previousOffset ? nextOffset : previousOffset;
     //return (float)(missOffset) / (float)currentSong->getSampleRate() < 0.2f;
-    return missOffset;
+    //TODO maybe account for weapon audio delay, but then each weapon should have the same one so gameplay isn't affected
+    return BeatOffset::from((float)missOffset / (float)currentSong->getSampleRate());
 }
 
 void SoundEngine::seek(int seconds) {
@@ -153,8 +153,8 @@ static int audioCallback( const void *inputBuffer, void *outputBuffer,
         return paComplete;
     }
     for(size_t i=0; i<framesPerBuffer; i++ ){
-        *out++ = sound->getNextValue() * sound->volume;
-        *out++ = sound->getNextValue() * sound->volume;
+        *out++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
+        *out++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
     }
 
     return paContinue;
@@ -172,7 +172,7 @@ static int audioCallbackMono( const void *inputBuffer, void *outputBuffer,
         return paComplete;
     }
     for(size_t i=0; i<framesPerBuffer; i++ ){
-        *out++ = sound->getNextValue() * sound->volume;
+        *out++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
     }
 
     return paContinue;

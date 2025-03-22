@@ -20,6 +20,8 @@ public:
     void onRender();
     void onUpdate(float deltaTime);
 
+    static void increaseScore(unsigned int amount, float scoreMultiplier);
+
     static inline int score = 0;
     float tileScale;
 

@@ -5,6 +5,7 @@
 #include "EntityLiving.h"
 #include "SpriteStates.h"
 #include "reference/Global.h"
+#include "Level.h"
 
 EntityLiving::EntityLiving(Texture *texture) : Entity(texture) {}
 
@@ -55,18 +56,19 @@ void EntityLiving::updateAiTasks(float deltaTime) {
     }
 }
 
-void EntityLiving::damage(int amount) {
+void EntityLiving::damage(int amount, BeatOffset* beatOffset) {
 
     if (invincibilityTime > 0)
         return;
 
-    health-=amount;
+    health -= amount * Global::player->getRhythmMultiplier()->damage * beatOffset->damageMultiplier;
     sprite.stateMachine.changeState(commonStates[STATE_HURT]);
     invincibilityTime = 0.5f;
     if (health <= 0) {
         if (isAlive){
             sprite.stateMachine.changeState(STATE_DEATH);
             Global::entityManger->scheduleDeSpawn(this);
+            Level::increaseScore(scoreValue, beatOffset->scoreMultiplier);
         }
         health = 0;
         isAlive = false;
