@@ -11,7 +11,7 @@ SpriteInstanced::SpriteInstanced() {
 
 }
 
-void SpriteInstanced::initialize(Texture *texture, std::vector<glm::fvec2>& offsets, float scale){
+void SpriteInstanced::initialize(Texture *texture, std::vector<glm::fvec2>& offsets, glm::vec2 scale){
     this->texture = texture;
     glBufferWrapperInstanced.initialize(offsets, scale);
     this->instanceCount = (int)offsets.size();

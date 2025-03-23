@@ -13,8 +13,7 @@ public:
     unsigned int ID;
     unsigned int rendererID;
 
-    explicit Texture(unsigned int id);
-    Texture(unsigned int id, const char* path, int type);
+    Texture(const char* path, int type);
     ~Texture();
 
     void bind(unsigned int slot = 0) const;

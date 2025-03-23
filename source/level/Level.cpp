@@ -8,12 +8,6 @@
 
 #include <fstream>
 
-struct TilePositions{
-    TilePositions() : texture(nullptr){}
-    explicit TilePositions(Texture* texture) : texture(texture){}
-    Texture* texture;
-    std::vector<glm::fvec2> positions;
-};
 
 Level::Level(const char* path) {
 
@@ -23,11 +17,17 @@ Level::Level(const char* path) {
     //merge nearby tiles to one physics object
 
     //add those objects to physics engine
-    glm::vec2 scaleVec = {tileScale, tileScale};
-    for (auto& tile: tiles){
-        for(glm::vec2& pos : tile.second.positions){
-            Global::physicsEngine->registerCollisionBox({pos, scaleVec});
-        }
+    for (auto& entry: tiles){
+        glm::vec2 scaleVec = {tileScale * entry.second.tile->scale.x, tileScale * entry.second.tile->scale.y};
+        if (entry.second.tile->hasCollisionBox) {
+            for (glm::vec2 &pos: entry.second.positions) {
+                Global::physicsEngine->registerCollisionBox({pos, scaleVec});
+            }
+        } /*else if (entry.second.tile->hasHurtBox){
+            for (glm::vec2 &pos: entry.second.positions) {
+                Global::physicsEngine->registerHurtBox({pos, scaleVec});
+            }
+        }*/ //TODO
     }
 }
 
@@ -53,9 +53,9 @@ void Level::load(const char * path, std::unordered_map<unsigned int, TilePositio
             unsigned int id = std::stoi(line.substr(startIndex, endIndex - startIndex));
             startIndex = endIndex + 1;
 
-            Texture* texture = Global::textureManager->getAsset(id);
+            Tile* tile = Global::tileManager->getAsset(id);
             if (sprites.find(id) == sprites.end())
-                sprites[id] = TilePositions{texture};
+                sprites[id] = TilePositions{tile};
             sprites[id].positions.emplace_back(j, i);
         }
         nRows++;
@@ -65,8 +65,10 @@ void Level::load(const char * path, std::unordered_map<unsigned int, TilePositio
     tileScale = scale;
 
     //Normalize offsets
-    for(auto& sprite : sprites) {
-        for (auto &position: sprite.second.positions) {
+    for(auto& entry : sprites) {
+        for (auto &position: entry.second.positions) {
+            position.x += entry.second.tile->offset.x;
+            position.y -= entry.second.tile->offset.y;
             position *= scale;
             position.x -= Configuration::aspectRatio / 2.0f;
             position.x -= 1 - scale / 2;
@@ -78,9 +80,9 @@ void Level::load(const char * path, std::unordered_map<unsigned int, TilePositio
     //Create sprites
     unsigned int i=0;
     tileSprites.reserve(sprites.size());
-    for(auto& sprite : sprites){
+    for(auto& entry : sprites){
         tileSprites.emplace_back();
-        tileSprites[i].initialize(sprite.second.texture, sprite.second.positions, scale/2);
+        tileSprites[i].initialize(entry.second.tile->texture, entry.second.positions, glm::vec2{entry.second.tile->scale * scale * 0.5f} );
         i++;
     }
 }

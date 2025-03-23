@@ -5,7 +5,7 @@
 #include "EntityLiving.h"
 #include "SpriteStates.h"
 #include "reference/Global.h"
-#include "Level.h"
+#include "level/Level.h"
 
 EntityLiving::EntityLiving(Texture *texture) : Entity(texture) {}
 

@@ -61,7 +61,7 @@ void InputHandler::processMouseClickInput() {
 
     if (glfwGetMouseButton(app->window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
         if (Global::player->canAttack()) {
-            BeatOffset* beatOffset = Global::soundEngine->getBeatOffset(); //TODO use level score or player score. Damage and combo calculation need to account for this
+            BeatOffset* beatOffset = Global::soundEngine->getBeatOffset();
             Global::player->attack(beatOffset);
         }
     }

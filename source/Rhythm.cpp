@@ -150,7 +150,7 @@ void Rhythm::init() {
     uiRenderer = new UiRenderer();
     entityManager = new EntityManager();
 
-    Global::textureManager = &textureManager;
+    Global::tileManager = &tileManager;
     Global::cursor = &uiRenderer->getCursor();
     Global::physicsEngine = physicsEngine;
 

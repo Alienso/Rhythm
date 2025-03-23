@@ -19,7 +19,7 @@ public:
     static inline Player* player = nullptr; // TODO maybe use player directly from Entity Manager
     static inline Sprite* cursor = nullptr;
 
-    static inline AssetManager<Texture>* textureManager = nullptr;
+    static inline AssetManager<Tile>* tileManager = nullptr;
     static inline EntityManager* entityManger = nullptr;
     static inline PhysicsEngine* physicsEngine = nullptr;
     static inline SoundEngine* soundEngine = nullptr;

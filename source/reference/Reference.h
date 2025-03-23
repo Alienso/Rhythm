@@ -11,6 +11,7 @@
 #include "render/Shader.h"
 #include "sound/Sound.h"
 #include "entity/Particle.h"
+#include "level/Tile.h"
 
 class Textures{
 public:
@@ -25,6 +26,9 @@ public:
     static inline Texture* PARTICLE_GUNSHOT;
     static inline Texture* NIGHTMARE;
     static inline Texture* COLLISION_BOX;
+
+    static inline Texture* BRICK_TILE;
+    static inline Texture* METAL_SLAB_TILE;
 };
 
 class Shaders{
@@ -51,6 +55,12 @@ public:
 class Particles{
 public:
     static inline Particle* REVOLVER_SHOOT;
+};
+
+class Tiles{
+public:
+    static inline Tile* BRICK;
+    static inline Tile* METAL_SLAB;
 };
 
 #endif //RHYTHM_ASSETS_H

@@ -11,13 +11,15 @@ GlBufferWrapperInstanced::GlBufferWrapperInstanced(){
 
 }
 
-void GlBufferWrapperInstanced::initialize(std::vector<glm::fvec2>& offsets, float scale){
+void GlBufferWrapperInstanced::initialize(std::vector<glm::fvec2>& offsets, glm::vec2 scale){
 
     float vertices[24];
     memcpy(vertices, quadVertices, sizeof(vertices));
-    for (int i=0; i<6; i++)
-        for (int j=0; j<2; j++)
-            vertices[i * 4 + j] *= scale;
+    for (int i=0; i<6; i++) {
+        vertices[i * 4] *= scale.x;
+        vertices[i * 4 + 1] *= scale.y;
+    }
+
 
     quadVb.initialize(vertices , sizeof(vertices));
     instanceVb.initialize((float*)&(offsets[0]), offsets.size() * sizeof(glm::fvec2));

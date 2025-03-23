@@ -25,7 +25,7 @@ void PhysicsEngine::onUpdate(float deltaTime) {
 
         if (entity->movementVec.y < 0)
             for (AxisAlignedBB box: collisionBoxes){
-                if (box.intersects(entity->collisionBB)) {
+                if (box.intersects(entity->collisionBB)) { //use mini raytrace here (curr poss->nextPoss is a line, and check if it intersects box (AABB) and thats how you know the side of collision)
                     entity->pos.y = box.maxY + entity->sprite.scale.y - 0.001f; //TODO this needs to be adjusted scale(texture based) instead of real one
                     entity->movementVec.y = 0;
                     entity->onGround = true;

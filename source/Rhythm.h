@@ -5,7 +5,7 @@
 #ifndef RHYTHM_RHYTHM_H
 #define RHYTHM_RHYTHM_H
 
-#include "Level.h"
+#include "level/Level.h"
 #include "InputHandler.h"
 #include "manager/AssetManager.h"
 #include "render/Texture.h"
@@ -51,6 +51,7 @@ private:
     AssetManager<Texture> textureManager;
     AssetManager<Shader> shaderManager;
     AssetManager<Sound> soundManager;
+    AssetManager<Tile> tileManager;
 
 };
 

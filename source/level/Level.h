@@ -10,8 +10,7 @@
 #include "reference/Reference.h"
 #include "render/ParallaxTexture.h"
 #include "entity/SpriteInstanced.h"
-
-struct TilePositions;
+#include "Tile.h"
 
 class Level {
 public:

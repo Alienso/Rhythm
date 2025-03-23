@@ -9,10 +9,8 @@
 
 #include <iostream>
 
-Texture::Texture(unsigned int id) : ID(id) {
-}
 
-Texture::Texture(unsigned int id, const char *path, int type) : ID(id), width(0), height(0), bytesPerPixel(0), filePath(path) {
+Texture::Texture(const char *path, int type) : width(0), height(0), bytesPerPixel(0), filePath(path) {
 
     stbi_set_flip_vertically_on_load(1);
     glGenTextures(1, &rendererID);

@@ -20,5 +20,14 @@ public:
     float minX,minY,maxX,maxY;
 };
 
+class AxisAlignedHB : public AxisAlignedBB {
+public:
+    AxisAlignedHB();
+    explicit AxisAlignedHB(float damage);
+    AxisAlignedHB(glm::vec2 pos, glm::vec2 scale, float damage);
+    AxisAlignedHB(float x1, float y1, float x2, float y2, float damage);
+    float damage = 0.0;
+};
+
 
 #endif //RHYTHM_AXISALIGNEDBB_H

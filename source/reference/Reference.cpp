@@ -7,21 +7,24 @@
 #include "glad/glad.h"
 
 static void initTextures(AssetManager<Texture>& textureManager) {
-    Textures::BLANK = textureManager.createAsset(0, "resource/texture/blank.png", GL_RGBA);
-    Textures::BACKGROUND = textureManager.createAsset(1, "resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
+    Textures::BLANK = textureManager.createAsset("resource/texture/blank.png", GL_RGBA);
+    Textures::BACKGROUND = textureManager.createAsset("resource/texture/background/SpaceBackgroundHD.png", GL_RGBA);
 
-    Textures::BIKER = textureManager.createAsset(100, "resource/texture/character/Biker/Biker.png", GL_RGBA);
-    Textures::NIGHTMARE = textureManager.createAsset(101, "resource/texture/entity/Nightmare.png", GL_RGBA);
+    Textures::BIKER = textureManager.createAsset("resource/texture/character/Biker/Biker.png", GL_RGBA);
+    Textures::NIGHTMARE = textureManager.createAsset("resource/texture/entity/Nightmare.png", GL_RGBA);
 
-    Textures::CURSOR = textureManager.createAsset(200, "resource/texture/ui/cursor_white.png", GL_RGBA);
-    Textures::MULTIPLIER_FRAME = textureManager.createAsset(201, "resource/texture/ui/multiplier_frame.png", GL_RGBA);
-    Textures::COLLISION_BOX = textureManager.createAsset(202, "resource/texture/ui/collision_box.png", GL_RGBA);
+    Textures::CURSOR = textureManager.createAsset("resource/texture/ui/cursor_white.png", GL_RGBA);
+    Textures::MULTIPLIER_FRAME = textureManager.createAsset( "resource/texture/ui/multiplier_frame.png", GL_RGBA);
+    Textures::COLLISION_BOX = textureManager.createAsset("resource/texture/ui/collision_box.png", GL_RGBA);
 
-    Textures::PISTOL = textureManager.createAsset(300, "resource/texture/weapon/pistol_rotated.png", GL_RGBA);
+    Textures::PISTOL = textureManager.createAsset("resource/texture/weapon/pistol_rotated.png", GL_RGBA);
 
-    Textures::MIST = textureManager.createAsset(400, "resource/texture/particle/mist64.png", GL_RGBA);
-    Textures::PARTICLE_GUNSHOT = textureManager.createAsset(401, "resource/texture/particle/gunshot2.png", GL_RGBA);
-    Textures::FLAME_CIRCLE = textureManager.createAsset(402, "resource/texture/particle/flame_circle.png", GL_RGBA);
+    Textures::MIST = textureManager.createAsset("resource/texture/particle/mist64.png", GL_RGBA);
+    Textures::PARTICLE_GUNSHOT = textureManager.createAsset("resource/texture/particle/gunshot2.png", GL_RGBA);
+    Textures::FLAME_CIRCLE = textureManager.createAsset("resource/texture/particle/flame_circle.png", GL_RGBA);
+
+    Textures::BRICK_TILE = textureManager.createAsset("resource/texture/tile/stone_brick.png", GL_RGBA);
+    Textures::METAL_SLAB_TILE = textureManager.createAsset("resource/texture/tile/metal_slab.png", GL_RGBA);
 }
 
 static void initShaders(AssetManager<Shader>& shaderManager) {
@@ -48,9 +51,15 @@ static void initParticles() {
     Particles::REVOLVER_SHOOT = new Particle(Textures::PARTICLE_GUNSHOT, 5, trans, 0.25);
 }
 
+static void initTiles(AssetManager<Tile>& tileManager){
+    Tiles::BRICK = tileManager.createAsset(500, Textures::BRICK_TILE);
+    Tiles::METAL_SLAB = tileManager.createAsset(501, Textures::METAL_SLAB_TILE, true, false, glm::vec2{0, -0.3}, glm::vec2{1, 0.4545}); //TODO feels like this offset is affected by scale
+}
+
 void Rhythm::initAssets(){
     initTextures(textureManager);
     initShaders(shaderManager);
     initSounds(soundManager);
     initParticles();
+    initTiles(tileManager);
 }

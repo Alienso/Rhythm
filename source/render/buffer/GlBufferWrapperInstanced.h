@@ -16,7 +16,7 @@
 class GlBufferWrapperInstanced {
 public:
     GlBufferWrapperInstanced();
-    void initialize(std::vector<glm::fvec2>& offsets, float scale);
+    void initialize(std::vector<glm::fvec2>& offsets, glm::vec2 scale);
 
     VertexArray va;
     VertexBuffer quadVb;

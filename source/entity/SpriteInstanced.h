@@ -14,7 +14,7 @@
 class SpriteInstanced {
 public:
     SpriteInstanced();
-    void initialize(Texture *texture, std::vector<glm::fvec2>& offsets, float scale);
+    void initialize(Texture *texture, std::vector<glm::fvec2>& offsets, glm::vec2 scale);
     [[nodiscard]] Texture* getTexture() const;
 
     void onRender() const;

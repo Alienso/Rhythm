@@ -30,3 +30,23 @@ void AxisAlignedBB::translate(glm::vec2 vec) {
     minY += vec.y;
     maxY += vec.y;
 }
+
+
+//------HB
+
+
+AxisAlignedHB::AxisAlignedHB() : AxisAlignedBB() {
+
+}
+
+AxisAlignedHB::AxisAlignedHB(float damage) : AxisAlignedBB(), damage(damage) {
+
+}
+
+AxisAlignedHB::AxisAlignedHB(glm::vec2 pos, glm::vec2 scale, float damage) : AxisAlignedBB(pos, scale), damage(damage) {
+
+}
+
+AxisAlignedHB::AxisAlignedHB(float x1, float y1, float x2, float y2, float damage) : AxisAlignedBB(x1, y1, x2, y2), damage(damage) {
+
+}
