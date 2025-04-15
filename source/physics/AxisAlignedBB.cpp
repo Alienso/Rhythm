@@ -20,6 +20,13 @@ AxisAlignedBB::AxisAlignedBB(float x1, float y1, float x2, float y2) : minX(x1),
 
 }
 
+void AxisAlignedBB::set(glm::vec2 pos, glm::vec2 scale) {
+    minX = pos.x - scale.x / 2;
+    minY = pos.y - scale.y / 2;
+    maxX = pos.x + scale.x / 2;
+    maxY = pos.y + scale.y / 2;
+}
+
 bool AxisAlignedBB::intersects(AxisAlignedBB &other) const {
     return minX < other.maxX && maxX > other.minX && minY < other.maxY && maxY > other.minY;
 }
@@ -29,6 +36,18 @@ void AxisAlignedBB::translate(glm::vec2 vec) {
     maxX += vec.x;
     minY += vec.y;
     maxY += vec.y;
+}
+
+glm::vec2 AxisAlignedBB::getCenter() const {
+    return glm::vec2{ minX + (maxX - minX) * 0.5f, minY + (maxY - minY) * 0.5f };
+}
+
+float AxisAlignedBB::getHeight() const {
+    return maxY - minY;
+}
+
+float AxisAlignedBB::getWidth() const {
+    return maxX - minX;
 }
 
 

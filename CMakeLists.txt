@@ -11,7 +11,7 @@ project(Rhythm)
 set(CMAKE_CXX_STANDARD 17)
 
 if (WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-parameter -D_GLIBCXX_DEBUG -D_GLIBCXX_ASSERTIONS -g -O0")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-parameter -g -O0 -D_GLIBCXX_DEBUG -D_GLIBCXX_ASSERTIONS ")
 endif(WIN32)
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-parameter -g -O0 -fsanitize=address -fsanitize=undefined")
@@ -70,7 +70,11 @@ add_executable(Rhythm main.cpp
         source/render/ParallaxTexture.cpp source/render/ParallaxTexture.h
         source/entity/SpriteInstanced.cpp source/entity/SpriteInstanced.h
         source/render/buffer/GlBufferWrapperInstanced.cpp source/render/buffer/GlBufferWrapperInstanced.h
-        source/physics/RayTrace.cpp source/physics/RayTrace.h source/weapon/RangedWeaponBase.cpp source/weapon/RangedWeaponBase.h source/weapon/PistolWeapon.cpp source/weapon/PistolWeapon.h source/sound/BeatOffset.cpp source/sound/BeatOffset.h source/level/Tile.cpp source/level/Tile.h)
+        source/physics/RayTrace.cpp source/physics/RayTrace.h
+        source/weapon/RangedWeaponBase.cpp source/weapon/RangedWeaponBase.h
+        source/weapon/PistolWeapon.cpp source/weapon/PistolWeapon.h
+        source/sound/BeatOffset.cpp source/sound/BeatOffset.h
+        source/level/Tile.cpp source/level/Tile.h)
 
 if (WIN32)
     target_link_libraries(Rhythm glad::glad imgui::imgui glfw gdi32 opengl32 pthread portaudio)

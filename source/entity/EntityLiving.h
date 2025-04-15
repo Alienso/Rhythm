@@ -23,7 +23,6 @@ public:
     void damage(int amount, BeatOffset* beatOffset); //TODO maybe use global object for this beatOffset?
 
     bool isAlive = true;
-    float speedModifier = 1.0f; //TODO move
 protected:
     std::vector<AiTaskBase*> aiTasks;
     AiTaskBase* currentTask = nullptr;

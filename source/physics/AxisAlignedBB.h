@@ -8,13 +8,21 @@
 
 #include "glm/vec2.hpp"
 
+enum EnumSide{
+    SIDE_TOP, SIDE_BOTTOM, SIDE_LEFT, SIDE_RIGHT, SIDE_NONE
+};
+
 class AxisAlignedBB {
 public:
     AxisAlignedBB();
     AxisAlignedBB(glm::vec2 pos, glm::vec2 scale);
     AxisAlignedBB(float x1, float y1, float x2, float y2);
 
+    [[nodiscard]] glm::vec2 getCenter() const;
+    [[nodiscard]] float getWidth() const;
+    [[nodiscard]] float getHeight() const;
     void translate(glm::vec2 vec);
+    void set(glm::vec2 pos, glm::vec2 scale);
     [[nodiscard]] bool intersects(AxisAlignedBB& other) const;
 
     float minX,minY,maxX,maxY;

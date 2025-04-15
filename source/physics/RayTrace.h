@@ -6,7 +6,6 @@
 #define RHYTHM_RAYTRACE_H
 
 
-#include "entity/Entity.h"
 #include "entity/EntityLiving.h"
 
 enum RayTraceHitType{
@@ -28,7 +27,7 @@ public:
     static RayTraceResult rayTrace(glm::vec2 pos, glm::vec2 dest);
 
 private:
-    static inline float intersect(glm::vec2& pos, glm::vec2& rayDir, glm::vec2& kn, const AxisAlignedBB& aabb);
+    static float intersect(glm::vec2& pos, glm::vec2& rayDir, glm::vec2& kn, const AxisAlignedBB& aabb);
 
 };
 

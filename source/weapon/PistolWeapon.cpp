@@ -53,6 +53,6 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
 
     if (rayTraceResult.hitType == HIT_TYPE_ENTITY) {
         rayTraceResult.entityHit->damage(damage, beatOffset);
-        Global::player->increaseComboPoints(comboPointsIncrease * beatOffset->comboMultiplier);
+        Global::player->adjustComboPoints(comboPointsIncrease * beatOffset->comboMultiplier);
     }
 }

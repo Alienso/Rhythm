@@ -8,7 +8,6 @@
 
 Entity::Entity(Texture *texture) : sprite(texture), collisionSprite(Textures::COLLISION_BOX) {
     sprite.parent = this;
-    collisionSprite.parent = this;
     collisionSprite.scale = {0,0};
 }
 
@@ -23,5 +22,20 @@ void Entity::onRender() const {
 }
 
 void Entity::onUpdate(float deltaTime) {
+}
+
+void Entity::moveTo(float x, float y) {
+    pos.x = x;
+    pos.y = y;
+    rebuildCollisionBoxes();
+}
+
+void Entity::move(float x, float y) {
+    pos.x += x;
+    pos.y += y;
+    rebuildCollisionBoxes();
+}
+
+void Entity::rebuildCollisionBoxes() {
 
 }

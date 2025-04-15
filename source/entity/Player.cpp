@@ -34,11 +34,9 @@ Player::Player() : EntityLiving(Textures::BIKER) {
     commonStates[STATE_DEATH] = 2;
     commonStates[STATE_HURT] = 5;
 
-    collisionBB = {(pos.x - 0.4533f * sprite.scale.x), pos.y - 1.0f * sprite.scale.y,
-                   (pos.x + 0.4533f * sprite.scale.x), pos.y + 0.4167f * sprite.scale.y};
+    rebuildCollisionBoxes();
 
     collisionSprite.scale = { (collisionBB.maxX - collisionBB.minX) / 2.0f, (collisionBB.maxY - collisionBB.minY) / 2.0f };
-    collisionSprite.translate = { (collisionBB.maxX + collisionBB.minX) / 2.0f, (collisionBB.maxY + collisionBB.minY) / 2.0f };
 
 }
 
@@ -47,13 +45,19 @@ void Player::onUpdate(float deltaTime) {
     weapon->onUpdate(deltaTime, pos);
     if (comboDecayTimer <= 0) {
         comboDecayTimer -= deltaTime;
-        increaseComboPoints(-(Configuration::comboDecayAmount * deltaTime));
+        adjustComboPoints(-((float) Configuration::comboDecayAmount * deltaTime));
     }
 }
 
 void Player::onRender() const {
     Entity::onRender();
     weapon->onRender();
+}
+
+void Player::rebuildCollisionBoxes() {
+    collisionBB = {(pos.x - 0.4533f * sprite.scale.x), pos.y - 1.0f * sprite.scale.y,
+                   (pos.x + 0.4533f * sprite.scale.x), pos.y + 0.4167f * sprite.scale.y};
+    collisionSprite.translate = { (collisionBB.maxX + collisionBB.minX) / 2.0f, (collisionBB.maxY + collisionBB.minY) / 2.0f };
 }
 
 bool Player::canAttack() const {
@@ -64,7 +68,7 @@ void Player::attack(BeatOffset* beatOffset) {
     weapon->onAttack(beatOffset);
 }
 
-void Player::increaseComboPoints(float value) {
+void Player::adjustComboPoints(float value) {
     comboPoints+= value;
     if (value > 0)
         resetBeatDecay();

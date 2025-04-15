@@ -24,6 +24,8 @@ public:
 private:
     std::vector<Entity*> entities;
     std::vector<AxisAlignedBB> collisionBoxes; //for terrain
+
+    const float gravityStrengthBase = 9.81;
 };
 
 

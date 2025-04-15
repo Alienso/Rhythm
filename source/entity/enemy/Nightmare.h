@@ -11,6 +11,9 @@ class Nightmare : public EntityLiving {
 public:
     Nightmare();
     ~Nightmare() override;
+
+protected:
+    void rebuildCollisionBoxes() override;
 };
 
 

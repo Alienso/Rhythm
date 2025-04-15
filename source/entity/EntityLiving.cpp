@@ -24,12 +24,6 @@ void EntityLiving::onUpdate(float deltaTime) {
     if (invincibilityTime < 0)
         invincibilityTime = 0;
 
-    collisionBB.translate(pos - previousPos); //TODO if entity is rotated x offset needs to change
-
-    previousPos = pos;
-    pos.x += movementVec.x * speedModifier * deltaTime;
-    pos.y += movementVec.y * deltaTime;
-
     updateAiTasks(deltaTime);
 }
 

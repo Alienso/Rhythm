@@ -107,6 +107,7 @@ void Rhythm::renderImGui(){
     ImGui::Text("Score: %d", Level::score);
     ImGui::Text("Player Pos: %.2f %.2f", entityManager->player.pos.x, entityManager->player.pos.y);
     //ImGui::Text("Player BB: minX: %.2f, maxX: %.2f, minY: %.2f, maxY: %.2f", entityManager->player.collisionBB.minX, entityManager->player.collisionBB.maxX, entityManager->player.collisionBB.minY, entityManager->player.collisionBB.maxY);
+    ImGui::Text("OnGround: %d", Global::player->onGround);
 
     if (ImGui::Button("Seek+"))
         soundEngine->seek(10);
@@ -170,6 +171,9 @@ void Rhythm::mainLoop() {
 
         auto now = (float)glfwGetTime();
         float diff = now - lastTime;
+        if (diff > 0.1f){ //Physics start acting wierd on frame-rates lower than this
+            diff = 0.006f;
+        }
 
         inputHandler->processKeyboardInput(diff);
         inputHandler->processMouseClickInput();

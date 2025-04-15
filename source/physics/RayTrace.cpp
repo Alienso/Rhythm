@@ -50,7 +50,7 @@ RayTraceResult RayTracer::rayTrace(glm::vec2 pos, glm::vec2 dest){
     return result;
 }
 
-inline float RayTracer::intersect(glm::vec2& pos, glm::vec2& rayDir, glm::vec2& kn, const AxisAlignedBB& aabb){
+float RayTracer::intersect(glm::vec2& pos, glm::vec2& rayDir, glm::vec2& kn, const AxisAlignedBB& aabb){
     if (rayDir.x > 0 && rayDir.y > 0 && (pos.x > aabb.maxX || pos.y > aabb.maxY)) //TOP RIGHT
         return 999.0f;
     if (rayDir.x > 0 && rayDir.y < 0 && (pos.x > aabb.maxX || pos.y < aabb.minY)) //BOTTOM RIGHT
@@ -88,5 +88,3 @@ inline float RayTracer::intersect(glm::vec2& pos, glm::vec2& rayDir, glm::vec2& 
 
     return minDistance;
 }
-
-

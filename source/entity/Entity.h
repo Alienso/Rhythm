@@ -18,16 +18,22 @@ public:
     virtual void onRender() const;
     virtual void onUpdate(float deltaTime);
 
+    void move(float x, float y);
+    void moveTo(float x, float y);
+
     glm::vec2 pos = {0,0};
     glm::vec2 previousPos = {0,0};
     glm::vec2 movementVec = {0,0};
 
-    bool onGround = true;
+    float speedModifier = 1.0f; //TODO move
+    bool onGround = false;
     Sprite sprite;
     AxisAlignedBB collisionBB;
 
 protected:
     Sprite collisionSprite;
+
+    virtual void rebuildCollisionBoxes();
 };
 
 

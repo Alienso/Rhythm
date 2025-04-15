@@ -27,6 +27,6 @@ void AiTaskWalkToPlayer::resetTask() {
 
 void AiTaskWalkToPlayer::updateTask(float deltaTime) {
     float direction = Global::player->pos.x > entity->pos.x ? 1.0f : -1.0f;
-    entity->pos += glm::vec2{direction * entity->speedModifier * deltaTime, 0};
+    entity->movementVec.x = direction;
     entity->sprite.invertTex = direction > 0;
 }

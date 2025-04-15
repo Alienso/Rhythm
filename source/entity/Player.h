@@ -37,11 +37,14 @@ public:
 
     [[nodiscard]] bool canAttack() const;
     void attack(BeatOffset* beatOffset);
-    void increaseComboPoints(float value);
+    void adjustComboPoints(float value);
     [[nodiscard]] RhythmMultiplier* getRhythmMultiplier() const;
     [[nodiscard]] RhythmMultiplier* getNextRhythmMultiplier() const;
 
     RangedWeaponBase* weapon = new PistolWeapon();
+
+protected:
+    void rebuildCollisionBoxes() override;
 
 private:
     float comboDecayTimer = 0;
