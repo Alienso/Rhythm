@@ -18,10 +18,11 @@ public:
     virtual void onRender() const;
     virtual void onUpdate(float deltaTime);
 
+    [[nodiscard]] const glm::vec2& pos() const;
+
     void move(float x, float y);
     void moveTo(float x, float y);
 
-    glm::vec2 pos = {0,0};
     glm::vec2 previousPos = {0,0};
     glm::vec2 movementVec = {0,0};
 
@@ -31,6 +32,7 @@ public:
     AxisAlignedBB collisionBB;
 
 protected:
+    glm::vec2 pos_ = {0,0};
     Sprite collisionSprite;
 
     virtual void rebuildCollisionBoxes();

@@ -25,8 +25,8 @@ Nightmare::Nightmare() : EntityLiving(Textures::NIGHTMARE) {
 }
 
 void Nightmare::rebuildCollisionBoxes() {
-    collisionBB = {(pos.x - 0.65f * sprite.scale.x), pos.y - 1.0f * sprite.scale.y,
-                   (pos.x + 0.65f * sprite.scale.x), pos.y + 0.4167f * sprite.scale.y};
+    collisionBB = {(pos_.x - 0.65f * sprite.scale.x), pos_.y - 1.0f * sprite.scale.y,
+                   (pos_.x + 0.65f * sprite.scale.x), pos_.y + 0.4167f * sprite.scale.y};
 
     collisionSprite.translate = { (collisionBB.maxX + collisionBB.minX) / 2.0f, (collisionBB.maxY + collisionBB.minY) / 2.0f };
 }

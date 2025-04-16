@@ -25,17 +25,21 @@ void Entity::onUpdate(float deltaTime) {
 }
 
 void Entity::moveTo(float x, float y) {
-    pos.x = x;
-    pos.y = y;
+    pos_.x = x;
+    pos_.y = y;
     rebuildCollisionBoxes();
 }
 
 void Entity::move(float x, float y) {
-    pos.x += x;
-    pos.y += y;
+    pos_.x += x;
+    pos_.y += y;
     rebuildCollisionBoxes();
 }
 
 void Entity::rebuildCollisionBoxes() {
 
+}
+
+const glm::vec2 &Entity::pos() const {
+    return pos_;
 }

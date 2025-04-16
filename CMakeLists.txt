@@ -74,7 +74,8 @@ add_executable(Rhythm main.cpp
         source/weapon/RangedWeaponBase.cpp source/weapon/RangedWeaponBase.h
         source/weapon/PistolWeapon.cpp source/weapon/PistolWeapon.h
         source/sound/BeatOffset.cpp source/sound/BeatOffset.h
-        source/level/Tile.cpp source/level/Tile.h source/Camera.cpp source/Camera.h)
+        source/level/Tile.cpp source/level/Tile.h
+        source/Camera.cpp source/Camera.h)
 
 if (WIN32)
     target_link_libraries(Rhythm glad::glad imgui::imgui glfw gdi32 opengl32 pthread portaudio)

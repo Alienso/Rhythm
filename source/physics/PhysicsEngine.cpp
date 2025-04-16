@@ -21,8 +21,8 @@ void PhysicsEngine::onUpdate(float deltaTime) {
         }
         entity->onGround = false;
 
-        if (entity->pos.y - (entity->sprite.scale.y) <= -1.0f && entity->movementVec.y <= 0) {
-            entity->moveTo(entity->pos.x, -1.0f + (entity->sprite.scale.y));
+        if (entity->pos().y - (entity->sprite.scale.y) <= -1.0f && entity->movementVec.y <= 0) {
+            entity->moveTo(entity->pos().x, -1.0f + (entity->sprite.scale.y));
             entity->movementVec.y = 0;
             entity->onGround = true;
         }
@@ -31,8 +31,8 @@ void PhysicsEngine::onUpdate(float deltaTime) {
             entity->movementVec.y = 10;
         }
 
-        entity->previousPos = entity->pos;
-        glm::vec2 nextPos = { entity->pos.x + entity->movementVec.x * entity->speedModifier * deltaTime, entity->pos.y + entity->movementVec.y * deltaTime};
+        entity->previousPos = entity->pos();
+        glm::vec2 nextPos = { entity->pos().x + entity->movementVec.x * entity->speedModifier * deltaTime, entity->pos().y + entity->movementVec.y * deltaTime};
         AxisAlignedBB nextCollisionBox = entity->collisionBB;
         nextCollisionBox.translate({entity->movementVec.x * entity->speedModifier * deltaTime, entity->movementVec.y * deltaTime});
 

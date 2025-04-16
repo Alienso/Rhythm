@@ -105,7 +105,7 @@ void Rhythm::renderImGui(){
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
     //ImGui::SliderFloat("AnimationSpeed", (float*)&Global::player->stateMachine.animationSpeed, 0, 1);
     ImGui::Text("Score: %d", Level::score);
-    ImGui::Text("Player Pos: %.2f %.2f", entityManager->player.pos.x, entityManager->player.pos.y);
+    ImGui::Text("Player Pos: %.2f %.2f", entityManager->player.pos().x, entityManager->player.pos().y);
     //ImGui::Text("Player BB: minX: %.2f, maxX: %.2f, minY: %.2f, maxY: %.2f", entityManager->player.collisionBB.minX, entityManager->player.collisionBB.maxX, entityManager->player.collisionBB.minY, entityManager->player.collisionBB.maxY);
     ImGui::Text("OnGround: %d", Global::player->onGround);
 
