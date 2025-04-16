@@ -96,7 +96,7 @@ void Level::onRender() {
 }
 
 void Level::onUpdate(float deltaTime) {
-    //background.translate((Global::player->pos.x - Global::player->previousPos.x) * 0.1f);
+
 }
 
 void Level::increaseScore(unsigned int amount, float scoreMultiplier) {
