@@ -24,15 +24,16 @@ public:
     static inline int score = 0;
     float tileScale;
 
-private:
-    std::vector<SpriteInstanced> tileSprites;
     ParallaxTexture background{ {"resource/texture/background/ParallaxMountain/sky.png",
                                  "resource/texture/background/ParallaxMountain/far-clouds.png",
                                  "resource/texture/background/ParallaxMountain/near-clouds.png",
                                  "resource/texture/background/ParallaxMountain/far-mountains.png",
                                  "resource/texture/background/ParallaxMountain/mountains.png",
                                  "resource/texture/background/ParallaxMountain/trees.png"},
-                                 {0.1f, 0.3f, 0.5f, 0.6f, 0.6f, 1.0f} };
+                                {0.1f, 0.3f, 0.5f, 0.6f, 0.6f, 1.0f} };
+
+private:
+    std::vector<SpriteInstanced> tileSprites;
 
 private:
     void load(const char* path, std::unordered_map<unsigned int, TilePositions>& sprites);

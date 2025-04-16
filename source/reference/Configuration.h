@@ -18,6 +18,8 @@ public:
     static unsigned int comboDecayAmount; //per second
     static float comboDecayDelay; //in seconds
 
+    static float cameraDeadZone;
+
     Configuration()= default;
 };
 

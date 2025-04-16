@@ -157,6 +157,7 @@ void Rhythm::init() {
     Global::camera = new Camera();
 
     level = new Level("resource/level/1.lvl");
+    Global::currentLevel = level;
 }
 
 void Rhythm::mainLoop() {
