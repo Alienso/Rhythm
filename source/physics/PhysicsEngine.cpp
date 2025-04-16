@@ -127,11 +127,6 @@ void PhysicsEngine::onUpdate(float deltaTime) {
         }
 
         entity->moveTo(nextPos.x, nextPos.y);
-
-        if (entity->pos.x > Configuration::aspectRatio)
-            entity->moveTo(Configuration::aspectRatio, entity->pos.y);
-        if (entity->pos.x < -Configuration::aspectRatio)
-            entity->moveTo(-Configuration::aspectRatio, entity->pos.y);
     }
 }
 

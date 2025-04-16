@@ -10,6 +10,7 @@ out vec2 TexCoord;
 uniform vec2 translation;
 uniform float rotation;
 uniform vec2 scale;
+uniform vec2 cameraOffset;
 
 uniform uint row;
 uniform uint rowMax;
@@ -18,6 +19,7 @@ uniform uint columnMax;
 
 uniform bool invertTex;
 uniform float time;
+
 
 void main(){
 
@@ -41,7 +43,7 @@ void main(){
 
     mat3 transformationMatrix = aspectFix * translationMatrix * rotationMatrix * scaleMatrix;
 
-    gl_Position = vec4(transformationMatrix * vec3(aPos, 1.0f), 1.0f);
+    gl_Position = vec4(transformationMatrix * vec3(aPos, 1.0f), 1.0f) - vec4( aspectFix * vec3(cameraOffset, 0.0f), 0.0f);
 
     if (invertTex){
 	    TexCoord = vec2((float(column) - aTexCoord.x + 1.0) / columnMax, (float(rowMax - 1 - row) + aTexCoord.y) / rowMax);

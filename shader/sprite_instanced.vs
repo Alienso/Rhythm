@@ -8,7 +8,9 @@ layout(binding = 0) uniform Matrices {
 
 out vec2 TexCoord;
 
+uniform vec2 cameraOffset;
+
 void main(){
-    gl_Position = vec4(aspectFix * vec3( aPos + aOffset, 1.0f), 1.0);
+    gl_Position = vec4(aspectFix * vec3( aPos + aOffset, 1.0f), 1.0) - vec4( aspectFix * vec3(cameraOffset, 0.0f), 0.0f);
     TexCoord = aTexCoord;
 }

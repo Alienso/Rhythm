@@ -6,6 +6,7 @@
 #include "render/Shader.h"
 #include "reference/Reference.h"
 #include "render/buffer/GlBufferWrapperInstanced.h"
+#include "reference/Global.h"
 
 SpriteInstanced::SpriteInstanced() {
 
@@ -25,6 +26,7 @@ void SpriteInstanced::onRender() const {
     glBufferWrapperInstanced.va.bind();
 
     shader->setInt("texture1", 0);
+    shader->setVec2("cameraOffset", Global::camera->getOffset());
     glDrawArraysInstanced(GL_TRIANGLES, 0, 6, instanceCount);
 }
 

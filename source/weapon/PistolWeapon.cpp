@@ -35,11 +35,12 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
         Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, soundStrength);
     }
 
-    RayTraceResult rayTraceResult = RayTracer::rayTrace(sprite.translate, Global::cursor->translate);
+    RayTraceResult rayTraceResult = RayTracer::rayTrace(sprite.translate, Global::cursor->translate + Global::camera->getOffset());
 
     auto trans = Particles::REVOLVER_SHOOT->getDefaultTransformations();
     if (rayTraceResult.hitType != HIT_TYPE_MISS){
-        glm::vec2 offset = {(rayTraceResult.hitPoint.x - sprite.translate.x) / 2.0f, (rayTraceResult.hitPoint.y - sprite.translate.y) / 2.0};
+        glm::vec2 offset = {(rayTraceResult.hitPoint.x - sprite.translate.x) / 2.0f,
+                            (rayTraceResult.hitPoint.y - sprite.translate.y) / 2.0};
         trans.scale = {0.05, rayTraceResult.distance / 2.0};
         trans.translation = sprite.translate + offset;
         trans.rotation = sprite.rotation - (float) M_PI / 2.0f;

@@ -7,7 +7,7 @@
 
 
 #include <vector>
-#include "entity/Particle.h"
+#include "render/sprite/Particle.h"
 
 class ParticleManager {
 public:

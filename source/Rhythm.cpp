@@ -154,6 +154,7 @@ void Rhythm::init() {
     Global::tileManager = &tileManager;
     Global::cursor = &uiRenderer->getCursor();
     Global::physicsEngine = physicsEngine;
+    Global::camera = new Camera();
 
     level = new Level("resource/level/1.lvl");
 }
@@ -184,6 +185,7 @@ void Rhythm::mainLoop() {
         particleManager->onUpdate(diff);
         entityManager->onUpdate(diff);
         level->onUpdate(diff);
+        Global::camera->onUpdate(diff);
 
         level->onRender();
         entityManager->onRender();
@@ -204,6 +206,8 @@ void Rhythm::cleanup() {
     delete soundEngine;
     delete entityManager;
     delete level;
+
+    delete Global::camera;
 
     RhythmMultiplier::cleanUp();
     BeatOffset::cleanUp();

@@ -13,7 +13,9 @@ class Camera {
 public:
     Camera();
 
+    void onUpdate(float deltaTime);
     [[nodiscard]] const glm::vec2& getOffset() const;
+    void setOffset(float x, float y);
 
 private:
     glm::vec2 viewOffset = {0,0};

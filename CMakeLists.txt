@@ -59,7 +59,7 @@ add_executable(Rhythm main.cpp
         source/sound/SoundEngine.cpp source/sound/SoundEngine.h
         source/sound/Sound.cpp source/sound/Sound.h
         source/sound/filter/LpFilter.cpp source/sound/filter/LpFilter.h
-        source/entity/Particle.cpp source/entity/Particle.h
+        source/render/sprite/Particle.cpp source/render/sprite/Particle.h
         source/manager/ParticleManager.cpp source/manager/ParticleManager.h
         source/manager/EntityManager.cpp source/manager/EntityManager.h
         source/entity/enemy/Nightmare.cpp source/entity/enemy/Nightmare.h

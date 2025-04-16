@@ -8,6 +8,7 @@
 #include "entity/Entity.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "reference/Global.h"
 
 Sprite::Sprite(Texture* tex) : texture(tex) {
 
@@ -37,6 +38,7 @@ void Sprite::onRender() const {
     else shader->setVec2("translation", translate);
     shader->setFloat("rotation", rotation);
     shader->setVec2("scale", scale);
+    shader->setVec2("cameraOffset", Global::camera->getOffset());
     shader->setUInt("column", stateMachine.getAnimationState());
     shader->setUInt("columnMax", stateMachine.getTextureWidth());
     shader->setUInt("row", stateMachine.getState());

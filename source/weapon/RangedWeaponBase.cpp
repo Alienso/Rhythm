@@ -11,7 +11,8 @@ RangedWeaponBase::RangedWeaponBase(Texture *texture) : sprite(texture) {
 
 void RangedWeaponBase::onUpdate(float deltaTime, glm::vec2& playerPos) {
     sprite.translate = {playerPos.x, playerPos.y + 0.1};
-    sprite.rotation = std::atan2((Global::cursor->translate.y - sprite.translate.y), (Global::cursor->translate.x - sprite.translate.x));
+    sprite.rotation = std::atan2(Global::cursor->translate.y - (sprite.translate.y - Global::camera->getOffset().y),
+                                 Global::cursor->translate.x - (sprite.translate.x - Global::camera->getOffset().x));
 
     if (attackCD > 0){
         attackCD-=deltaTime;

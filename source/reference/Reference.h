@@ -10,7 +10,7 @@
 #include "render/Texture.h"
 #include "render/Shader.h"
 #include "sound/Sound.h"
-#include "entity/Particle.h"
+#include "render/sprite/Particle.h"
 #include "level/Tile.h"
 
 class Textures{

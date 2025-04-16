@@ -22,6 +22,10 @@ UiRenderer::UiRenderer() {
 }
 
 void UiRenderer::onRender() {
+
+    glm::vec2 cameraCopy = Global::camera->getOffset();
+    Global::camera->setOffset(0, 0);
+
     //draw Mouse
     Shader *shader = Shaders::SPRITE_STATIC;
     shader->use();
@@ -31,6 +35,7 @@ void UiRenderer::onRender() {
     shader->setVec2("translation", cursor.translate);
     shader->setFloat("rotation", cursor.rotation);
     shader->setVec2("scale", cursor.scale);
+    shader->setVec2("cameraOffset", {0, 0});
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     multiplierFlame.onRender();
@@ -41,7 +46,10 @@ void UiRenderer::onRender() {
     shader->setVec2("translation", multiplierFrame.translate);
     shader->setFloat("rotation", multiplierFrame.rotation);
     shader->setVec2("scale", multiplierFrame.scale);
+    shader->setVec2("cameraOffset", {0, 0});
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    Global::camera->setOffset(cameraCopy.x, cameraCopy.y);
 
     if (showCollisionBoxes)
         renderCollisionBoxes();

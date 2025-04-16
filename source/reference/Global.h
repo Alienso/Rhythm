@@ -11,6 +11,7 @@
 #include "manager/ParticleManager.h"
 #include "physics/PhysicsEngine.h"
 #include "manager/EntityManager.h"
+#include "Camera.h"
 
 class Global{
 public:
@@ -18,6 +19,7 @@ public:
 
     static inline Player* player = nullptr; // TODO maybe use player directly from Entity Manager
     static inline Sprite* cursor = nullptr;
+    static inline Camera* camera = nullptr;
 
     static inline AssetManager<Tile>* tileManager = nullptr;
     static inline EntityManager* entityManger = nullptr;
