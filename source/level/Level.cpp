@@ -65,6 +65,7 @@ void Level::load(const char * path, std::unordered_map<unsigned int, TilePositio
     tileScale = scale;
 
     //Normalize offsets
+    //TODO 1st column is offscreen
     for(auto& entry : sprites) {
         for (auto &position: entry.second.positions) {
             position.x += entry.second.tile->offset.x;
@@ -99,5 +100,5 @@ void Level::onUpdate(float deltaTime) {
 }
 
 void Level::increaseScore(unsigned int amount, float scoreMultiplier) {
-    score+= amount * Global::player->getRhythmMultiplier()->score * scoreMultiplier;
+    score += amount * Global::player->getRhythmMultiplier()->score * scoreMultiplier;
 }

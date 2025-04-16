@@ -5,7 +5,7 @@
 #include "InputHandler.h"
 #include "reference/Configuration.h"
 #include "reference/Global.h"
-#include "entity/SpriteStates.h"
+#include "render/sprite/SpriteStates.h"
 #include "Rhythm.h"
 
 #include <GLFW/glfw3.h>

@@ -12,7 +12,7 @@
 #include "render/buffer/GlBufferWrapper.h"
 
 #include "reference/Configuration.h"
-#include "entity/SpriteStateMachine.h"
+#include "SpriteStateMachine.h"
 
 inline float quadVertices[] = {
         // positions // texture Coords

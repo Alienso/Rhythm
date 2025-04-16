@@ -48,11 +48,11 @@ add_executable(Rhythm main.cpp
         source/level/Level.cpp source/level/Level.h
         source/reference/Configuration.cpp source/reference/Configuration.h
         source/InputHandler.cpp source/InputHandler.h
-        source/entity/Sprite.cpp source/entity/Sprite.h
+        source/render/sprite/Sprite.cpp source/render/sprite/Sprite.h
         source/reference/Reference.cpp source/reference/Reference.h
-        source/entity/SpriteStateMachine.cpp source/entity/SpriteStateMachine.h
+        source/render/sprite/SpriteStateMachine.cpp source/render/sprite/SpriteStateMachine.h
         source/physics/PhysicsEngine.cpp source/physics/PhysicsEngine.h
-        source/entity/SpriteStates.h
+        source/render/sprite/SpriteStates.h
         source/entity/Entity.cpp source/entity/Entity.h
         source/render/UiRenderer.cpp source/render/UiRenderer.h
         source/entity/Player.cpp source/entity/Player.h
@@ -68,13 +68,13 @@ add_executable(Rhythm main.cpp
         source/entity/EntityLiving.cpp source/entity/EntityLiving.h
         source/physics/AxisAlignedBB.cpp source/physics/AxisAlignedBB.h
         source/render/ParallaxTexture.cpp source/render/ParallaxTexture.h
-        source/entity/SpriteInstanced.cpp source/entity/SpriteInstanced.h
+        source/render/sprite/SpriteInstanced.cpp source/render/sprite/SpriteInstanced.h
         source/render/buffer/GlBufferWrapperInstanced.cpp source/render/buffer/GlBufferWrapperInstanced.h
         source/physics/RayTrace.cpp source/physics/RayTrace.h
         source/weapon/RangedWeaponBase.cpp source/weapon/RangedWeaponBase.h
         source/weapon/PistolWeapon.cpp source/weapon/PistolWeapon.h
         source/sound/BeatOffset.cpp source/sound/BeatOffset.h
-        source/level/Tile.cpp source/level/Tile.h)
+        source/level/Tile.cpp source/level/Tile.h source/Camera.cpp source/Camera.h)
 
 if (WIN32)
     target_link_libraries(Rhythm glad::glad imgui::imgui glfw gdi32 opengl32 pthread portaudio)

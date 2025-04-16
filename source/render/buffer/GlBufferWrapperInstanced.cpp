@@ -3,7 +3,7 @@
 //
 
 #include "GlBufferWrapperInstanced.h"
-#include "entity/Sprite.h"
+#include "render/sprite/Sprite.h"
 
 #include <cstring>
 

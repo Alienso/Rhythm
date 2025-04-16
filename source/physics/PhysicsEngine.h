@@ -6,7 +6,7 @@
 #define RHYTHM_PHYSICSENGINE_H
 
 
-#include "entity/Sprite.h"
+#include "render/sprite/Sprite.h"
 #include "entity/Entity.h"
 
 class PhysicsEngine {

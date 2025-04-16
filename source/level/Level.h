@@ -6,10 +6,10 @@
 #define RHYTHM_LEVEL_H
 
 
-#include "entity/Sprite.h"
+#include "render/sprite/Sprite.h"
 #include "reference/Reference.h"
 #include "render/ParallaxTexture.h"
-#include "entity/SpriteInstanced.h"
+#include "render/sprite/SpriteInstanced.h"
 #include "Tile.h"
 
 class Level {

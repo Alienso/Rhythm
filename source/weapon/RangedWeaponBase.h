@@ -8,7 +8,7 @@
 
 #include <glm/vec2.hpp>
 #include "sound/Sound.h"
-#include "entity/Sprite.h"
+#include "render/sprite/Sprite.h"
 #include "sound/BeatOffset.h"
 
 class RangedWeaponBase {

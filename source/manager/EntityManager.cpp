@@ -10,9 +10,8 @@ EntityManager::EntityManager() : player() {
     Global::entityManger = this;
     entitiesToDeSpawn.reserve(5);
 
-
-    auto* nightmare = new Nightmare();
-    loadedEntities.push_back(nightmare);
+    /*auto* nightmare = new Nightmare();
+    loadedEntities.push_back(nightmare);*/
 }
 
 EntityManager::~EntityManager() {

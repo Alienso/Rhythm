@@ -5,7 +5,7 @@
 #ifndef RHYTHM_PARTICLE_H
 #define RHYTHM_PARTICLE_H
 
-#include "Sprite.h"
+#include "render/sprite/Sprite.h"
 
 class ParticleInstance;
 

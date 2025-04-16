@@ -5,7 +5,7 @@
 #include "Sprite.h"
 #include "render/Shader.h"
 #include "reference/Reference.h"
-#include "Entity.h"
+#include "entity/Entity.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 

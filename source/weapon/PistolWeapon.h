@@ -7,7 +7,7 @@
 
 
 #include "RangedWeaponBase.h"
-#include "entity/Sprite.h"
+#include "render/sprite/Sprite.h"
 #include "reference/Reference.h"
 #include "entity/Entity.h"
 

@@ -3,7 +3,7 @@
 //
 
 #include "EntityLiving.h"
-#include "SpriteStates.h"
+#include "render/sprite/SpriteStates.h"
 #include "reference/Global.h"
 #include "level/Level.h"
 

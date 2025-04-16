@@ -8,7 +8,7 @@
 
 #include "Entity.h"
 #include "entity/ai/AiTaskBase.h"
-#include "SpriteStates.h"
+#include "render/sprite/SpriteStates.h"
 #include "sound/BeatOffset.h"
 
 #include <array>

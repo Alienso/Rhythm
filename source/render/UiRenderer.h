@@ -6,7 +6,7 @@
 #define RHYTHM_UIRENDERER_H
 
 
-#include "entity/Sprite.h"
+#include "render/sprite/Sprite.h"
 #include "reference/Reference.h"
 
 class UiRenderer {

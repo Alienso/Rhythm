@@ -6,7 +6,7 @@
 #define RHYTHM_ENTITY_H
 
 
-#include "Sprite.h"
+#include "render/sprite/Sprite.h"
 #include "physics/AxisAlignedBB.h"
 
 class Entity{

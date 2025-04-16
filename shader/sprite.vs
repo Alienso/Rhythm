@@ -17,11 +17,11 @@ uniform uint column;
 uniform uint columnMax;
 
 uniform bool invertTex;
-
 uniform float time;
 
 void main(){
 
+    //TODO dont calculate this here but try pass it
 	mat3 translationMatrix;
 	translationMatrix[0] = vec3(1,0,0);
 	translationMatrix[1] = vec3(0,1,0);
