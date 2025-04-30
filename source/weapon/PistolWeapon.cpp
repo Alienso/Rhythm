@@ -5,6 +5,7 @@
 #include "PistolWeapon.h"
 #include "reference/Global.h"
 #include "physics/RayTrace.h"
+#include <cmath>
 
 PistolWeapon::PistolWeapon() : RangedWeaponBase(Textures::PISTOL) {
     sprite.scale = {0.025, 0.025};
@@ -12,6 +13,10 @@ PistolWeapon::PistolWeapon() : RangedWeaponBase(Textures::PISTOL) {
     mist.sprite.stateMachine = SpriteStateMachine(1, 15);
     mist.sprite.stateMachine.setTexturesCount({15});
     mist.sprite.stateMachine.animationSpeed = 1.2f;
+}
+
+PistolWeapon::~PistolWeapon() {
+
 }
 
 void PistolWeapon::onRender() const {

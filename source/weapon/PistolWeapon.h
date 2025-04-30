@@ -14,6 +14,8 @@
 class PistolWeapon : public RangedWeaponBase {
 public:
     PistolWeapon();
+    ~PistolWeapon() override;
+
     void onAttack(BeatOffset* beatOffset) override;
 
     void onRender() const override;

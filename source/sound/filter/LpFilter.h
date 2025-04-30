@@ -5,6 +5,8 @@
 #ifndef RHYTHM_LPFILTER_H
 #define RHYTHM_LPFILTER_H
 
+#include <cmath>
+
 class LpFilter {
 
 public:

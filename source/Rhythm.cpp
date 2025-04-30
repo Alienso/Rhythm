@@ -20,7 +20,6 @@
 #include "sound/BeatOffset.h"
 
 #include <iostream>
-#include <unistd.h>
 
 void scrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
 
@@ -56,7 +55,7 @@ void Rhythm::initGlfw(){
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSwapInterval(1);
 
-    GLFWimage images[1];
+    GLFWimage images[1] = { GLFWimage{} };
     images[0].pixels = stbi_load("resource/icon.png", &images[0].width, &images[0].height, nullptr, 4); //rgba channels
     glfwSetWindowIcon(window, 1, images);
     stbi_image_free(images[0].pixels);

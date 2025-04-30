@@ -13,6 +13,8 @@
 
 class RangedWeaponBase {
 public:
+    virtual ~RangedWeaponBase();
+
     virtual void onUpdate(float deltaTime, glm::vec2& playerPos);
     virtual void onRender() const;
 
@@ -24,7 +26,7 @@ protected:
     float attackCD = 0.0;
     float baseAttackCD = 0.2f;
     float comboPointsIncrease = 20.0f;
-    int damage = 1.0f;
+    int damage = 1;
     float soundStrength = 0.6f;
 
     Sprite sprite;
