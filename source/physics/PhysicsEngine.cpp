@@ -27,7 +27,7 @@ void PhysicsEngine::onUpdate(float deltaTime) {
             entity->onGround = true;
         }
 
-        if (abs(entity->movementVec.y) > 10){
+        if (glm::abs(entity->movementVec.y) > 10){
             entity->movementVec.y = 10;
         }
 
@@ -53,7 +53,7 @@ void PhysicsEngine::onUpdate(float deltaTime) {
                 float vy = v.y;
 
                 bool shouldContinue = true;
-                if (abs(vy) < 0.002 && vy != 0){
+                if (glm::abs(vy) < 0.002 && vy != 0){
                     float sign;
                     if (vy > 0){
                         sideHit = SIDE_BOTTOM;
@@ -70,7 +70,7 @@ void PhysicsEngine::onUpdate(float deltaTime) {
                     entity->movementVec.y = 0; //TODO
                     shouldContinue = false;
                 }
-                if (abs(vx) < 0.002 && vx != 0){
+                if (glm::abs(vx) < 0.002 && vx != 0){
                     float sign;
                     if (vx > 0){
                         sideHit = SIDE_LEFT;
@@ -91,8 +91,8 @@ void PhysicsEngine::onUpdate(float deltaTime) {
                     continue;
                 }
 
-                float t1 = abs(vx) < eps ? 9999 : abs(xDiff / vx);
-                float t2 = abs(vy) < eps ? 9999 : abs(yDiff / vy);
+                float t1 = glm::abs(vx) < eps ? 9999 : glm::abs(xDiff / vx);
+                float t2 = glm::abs(vy) < eps ? 9999 : glm::abs(yDiff / vy);
                 float t = t1 < t2 ? t1 : t2;
 
                 glm::vec2 moveVec = -t * glm::vec2{vx, vy}; //using (-vx * deltaTime) allows movement while this blocks it
