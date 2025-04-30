@@ -5,7 +5,7 @@
 #ifndef RHYTHM_LPFILTER_H
 #define RHYTHM_LPFILTER_H
 
-#include <cmath>
+#include <glm/ext/scalar_constants.hpp>
 
 class LpFilter {
 
@@ -13,7 +13,7 @@ public:
     static int16_t process(int16_t input);
 
     static constexpr float Wc = 0.01f; // cutoff frequency in rad/s
-    static inline float K = std::tan(M_PI * Wc);
+    static inline float K = std::tan(glm::pi<float>() * Wc);
     static inline float norm = 1 / (K*K*K + 2*K*K + 2*K + 1);
 
     static inline float a0 = K*K*K*norm;

@@ -5,7 +5,6 @@
 #include "PistolWeapon.h"
 #include "reference/Global.h"
 #include "physics/RayTrace.h"
-#include <cmath>
 
 PistolWeapon::PistolWeapon() : RangedWeaponBase(Textures::PISTOL) {
     sprite.scale = {0.025, 0.025};
@@ -48,10 +47,10 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
                             (rayTraceResult.hitPoint.y - sprite.translate.y) / 2.0};
         trans.scale = {0.05, rayTraceResult.distance / 2.0};
         trans.translation = sprite.translate + offset;
-        trans.rotation = sprite.rotation - (float) M_PI / 2.0f;
+        trans.rotation = sprite.rotation - (float) glm::pi<float>() / 2.0f;
     } else {
         trans.translation = {sprite.translate.x, sprite.translate.y}; //TODO
-        trans.rotation = sprite.rotation - (float) M_PI / 2.0f;
+        trans.rotation = sprite.rotation - (float) glm::pi<float>() / 2.0f;
         trans.scale = {0.05, 2.0};
     }
 
