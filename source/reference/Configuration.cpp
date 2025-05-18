@@ -13,4 +13,4 @@ float Configuration::masterVolume = 1.0f;
 float Configuration::comboDecayDelay = 2.0f;
 unsigned int Configuration::comboDecayAmount = 10;
 
-float Configuration::cameraDeadZone = 0.5;
+float Configuration::cameraDeadZone = 0.25;

@@ -31,7 +31,7 @@ Texture::Texture(const char *path, int type) : width(0), height(0), bytesPerPixe
         stbi_image_free(data);
     }
     else{
-        std::cout << "Failed to load texture: " << path << '\n';
+        std::cout << "Failed to loadTiles texture: " << path << '\n';
     }
 }
 

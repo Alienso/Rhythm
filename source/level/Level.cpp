@@ -5,6 +5,7 @@
 #include "Level.h"
 #include "reference/Reference.h"
 #include "reference/Global.h"
+#include "LevelLoader.h"
 
 #include <fstream>
 
@@ -12,10 +13,9 @@
 Level::Level(const char* path) {
 
     std::unordered_map<unsigned int, TilePositions> tiles;
-    load(path, tiles);
+    loadTiles(path, tiles);
 
-    //merge nearby tiles to one physics object
-
+    //TODO merge nearby tiles to one physics object
     //add those objects to physics engine
     for (auto& entry: tiles){
         glm::vec2 scaleVec = {tileScale * entry.second.tile->scale.x, tileScale * entry.second.tile->scale.y};
@@ -29,37 +29,30 @@ Level::Level(const char* path) {
             }
         }*/ //TODO
     }
+
+    LevelLoader::loadRooms(path, rooms);
 }
 
-void Level::load(const char * path, std::unordered_map<unsigned int, TilePositions>& sprites) {
+Level::~Level() {
+    Global::physicsEngine->deleteAllCollisionBoxes();
+
+    tileScale = 0.0f;
+    tileSprites.clear();
+
+    //TODO maybe delete all except player?
+    for (const Room& room : rooms)
+        for (const Weave& weave : room.weaves)
+            for (const Spawn& spawn : weave.spawns)
+                Global::entityManger->scheduleDeSpawn(spawn.entity, 0.0f);
+    currentRoomIndex = 0;
+    rooms.clear();
+}
+
+void Level::loadTiles(const char * path, std::unordered_map<unsigned int, TilePositions>& sprites) {
 
     //Load level data from file
-    std::ifstream inputFile(path);
-    std::string line;
-
-    size_t startIndex, endIndex;
     size_t nRows = 0;
-
-    for(int i=0; std::getline(inputFile, line); i++){
-        startIndex = 0;
-        for(int j=0;;j++) {
-            endIndex = line.find(';', startIndex);
-            if (endIndex == startIndex) {
-                startIndex = endIndex + 1;
-                continue;
-            }
-
-            if (endIndex == std::string::npos) break;
-            unsigned int id = std::stoi(line.substr(startIndex, endIndex - startIndex));
-            startIndex = endIndex + 1;
-
-            Tile* tile = Global::tileManager->getAsset(id);
-            if (sprites.find(id) == sprites.end())
-                sprites[id] = TilePositions{tile};
-            sprites[id].positions.emplace_back(j, i);
-        }
-        nRows++;
-    }
+    LevelLoader::loadGeometryData(path, sprites, nRows);
 
     float scale = 2.0f/(float)nRows;
     tileScale = scale;
@@ -77,6 +70,7 @@ void Level::load(const char * path, std::unordered_map<unsigned int, TilePositio
             position.y *= -1;
         }
     }
+
 
     //Create sprites
     unsigned int i=0;
@@ -96,9 +90,17 @@ void Level::onRender() {
 }
 
 void Level::onUpdate(float deltaTime) {
-
+    if (false){ //TODO
+        this->currentRoomIndex++;
+    }
+    Room& currentRoom = getCurrentRoom();
+    currentRoom.onUpdate(deltaTime);
 }
 
 void Level::increaseScore(unsigned int amount, float scoreMultiplier) {
     score += amount * Global::player->getRhythmMultiplier()->score * scoreMultiplier;
+}
+
+Room &Level::getCurrentRoom() {
+    return rooms[currentRoomIndex];
 }

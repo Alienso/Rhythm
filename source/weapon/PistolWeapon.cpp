@@ -12,6 +12,8 @@ PistolWeapon::PistolWeapon() : RangedWeaponBase(Textures::PISTOL) {
     mist.sprite.stateMachine = SpriteStateMachine(1, 15);
     mist.sprite.stateMachine.setTexturesCount({15});
     mist.sprite.stateMachine.animationSpeed = 1.2f;
+
+    damage = 10;
 }
 
 PistolWeapon::~PistolWeapon() {

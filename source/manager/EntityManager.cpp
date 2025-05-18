@@ -68,6 +68,8 @@ void EntityManager::updateEntitiesToDeSpawn(float deltaTime) {
             EntityLiving* copy = entitiesToDeSpawn[i].entity;
             entitiesToDeSpawn.erase(entitiesToDeSpawn.begin() + (int)i);
             Global::physicsEngine->deleteEntity(copy);
+            Global::currentLevel->getCurrentRoom().getCurrentWeave().enemiesLeft--; //TODO?
+            assert(Global::currentLevel->getCurrentRoom().getCurrentWeave().enemiesLeft >= 0);
             delete copy;
             break;
         }

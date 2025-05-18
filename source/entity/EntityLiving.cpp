@@ -61,7 +61,7 @@ void EntityLiving::damage(int amount, BeatOffset* beatOffset) {
     if (health <= 0) {
         if (isAlive){
             sprite.stateMachine.changeState(STATE_DEATH);
-            Global::entityManger->scheduleDeSpawn(this);
+            Global::entityManger->scheduleDeSpawn(this, 0);
             Level::increaseScore(scoreValue, beatOffset->scoreMultiplier);
         }
         health = 0;

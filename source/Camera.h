@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 16.4.2025..
+// Created by Alienson on 16.4.2025.
 //
 
 #ifndef RHYTHM_CAMERA_H

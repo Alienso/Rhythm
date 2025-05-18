@@ -27,9 +27,9 @@ public:
 
     Player player;
     std::vector<EntityLiving*> loadedEntities;
-    std::vector<EntityDeSpawn> entitiesToDeSpawn;
 private:
     float onUpdateTimer = 0.0;
+    std::vector<EntityDeSpawn> entitiesToDeSpawn;
 
     void updateEntitiesToDeSpawn(float deltaTime);
 

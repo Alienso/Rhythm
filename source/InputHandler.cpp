@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 21.4.2024..
+// Created by Alienson on 21.4.2024.
 //
 
 #include "InputHandler.h"
@@ -39,8 +39,8 @@ void InputHandler::processMouseInput() {
         glfwSetCursorPos(app->window, xpos, ypos);
     }
 
-    float xoffset = xpos - app->uiRenderer->previousCursorPos.x;
-    float yoffset = ypos - app->uiRenderer->previousCursorPos.y;
+    float xoffset = (float)xpos - app->uiRenderer->previousCursorPos.x;
+    float yoffset = (float)ypos - app->uiRenderer->previousCursorPos.y;
     app->uiRenderer->previousCursorPos.x = app->uiRenderer->getCursor().translate.x;
     app->uiRenderer->previousCursorPos.y = app->uiRenderer->getCursor().translate.y;
 

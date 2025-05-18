@@ -151,3 +151,7 @@ void PhysicsEngine::registerCollisionBox(AxisAlignedBB box) {
 const std::vector<AxisAlignedBB> &PhysicsEngine::getCollisionBoxes() const {
     return collisionBoxes;
 }
+
+void PhysicsEngine::deleteAllCollisionBoxes() {
+    collisionBoxes.clear();
+}

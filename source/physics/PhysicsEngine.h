@@ -18,6 +18,7 @@ public:
     void registerEntity(Entity* entity);
     void deleteEntity(Entity* entity);
     void registerCollisionBox(AxisAlignedBB box);
+    void deleteAllCollisionBoxes();
 
     [[nodiscard]] const std::vector<AxisAlignedBB>& getCollisionBoxes() const;
 

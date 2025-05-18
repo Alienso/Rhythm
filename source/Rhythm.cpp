@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 1.8.2024..
+// Created by Alienson on 1.8.2024.
 //
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -155,7 +155,7 @@ void Rhythm::init() {
     Global::physicsEngine = physicsEngine;
     Global::camera = new Camera();
 
-    level = new Level("resource/level/1.lvl");
+    level = new Level("resource/level/1");
     Global::currentLevel = level;
 }
 
@@ -200,12 +200,12 @@ void Rhythm::mainLoop() {
 }
 
 void Rhythm::cleanup() {
+    delete level; //WARN this has to be cleared before entity manager since both delete from entity manager, so we get double free
     delete inputHandler;
     delete uiRenderer;
     delete physicsEngine;
     delete soundEngine;
     delete entityManager;
-    delete level;
 
     delete Global::camera;
 
