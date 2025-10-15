@@ -16,7 +16,7 @@ public:
     PhysicsEngine();
     void onUpdate(float deltaTime);
     void registerEntity(Entity* entity);
-    void deleteEntity(Entity* entity);
+    void removeEntity(Entity* entity);
     void registerCollisionBox(AxisAlignedBB box);
     void deleteAllCollisionBoxes();
 

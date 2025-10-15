@@ -18,7 +18,6 @@ struct Spawn{
 
 class Weave {
 public:
-    Weave();
     Weave(float startDelay, int minEnemiesAlive, std::vector<Spawn>& spawns);
 
     void spawnNext();
@@ -27,7 +26,7 @@ public:
     float startDelay = 0;
     int minEnemiesAliveForNext = 0;
     int enemiesLeft = 0;
-    std::vector<Spawn> spawns; //This has to be sorted by spawn delay asc!
+    std::vector<Spawn> spawns;
 
 private:
     unsigned int currentSpawnIndex = 0;

@@ -2,27 +2,22 @@
 // Created by Alienson on 20.4.2025..
 //
 
+#include <algorithm>
+
 #include "Weave.h"
-#include "entity/enemy/Nightmare.h"
 #include "reference/Global.h"
+
+static int sortBySpawnDelay(const Spawn& x, const Spawn& y){
+    return x.spawnDelay < y.spawnDelay;
+}
 
 Spawn::Spawn(glm::vec2 pos, EntityLiving *entity, float spawnDelay) : pos(pos), entity(entity), spawnDelay(spawnDelay) {
 
 }
 
-Weave::Weave() {
-    /*startDelay = 2.0f;
-    minEnemiesAliveForNext = 0;
-    spawns.emplace_back(glm::vec2{1.0, 0.0}, new Nightmare(), 0.5f);
-    spawns.emplace_back(glm::vec2{0.0, 0.0}, new Nightmare(), 1.5f);*/
-
+Weave::Weave(float startDelay, int minEnemiesAlive, std::vector<Spawn> &spawns) : startDelay(startDelay), minEnemiesAliveForNext(minEnemiesAlive), spawns(spawns) {
     enemiesLeft = (int)spawns.size();
-}
-
-Weave::Weave(float startDelay, int minEnemiesAlive, std::vector<Spawn> &spawns) : startDelay(startDelay),
-    minEnemiesAliveForNext(minEnemiesAlive), spawns(spawns) {
-
-    enemiesLeft = (int)spawns.size();
+    std::sort(spawns.begin(), spawns.end(), sortBySpawnDelay);
 }
 
 void Weave::spawnNext() {

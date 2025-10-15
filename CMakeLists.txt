@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.23)
 
-#set(CMAKE_TOOLCHAIN_FILE ${ENV}/scripts/buildsystems/vcpkg.cmake)
+#In Clion + MinGW pass this to cmake
+#-DCMAKE_TOOLCHAIN_FILE="C:/Program Files/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-mingw-clion
+#Where x64-mingw-clion is a custom triplet provided in scripts.
 if (WIN32)
     set(VCPKG_TARGET_TRIPLET x64-mingw-dynamic)
     set(VCPKG_HOST_TRIPLET x64-mingw-dynamic)

@@ -74,7 +74,7 @@ void LevelLoader::loadRooms(const char *path, std::vector<Room> &rooms) {
                 int entityId;
                 int read = sscanf(line.c_str(), "    { %f, %f, %d, %f },", &posX, &posY, &entityId, &spawnDelay);
                 assert(read == 4);
-                spawns.emplace_back(glm::vec2{posX, posY}, new Nightmare(), spawnDelay); //TODO
+                spawns.emplace_back(glm::vec2{posX, posY}, new Nightmare(), spawnDelay); //TODO entityId?
             }while(std::getline(inputFile, line));
         }
 

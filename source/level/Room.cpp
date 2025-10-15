@@ -6,9 +6,7 @@
 #include <GLFW/glfw3.h>
 
 Room::Room() {
-    /*weaves.emplace_back(Weave{});
-    weaves.emplace_back(Weave{});
-    currentWeaveIndex = 0;*/
+    currentWeaveIndex = 0;
     currentWeaveStartTime = lastWeaveClearTime = (float)glfwGetTime();
 }
 

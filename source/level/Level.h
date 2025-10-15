@@ -25,7 +25,7 @@ public:
     static void increaseScore(unsigned int amount, float scoreMultiplier);
 
     static inline int score = 0;
-    float tileScale;
+    float tileScale = 1.0;
     ParallaxTexture background{ {"resource/texture/background/ParallaxMountain/sky.png",
                                  "resource/texture/background/ParallaxMountain/far-clouds.png",
                                  "resource/texture/background/ParallaxMountain/near-clouds.png",

@@ -134,7 +134,7 @@ void PhysicsEngine::registerEntity(Entity *entity) {
     entities.push_back(entity);
 }
 
-void PhysicsEngine::deleteEntity(Entity *entity) {
+void PhysicsEngine::removeEntity(Entity *entity) {
     for (size_t i=0; i<entities.size(); i++){
         if (entities[i] == entity){
             entities.erase(entities.begin() + (int)i);

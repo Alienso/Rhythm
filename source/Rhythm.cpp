@@ -200,7 +200,7 @@ void Rhythm::mainLoop() {
 }
 
 void Rhythm::cleanup() {
-    delete level; //WARN this has to be cleared before entity manager since both delete from entity manager, so we get double free
+    delete level; //WARN this has to be cleared before entity manager since both delete from entity manager, so we don't get double free
     delete inputHandler;
     delete uiRenderer;
     delete physicsEngine;
