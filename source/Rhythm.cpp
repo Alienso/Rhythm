@@ -159,6 +159,7 @@ void Rhythm::init() {
     Global::currentLevel = level;
 }
 
+// TODO move sound to separate thread. In case of high load, it starts to sound very wrong
 void Rhythm::mainLoop() {
 
     lastTime = (float)glfwGetTime();
@@ -172,9 +173,6 @@ void Rhythm::mainLoop() {
 
         auto now = (float)glfwGetTime();
         float diff = now - lastTime;
-        if (diff > 0.1f){ //Physics start acting wierd on frame-rates lower than this
-            diff = 0.006f;
-        }
 
         inputHandler->processKeyboardInput(diff);
         inputHandler->processMouseClickInput();

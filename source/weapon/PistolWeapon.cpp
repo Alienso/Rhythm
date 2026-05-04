@@ -38,7 +38,7 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
         Global::soundEngine->play(Sounds::BEAT_MISS);
         Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, soundStrength * 0.25f);
     } else {
-        Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, soundStrength);
+        Global::soundEngine->play(Sounds::BEAT, soundStrength);
     }
 
     RayTraceResult rayTraceResult = RayTracer::rayTrace(sprite.translate, Global::cursor->translate + Global::camera->getOffset());
