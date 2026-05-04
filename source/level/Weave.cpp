@@ -17,6 +17,11 @@ Spawn::Spawn(glm::vec2 pos, EntityLiving *entity, float spawnDelay) : pos(pos), 
 
 Weave::Weave(float startDelay, int minEnemiesAlive, std::vector<Spawn> &spawns) : startDelay(startDelay), minEnemiesAliveForNext(minEnemiesAlive), spawns(spawns) {
     enemiesLeft = (int)spawns.size();
+    /* TODO
+     * With minEnemiesAliveForNext > 0, the weave can end while some enemies haven't spawned yet.
+     * POST_WEAVE then force-spawns them. Those untracked enemies die → decrement next weave's counter (Bug 1 amplified).
+     * Not a problem with your current .room file (minEnemiesAliveForNext = 0) but breaks with any other value.
+     */
     std::sort(spawns.begin(), spawns.end(), sortBySpawnDelay);
 }
 

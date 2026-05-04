@@ -30,7 +30,7 @@ class Player : public EntityLiving{
 
 public:
     Player();
-    ~Player() override = default;
+    ~Player(); //TODO remove this once weapons are deleted from elsewhere
 
     void onUpdate(float deltaTime) override;
     void onRender() const override;
@@ -41,7 +41,8 @@ public:
     [[nodiscard]] RhythmMultiplier* getRhythmMultiplier() const;
     [[nodiscard]] RhythmMultiplier* getNextRhythmMultiplier() const;
 
-    RangedWeaponBase* weapon = new PistolWeapon();
+    //TODO Instance weapons somewhere else and then delete it from there
+    RangedWeaponBase* currentWeapon = new PistolWeapon();
 
 protected:
     void rebuildCollisionBoxes() override;

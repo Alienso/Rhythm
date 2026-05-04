@@ -12,7 +12,8 @@ std::array<RhythmMultiplier*, 5> RhythmMultiplier::levels = { new RhythmMultipli
                                                             new RhythmMultiplier(4,8,600),
                                                             new RhythmMultiplier(8,16,900) };
 
-RhythmMultiplier::RhythmMultiplier(unsigned short damage, unsigned short score, unsigned int comboPointsRequired) : damage(damage), score(score), comboPointsRequired(comboPointsRequired){
+RhythmMultiplier::RhythmMultiplier(unsigned short damage, unsigned short score, unsigned int comboPointsRequired)
+    : damage(damage), score(score), comboPointsRequired(comboPointsRequired){
 
 }
 
@@ -40,18 +41,22 @@ Player::Player() : EntityLiving(Textures::BIKER) {
 
 }
 
+Player::~Player() {
+    delete currentWeapon; //TODO remove this once weapons are deleted from elsewhere
+}
+
 void Player::onUpdate(float deltaTime) {
     EntityLiving::onUpdate(deltaTime);
-    weapon->onUpdate(deltaTime, pos_);
+    currentWeapon->onUpdate(deltaTime, pos_);
+    comboDecayTimer -= deltaTime;
     if (comboDecayTimer <= 0) {
-        comboDecayTimer -= deltaTime;
         adjustComboPoints(-((float) Configuration::comboDecayAmount * deltaTime));
     }
 }
 
 void Player::onRender() const {
     Entity::onRender();
-    weapon->onRender();
+    currentWeapon->onRender();
 }
 
 void Player::rebuildCollisionBoxes() {
@@ -61,11 +66,11 @@ void Player::rebuildCollisionBoxes() {
 }
 
 bool Player::canAttack() const {
-    return weapon->canAttack();
+    return currentWeapon->canAttack();
 }
 
 void Player::attack(BeatOffset* beatOffset) {
-    weapon->onAttack(beatOffset);
+    currentWeapon->onAttack(beatOffset);
 }
 
 void Player::adjustComboPoints(float value) {

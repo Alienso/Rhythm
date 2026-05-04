@@ -8,6 +8,12 @@
 Room::Room() {
     currentWeaveIndex = 0;
     currentWeaveStartTime = lastWeaveClearTime = (float)glfwGetTime();
+    /*
+     * TODO
+     * Room is constructed during LevelLoader::loadRooms. If loading takes longer than startDelay (2.0s from your file), the very first PRE_WEAVE check:
+     * if (timeNow - lastWeaveClearTime > currentWeave.startDelay)
+     * passes immediately on the first frame, skipping the intended delay.
+     */
 }
 
 void Room::onUpdate(float deltaTime) {
@@ -30,12 +36,25 @@ void Room::onUpdate(float deltaTime) {
 
             break;
         case POST_WEAVE:
+
+            /*
+             * This case has an issue
+             *
+             * currentWeave is bound at function entry to weaves[currentWeaveIndex].
+             * Force-spawning is correct. But when those force-spawned enemies die later, EntityManager does:
+             *          Global::currentLevel->getCurrentRoom().getCurrentWeave().enemiesLeft--;
+             * By that point currentWeaveIndex already points to the next weave.
+             * So deaths from force-spawned enemies decrement the wrong weave's enemiesLeft, potentially triggering the next weave to end before it even starts.
+             * Fix: Track which weave an entity belongs to at spawn time and use that for decrement, OR don't force-spawn remaining enemies — just clear them.
+             *
+             */
+
             while (currentWeave.getNextSpawn() != nullptr)
-                currentWeave.spawnNext();
+                currentWeave.spawnNext(); // spawns from OLD weave
             status = PRE_WEAVE;
 
             if (currentWeaveIndex + 1 < weaves.size())
-                currentWeaveIndex++;
+                currentWeaveIndex++; // THEN advances to next weave
             else status = ROOM_FINISHED;
 
             break;

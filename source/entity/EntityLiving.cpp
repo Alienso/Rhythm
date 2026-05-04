@@ -38,9 +38,12 @@ void EntityLiving::updateAiTasks(float deltaTime) {
             if (task->shouldExecute()){
                 currentTask = task;
                 currentTask->startExecuting();
+                break;
             }
         }
     }
+
+    assert(currentTask != nullptr);
 
     if (currentTask->shouldContinueExecuting()){
         currentTask->updateTask(deltaTime);

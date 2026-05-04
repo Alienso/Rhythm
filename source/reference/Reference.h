@@ -43,6 +43,7 @@ public:
 
 class Sounds{
 public:
+    static inline Sound* BEAT;
     static inline Sound* BEAT_MISS;
     static inline Sound* MTYN;
     static inline Sound* DISSOLUTION;

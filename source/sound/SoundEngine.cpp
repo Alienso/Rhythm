@@ -43,7 +43,7 @@ void SoundEngine::onUpdate(float deltaTime){
         if (sound != nullptr){
             if(!Pa_IsStreamActive( sound->paStream )){
                 stop(sound);
-                if (sound == currentSong) currentSong = nullptr;
+                if (sound == currentSong) currentSong = nullptr; //TODO we can't leave this as nullptr
                 delete sound;
                 sound = nullptr;
             }
@@ -113,6 +113,10 @@ void SoundEngine::stop(SoundInstance* sound) {
 void SoundEngine::pause(SoundInstance* sound) {
 }
 
+// TODO need a function for getting exact offset in millis. Also does this logic belong here? Getting diff is correct,
+//  but converting it to BeatOffsetEnum seems like application wide logic.
+//  When beat occurs there should be event that. There also needs to be a guarantee that same beat is not processed twice
+//  Maybe add a time frame for each beat and compare with that?
 BeatOffset* SoundEngine::getBeatOffset() const {
     //TODO next/previous beat can be calculated from one, no need to calculate both
     unsigned long nextBeat = currentSong->getNextBeatOffset();
