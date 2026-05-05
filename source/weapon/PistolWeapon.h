@@ -16,10 +16,12 @@ public:
     PistolWeapon();
     ~PistolWeapon() override;
 
-    void onAttack(BeatOffset* beatOffset) override;
+    RayTraceResult onAttack(BeatOffset* beatOffset) override;
 
     void onRender() const override;
     void onUpdate(float deltaTime, glm::vec2 &playerPos) override;
+
+    [[nodiscard]] Sound* getShootSound() const override;
 
 private:
     Entity mist{Textures::MIST};

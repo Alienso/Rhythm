@@ -10,6 +10,7 @@
 #include "sound/Sound.h"
 #include "render/sprite/Sprite.h"
 #include "sound/BeatOffset.h"
+#include "physics/RayTrace.h"
 
 class WeaponBase {
 public:
@@ -17,9 +18,11 @@ public:
 
     virtual void onUpdate(float deltaTime, glm::vec2& playerPos);
     virtual void onRender() const;
+    virtual RayTraceResult onAttack(BeatOffset* beatOffset);
 
+    [[nodiscard]] virtual Sound* getShootSound() const = 0;
     [[nodiscard]] bool canAttack() const;
-    virtual void onAttack(BeatOffset* beatOffset) = 0;
+
 protected:
     explicit WeaponBase(Texture* texture);
 

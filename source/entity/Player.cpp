@@ -60,8 +60,8 @@ void Player::adjustComboPoints(float value) {
         resetBeatDecayTimer();
     if (comboPoints < 0)
         comboPoints = 0;
-    else if (comboPoints > RhythmMultiplier::getMaxComboPoints())
-        comboPoints = RhythmMultiplier::getMaxComboPoints();
+    else if (comboPoints > (float)RhythmMultiplier::getMaxComboPoints())
+        comboPoints = (float)RhythmMultiplier::getMaxComboPoints();
     if ((unsigned int)comboPoints < getCurrentRhythmMultiplier()->comboPointsRequired) { //If points drop below min
         if (rhythmMultiplierIndex > 0)
             rhythmMultiplierIndex--;

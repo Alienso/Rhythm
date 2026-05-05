@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 22.3.2025..
+// Created by Alienson on 22.3.2025.
 //
 
 #include "PistolWeapon.h"
@@ -30,22 +30,10 @@ void PistolWeapon::onUpdate(float deltaTime, glm::vec2 &playerPos) {
     mist.sprite.translate = sprite.translate;
 }
 
-void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more generic and put some common code in base class
+RayTraceResult PistolWeapon::onAttack(BeatOffset* beatOffset) {
 
-    attackCD = baseAttackCD;
+    RayTraceResult rayTraceResult = WeaponBase::onAttack(beatOffset);
 
-    if (beatOffset == BeatOffset::MISS) {
-        //Global::soundEngine->play(Sounds::BEAT_MISS);
-        Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, soundStrength * 0.25f);
-        //TODO this logic should be applied inside player not inside weapon
-        Global::player->adjustComboPoints(-comboPointsIncrease);
-    } else {
-        Global::soundEngine->play(Sounds::BEAT, soundStrength);
-    }
-
-    RayTraceResult rayTraceResult = RayTracer::rayTrace(sprite.translate, Global::cursor->translate + Global::camera->getOffset());
-
-    //TODO refactor this
     auto trans = Particles::REVOLVER_SHOOT->getDefaultTransformations();
     if (rayTraceResult.hitType != HIT_TYPE_MISS){
         glm::vec2 offset = {(rayTraceResult.hitPoint.x - sprite.translate.x) / 2.0f,
@@ -54,16 +42,16 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
         trans.translation = sprite.translate + offset;
         trans.rotation = sprite.rotation - (float) glm::pi<float>() / 2.0f;
     } else {
-        trans.translation = {sprite.translate.x, sprite.translate.y}; //TODO
+        trans.translation = {sprite.translate.x, sprite.translate.y};
         trans.rotation = sprite.rotation - (float) glm::pi<float>() / 2.0f;
         trans.scale = {0.05, 2.0};
     }
 
     Global::particleManager->spawnParticle(Particles::REVOLVER_SHOOT, trans);
 
-    if (rayTraceResult.hitType == HIT_TYPE_ENTITY) {
-        rayTraceResult.entityHit->damage(damage, beatOffset);
-        //TODO this logic should be applied inside player not inside weapon
-        Global::player->adjustComboPoints(comboPointsIncrease * beatOffset->comboMultiplier);
-    }
+    return rayTraceResult;
+}
+
+Sound *PistolWeapon::getShootSound() const {
+    return Sounds::BEAT;
 }
