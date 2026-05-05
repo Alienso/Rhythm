@@ -13,7 +13,7 @@
 
 #include <array>
 
-class EntityLiving : public Entity{
+class EntityLiving : public Entity {
 
 public:
     explicit EntityLiving(Texture *texture);

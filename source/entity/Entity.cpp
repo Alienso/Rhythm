@@ -30,7 +30,7 @@ void Entity::moveTo(float x, float y) {
     rebuildCollisionBoxes();
 }
 
-void Entity::move(float x, float y) {
+void Entity::moveBy(float x, float y) {
     pos_.x += x;
     pos_.y += y;
     rebuildCollisionBoxes();

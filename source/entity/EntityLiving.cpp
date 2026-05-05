@@ -58,7 +58,7 @@ void EntityLiving::damage(int amount, BeatOffset* beatOffset) {
     if (invincibilityTime > 0)
         return;
 
-    health -= amount * Global::player->getRhythmMultiplier()->damage * beatOffset->damageMultiplier;
+    health -= amount * Global::player->getCurrentRhythmMultiplier()->damageMultiplier * beatOffset->damageMultiplier;
     sprite.stateMachine.changeState(commonStates[STATE_HURT]);
     invincibilityTime = 0.5f;
     if (health <= 0) {

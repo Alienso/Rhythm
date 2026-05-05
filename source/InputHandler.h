@@ -6,6 +6,8 @@
 #define VOXEL_INPUTHANDLER_H
 
 
+#include <glm/vec2.hpp>
+
 class GLFWwindow;
 class Rhythm;
 
@@ -18,6 +20,7 @@ public:
 
 private:
     Rhythm* app;
+    glm::vec2 previousCursorPos = {0,0};
 };
 
 

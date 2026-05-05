@@ -65,7 +65,7 @@ public:
 
 protected:
     Texture* texture = nullptr;
-    Entity* parent = nullptr; //TODO
+    Entity* parent = nullptr;
     GlBufferWrapper glBufferWrapper{quadVertices, sizeof(quadVertices) / sizeof(float)};
 };
 

@@ -9,7 +9,7 @@
 
 SpriteStateMachine::SpriteStateMachine() {
     startTime = (float)glfwGetTime();
-    textureCountForState.push_back(1);
+    textureCountForStates.push_back(1);
 }
 
 SpriteStateMachine::SpriteStateMachine(unsigned int stateCount, unsigned int textureWidth) : stateCount(stateCount), textureWidth(textureWidth) {
@@ -31,12 +31,12 @@ unsigned int SpriteStateMachine::getStateCount() const {
     return stateCount;
 }
 
-unsigned int SpriteStateMachine::getAnimationState() const {
-    return (unsigned int)(((float)glfwGetTime() - startTime) / (animationSpeed / (float)textureCountForState[state])) % textureCountForState[state];
+unsigned int SpriteStateMachine::getAnimationFrame() const {
+    return (unsigned int)(((float)glfwGetTime() - startTime) / (animationSpeed / (float)textureCountForStates[state])) % textureCountForStates[state];
 }
 
 void SpriteStateMachine::setTexturesCount(std::vector<unsigned int> textureCount) {
-    this->textureCountForState = std::move(textureCount);
+    this->textureCountForStates = std::move(textureCount);
 }
 
 unsigned int SpriteStateMachine::getTextureWidth() const {

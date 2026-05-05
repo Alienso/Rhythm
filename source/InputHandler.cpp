@@ -39,16 +39,17 @@ void InputHandler::processMouseInput() {
         glfwSetCursorPos(app->window, xpos, ypos);
     }
 
-    float xoffset = (float)xpos - app->uiRenderer->previousCursorPos.x;
-    float yoffset = (float)ypos - app->uiRenderer->previousCursorPos.y;
-    app->uiRenderer->previousCursorPos.x = app->uiRenderer->getCursor().translate.x;
-    app->uiRenderer->previousCursorPos.y = app->uiRenderer->getCursor().translate.y;
+    float xoffset = (float)xpos - previousCursorPos.x;
+    float yoffset = (float)ypos - previousCursorPos.y;
+    previousCursorPos.x = app->uiRenderer->getCursor().translate.x;
+    previousCursorPos.y = app->uiRenderer->getCursor().translate.y;
 
     xoffset *= Configuration::mouseSensitivity * Configuration::aspectRatio;
     yoffset *= Configuration::mouseSensitivity * Configuration::aspectRatio;
 
-    glm::vec2 newPos = { (app->uiRenderer->previousCursorPos.x + xoffset) / (float)Configuration::windowWidth,
-                         (app->uiRenderer->previousCursorPos.y - yoffset) / (float)Configuration::windowHeight };
+    glm::vec2 newPos = { (previousCursorPos.x + xoffset) / (float)Configuration::windowWidth,
+                         (previousCursorPos.y - yoffset) / (float)Configuration::windowHeight };
+
     app->uiRenderer->getCursor().translate = newPos;
 
 }
@@ -101,13 +102,13 @@ void InputHandler::processKeyboardInput(double deltaTime) {
     }
     if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (player.onGround) {
-            player.movementVec.y = 3.5f; //TODO parametrize
+            player.movementVec.y = Configuration::jumpStrength;
             player.onGround = false;
             player.sprite.stateMachine.changeState(PLAYER_JUMP);
         }
     }else if (glfwGetKey(app->window, GLFW_KEY_SPACE) == GLFW_RELEASE){
-        if (player.movementVec.y > 0)
-            player.movementVec.y /= 3;
+        if (player.movementVec.y > 0) //This does need to occur only once
+            player.movementVec.y /= Configuration::jumpBounciness;
     }
     if (player.onGround){
         if (player.movementVec.x == 0 && player.movementVec.y == 0)

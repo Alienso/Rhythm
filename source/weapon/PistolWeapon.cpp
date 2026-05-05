@@ -35,7 +35,7 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
     attackCD = baseAttackCD;
 
     if (beatOffset == BeatOffset::MISS) {
-        Global::soundEngine->play(Sounds::BEAT_MISS);
+        //Global::soundEngine->play(Sounds::BEAT_MISS);
         Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, soundStrength * 0.25f);
     } else {
         Global::soundEngine->play(Sounds::BEAT, soundStrength);
@@ -43,6 +43,7 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
 
     RayTraceResult rayTraceResult = RayTracer::rayTrace(sprite.translate, Global::cursor->translate + Global::camera->getOffset());
 
+    //TODO refactor this
     auto trans = Particles::REVOLVER_SHOOT->getDefaultTransformations();
     if (rayTraceResult.hitType != HIT_TYPE_MISS){
         glm::vec2 offset = {(rayTraceResult.hitPoint.x - sprite.translate.x) / 2.0f,

@@ -11,7 +11,7 @@
 bool UiRenderer::showCollisionBoxes = false;
 
 UiRenderer::UiRenderer() {
-    cursor.scale = {0.025,0.025};
+    cursor.scale = {0.025 * Configuration::cursorScale,0.025 * Configuration::cursorScale};
 
     multiplierFrame.translate = {0.0, 0.8};
     multiplierFrame.scale = {0.15,0.15};
@@ -23,7 +23,7 @@ UiRenderer::UiRenderer() {
 
 void UiRenderer::onRender() {
 
-    glm::vec2 cameraCopy = Global::camera->getOffset();
+    glm::vec2 cameraOffsetCopy = Global::camera->getOffset();
     Global::camera->setOffset(0, 0);
 
     //draw Mouse
@@ -38,8 +38,10 @@ void UiRenderer::onRender() {
     shader->setVec2("cameraOffset", {0, 0});
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
+    //draw multiplier flame
     multiplierFlame.onRender();
 
+    //draw multiplier frame
     shader->use();
     multiplierFrame.bind();
     shader->setInt("texture1", 0);
@@ -49,7 +51,7 @@ void UiRenderer::onRender() {
     shader->setVec2("cameraOffset", {0, 0});
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    Global::camera->setOffset(cameraCopy.x, cameraCopy.y);
+    Global::camera->setOffset(cameraOffsetCopy.x, cameraOffsetCopy.y);
 
     if (showCollisionBoxes)
         renderCollisionBoxes();

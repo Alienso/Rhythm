@@ -5,7 +5,7 @@
 #include "Particle.h"
 
 Particle::Particle(Texture *texture, unsigned int animationStates, AffineTransformations &transformations, float lifeTime)
-            : texture(texture), affineTransformations(transformations), animationStates(animationStates),lifetime(lifeTime) {
+            : texture(texture), affineTransformations(transformations), animationStates(animationStates), lifetime(lifeTime) {
 
 }
 
@@ -22,15 +22,15 @@ ParticleInstance::ParticleInstance(Particle *particle, AffineTransformations& tr
     rotation = trans.rotation;
     scale = trans.scale;
 
-    stateMachine = SpriteStateMachine(1,particle->animationStates); //TODO depending on animation states and lifetime, increase or decrease animation speed
+    stateMachine = SpriteStateMachine(1, particle->animationStates); //TODO depending on animation states and lifetime, increase or decrease animation speed
     stateMachine.setTexturesCount({particle->animationStates});
 }
 
 void ParticleInstance::revive(Particle *particle, AffineTransformations& trans, float lifeTime) { //TODO this will not work if Particle type changes
     this->particle = particle;
-    if (lifeTime > 0) {
+    if (lifeTime > 0)
         this->lifetime = lifeTime;
-    }else
+    else
         this->lifetime = particle->lifetime;
 
     translate = trans.translation;

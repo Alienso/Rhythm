@@ -1,8 +1,9 @@
 //
-// Created by Alienson on 22.3.2025..
+// Created by Alienson on 22.3.2025.
 //
 
 #include "BeatOffset.h"
+#include "reference/Configuration.h"
 
 BeatOffset* BeatOffset::MISS = new BeatOffset(0.25f, 0, 0.25f);
 BeatOffset* BeatOffset::GOOD = new BeatOffset(1.0f, 1.0f, 1.0f);
@@ -13,9 +14,9 @@ BeatOffset::BeatOffset(float damageMultiplier, float comboMultiplier, float scor
 }
 
 BeatOffset *BeatOffset::from(float beatOffset) {
-    if (beatOffset < 0.01)
+    if (beatOffset < Configuration::allowedBeatOffsetPerfect)
         return PERFECT;
-    else if (beatOffset < 0.1)
+    else if (beatOffset < Configuration::allowedBeatOffsetGood)
         return GOOD;
     else return MISS;
 }

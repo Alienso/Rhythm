@@ -9,9 +9,9 @@
 
 class ParticleInstance;
 
-class Particle{
+class Particle {
 public:
-    explicit Particle(Texture* texture, unsigned int animationStates, AffineTransformations& transformations, float lifetime);
+    Particle(Texture* texture, unsigned int animationStates, AffineTransformations& transformations, float lifetime);
 
     [[nodiscard]] AffineTransformations getDefaultTransformations() const;
 
@@ -24,7 +24,7 @@ private:
 
 };
 
-class ParticleInstance : public Sprite{
+class ParticleInstance : public Sprite {
 public:
     explicit ParticleInstance(Particle* particle, AffineTransformations& trans, float lifeTime = 0.0);
     void revive(Particle* particle, AffineTransformations& trans, float lifeTime = 0); //TODO maybe not allow different particle type

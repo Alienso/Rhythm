@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 16.4.2024..
+// Created by Alienson on 16.4.2024.
 //
 
 #ifndef INC_3DTEST_ASSETMANAGER_H
@@ -14,8 +14,8 @@ public:
 
     AssetManager() = default;
     ~AssetManager(){
-        for (auto tex : assetsMap){
-            delete tex.second;
+        for (auto &asset : assetsMap){
+            delete asset.second;
         }
     }
 

@@ -23,10 +23,10 @@ public:
     [[nodiscard]] const std::vector<AxisAlignedBB>& getCollisionBoxes() const;
 
 private:
-    std::vector<Entity*> entities;
-    std::vector<AxisAlignedBB> collisionBoxes; //for terrain
+    std::vector<Entity*> physicsEntities;
+    std::vector<AxisAlignedBB> terrainCollisionBoxes;
 
-    const float gravityStrengthBase = 9.81f;
+    void limitEntitySpeed(Entity *entity);
 };
 
 

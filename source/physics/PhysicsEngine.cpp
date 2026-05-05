@@ -13,19 +13,16 @@ void PhysicsEngine::onUpdate(float deltaTime) {
 
     static const float eps = 0.000001f;
 
-    for (Entity* entity : entities) {
+    for (Entity* entity : physicsEntities) {
         if (!entity->onGround) {
-            float gravityStr = gravityStrengthBase;
+            float gravityStr = Configuration::gravityStrength;
             if (entity->movementVec.y < 0.0f)
-                gravityStr *= 1.5f;
+                gravityStr *= Configuration::gravityFallMultiplier;
             entity->movementVec.y -= gravityStr * deltaTime;
         }
         entity->onGround = false;
 
-        if (entity->movementVec.y < -10.0f)
-            entity->movementVec.y = -10.0f;
-        if (entity->movementVec.y > 10.0f)
-            entity->movementVec.y = 10.0f;
+        limitEntitySpeed(entity);
 
         entity->previousPos = entity->pos();
 
@@ -35,7 +32,7 @@ void PhysicsEngine::onUpdate(float deltaTime) {
         // X pass
         AxisAlignedBB bbX = entity->collisionBB;
         bbX.translate({dx, 0.0f});
-        for (const AxisAlignedBB& box : collisionBoxes) {
+        for (const AxisAlignedBB& box : terrainCollisionBoxes) {
             if (!box.intersects(bbX)) continue;
             float xDiff = (box.getWidth() + bbX.getWidth())
                           - std::max(bbX.maxX - box.minX, box.maxX - bbX.minX);
@@ -52,7 +49,7 @@ void PhysicsEngine::onUpdate(float deltaTime) {
         // Y pass
         AxisAlignedBB bbY = bbX;
         bbY.translate({0.0f, dy});
-        for (const AxisAlignedBB& box : collisionBoxes) {
+        for (const AxisAlignedBB& box : terrainCollisionBoxes) {
             if (!box.intersects(bbY)) continue;
             float xDiff = (box.getWidth() + bbY.getWidth())
                           - std::max(bbY.maxX - box.minX, box.maxX - bbY.minX);
@@ -73,13 +70,13 @@ void PhysicsEngine::onUpdate(float deltaTime) {
 }
 
 void PhysicsEngine::registerEntity(Entity *entity) {
-    entities.push_back(entity);
+    physicsEntities.push_back(entity);
 }
 
 void PhysicsEngine::removeEntity(Entity *entity) {
-    for (size_t i=0; i<entities.size(); i++){
-        if (entities[i] == entity){
-            entities.erase(entities.begin() + (int)i);
+    for (size_t i=0; i < physicsEntities.size(); i++){
+        if (physicsEntities[i] == entity){
+            physicsEntities.erase(physicsEntities.begin() + (int)i);
             return;
         }
     }
@@ -87,13 +84,24 @@ void PhysicsEngine::removeEntity(Entity *entity) {
 }
 
 void PhysicsEngine::registerCollisionBox(AxisAlignedBB box) {
-    collisionBoxes.push_back(box);
+    terrainCollisionBoxes.push_back(box);
 }
 
 const std::vector<AxisAlignedBB> &PhysicsEngine::getCollisionBoxes() const {
-    return collisionBoxes;
+    return terrainCollisionBoxes;
 }
 
 void PhysicsEngine::deleteAllCollisionBoxes() {
-    collisionBoxes.clear();
+    terrainCollisionBoxes.clear();
+}
+
+void PhysicsEngine::limitEntitySpeed(Entity *entity) {
+    if (entity->movementVec.y < -Configuration::maxYSpeed)
+        entity->movementVec.y = -Configuration::maxYSpeed;
+    if (entity->movementVec.y > Configuration::maxYSpeed)
+        entity->movementVec.y = Configuration::maxYSpeed;
+    if (entity->movementVec.x < -Configuration::maxXSpeed)
+        entity->movementVec.x = -Configuration::maxXSpeed;
+    if (entity->movementVec.x > Configuration::maxXSpeed)
+        entity->movementVec.x = Configuration::maxXSpeed;
 }

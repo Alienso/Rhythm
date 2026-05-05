@@ -8,7 +8,7 @@
 #include "entity/Player.h"
 
 //TODO
-struct EntityDeSpawn{
+struct EntityDeSpawn {
     EntityDeSpawn(EntityLiving* entityLiving, float timeToLive) : entity(entityLiving), timeToLive(timeToLive){}
     EntityLiving* entity;
     float timeToLive;
@@ -28,7 +28,6 @@ public:
     Player player;
     std::vector<EntityLiving*> loadedEntities;
 private:
-    float onUpdateTimer = 0.0;
     std::vector<EntityDeSpawn> entitiesToDeSpawn;
 
     void updateEntitiesToDeSpawn(float deltaTime);

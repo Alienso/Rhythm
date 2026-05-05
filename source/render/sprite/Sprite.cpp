@@ -34,12 +34,11 @@ void Sprite::onRender() const {
     shader->use();
     bind();
     shader->setInt("texture1", 0);
-    if (parent != nullptr) shader->setVec2("translation", translate + parent->pos());
-    else shader->setVec2("translation", translate);
+    shader->setVec2("translation", parent != nullptr ? translate + parent->pos() : translate);
     shader->setFloat("rotation", rotation);
     shader->setVec2("scale", scale);
     shader->setVec2("cameraOffset", Global::camera->getOffset());
-    shader->setUInt("column", stateMachine.getAnimationState());
+    shader->setUInt("column", stateMachine.getAnimationFrame());
     shader->setUInt("columnMax", stateMachine.getTextureWidth());
     shader->setUInt("row", stateMachine.getState());
     shader->setUInt("rowMax", stateMachine.getStateCount());

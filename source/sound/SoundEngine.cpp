@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 11.8.2024..
+// Created by Alienson on 11.8.2024.
 //
 
 #include "SoundEngine.h"
@@ -40,13 +40,13 @@ void SoundEngine::onUpdate(float deltaTime){
     onUpdateTimer = 1.0f;
 
     for (auto & sound : soundsPlaying){
-        if (sound != nullptr){
-            if(!Pa_IsStreamActive( sound->paStream )){
-                stop(sound);
-                if (sound == currentSong) currentSong = nullptr; //TODO we can't leave this as nullptr
-                delete sound;
-                sound = nullptr;
-            }
+        if (sound == nullptr)
+            continue;
+        if(!Pa_IsStreamActive( sound->paStream )){
+            stop(sound);
+            if (sound == currentSong) currentSong = nullptr; //TODO we can't leave this as nullptr
+            delete sound;
+            sound = nullptr;
         }
     }
 }

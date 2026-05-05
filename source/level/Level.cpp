@@ -98,7 +98,7 @@ void Level::onUpdate(float deltaTime) {
 }
 
 void Level::increaseScore(unsigned int amount, float scoreMultiplier) {
-    score += amount * Global::player->getRhythmMultiplier()->score * scoreMultiplier;
+    score += amount * Global::player->getCurrentRhythmMultiplier()->scoreMultiplier * scoreMultiplier;
 }
 
 Room &Level::getCurrentRoom() {

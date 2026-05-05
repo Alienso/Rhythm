@@ -12,25 +12,15 @@
 #include "weapon/PistolWeapon.h"
 #include "sound/BeatOffset.h"
 
-class Rhythm;
+#include "gameplay/RhythmMultiplier.h"
 
-class RhythmMultiplier{
-public:
-    RhythmMultiplier(unsigned short damage, unsigned short score, unsigned int comboPointsRequired);
-    static void cleanUp();
+class Rhythm; //For debugging purposes
 
-    unsigned short damage;
-    unsigned short score;
-    unsigned int comboPointsRequired;
-
-    static std::array<RhythmMultiplier*, 5> levels;
-};
-
-class Player : public EntityLiving{
+class Player : public EntityLiving {
 
 public:
     Player();
-    ~Player(); //TODO remove this once weapons are deleted from elsewhere
+    ~Player() override; //TODO remove this once weapons are deleted from elsewhere
 
     void onUpdate(float deltaTime) override;
     void onRender() const override;
@@ -38,7 +28,7 @@ public:
     [[nodiscard]] bool canAttack() const;
     void attack(BeatOffset* beatOffset);
     void adjustComboPoints(float value);
-    [[nodiscard]] RhythmMultiplier* getRhythmMultiplier() const;
+    [[nodiscard]] RhythmMultiplier* getCurrentRhythmMultiplier() const;
     [[nodiscard]] RhythmMultiplier* getNextRhythmMultiplier() const;
 
     //TODO Instance weapons somewhere else and then delete it from there
@@ -52,9 +42,9 @@ private:
     float comboPoints = 0.0f;
     unsigned int rhythmMultiplierIndex = 0;
 
-    void resetBeatDecay();
+    void resetBeatDecayTimer();
 
-    friend Rhythm;
+    friend Rhythm; //For debugging purposes
 
 };
 

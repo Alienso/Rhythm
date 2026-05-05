@@ -15,7 +15,7 @@ Nightmare::Nightmare() : EntityLiving(Textures::NIGHTMARE) {
     sprite.stateMachine.setTexturesCount({4,4,4});
     sprite.stateMachine.animationSpeed = 0.7f;
 
-    rebuildCollisionBoxes();
+    rebuildCollisionBoxes(); //TODO make this 2 phase initialization because this will call base impl
 
     speedModifier = 0.5f;
 

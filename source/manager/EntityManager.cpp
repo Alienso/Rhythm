@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 21.8.2024..
+// Created by Alienson on 21.8.2024.
 //
 
 #include "EntityManager.h"
@@ -9,9 +9,6 @@
 EntityManager::EntityManager() : player() {
     Global::entityManger = this;
     entitiesToDeSpawn.reserve(5);
-
-    /*auto* nightmare = new Nightmare();
-    loadedEntities.push_back(nightmare);*/
 }
 
 EntityManager::~EntityManager() {
@@ -26,8 +23,6 @@ void EntityManager::spawnEntity(EntityLiving *entity) {
 
 void EntityManager::onUpdate(float deltaTime) {
 
-    //TODO make entity updates less frequent?
-    // TODO these are all pointers, so this is slow.
     for (auto& entity: loadedEntities){
         entity->onUpdate(deltaTime);
     }
@@ -35,13 +30,6 @@ void EntityManager::onUpdate(float deltaTime) {
     updateEntitiesToDeSpawn(deltaTime);
 
     player.onUpdate(deltaTime);
-
-    if (onUpdateTimer > 0){
-        onUpdateTimer-=deltaTime;
-        return;
-    }
-    onUpdateTimer = 1.0f;
-
 }
 
 void EntityManager::onRender() const {
@@ -58,20 +46,28 @@ void EntityManager::scheduleDeSpawn(EntityLiving *entity, float time) {
 void EntityManager::updateEntitiesToDeSpawn(float deltaTime) {
     for (size_t i = 0; i < entitiesToDeSpawn.size(); i++){
         entitiesToDeSpawn[i].timeToLive -= deltaTime;
-        if (entitiesToDeSpawn[i].timeToLive <= 0){
-            for (size_t j = 0; j<loadedEntities.size(); j++ ){
-                if (loadedEntities[j] == entitiesToDeSpawn[i].entity){
-                    loadedEntities.erase(loadedEntities.begin() + (int)j);
-                    break;
-                }
-            }
-            EntityLiving* copy = entitiesToDeSpawn[i].entity;
-            entitiesToDeSpawn.erase(entitiesToDeSpawn.begin() + (int)i);
-            Global::physicsEngine->removeEntity(copy);
-            Global::currentLevel->getCurrentRoom().getCurrentWeave().enemiesLeft--; //TODO?
-            assert(Global::currentLevel->getCurrentRoom().getCurrentWeave().enemiesLeft >= 0);
-            delete copy;
-            break;
+        if (entitiesToDeSpawn[i].timeToLive > 0) {
+            continue;
         }
+
+        for (size_t j = 0; j < loadedEntities.size(); j++) {
+            if (loadedEntities[j] == entitiesToDeSpawn[i].entity) {
+                loadedEntities.erase(loadedEntities.begin() + (int)j);
+                break;
+            }
+        }
+
+        EntityLiving* copy = entitiesToDeSpawn[i].entity;
+        //TODO Try make it so entity can be deleted from a single point in code. Here we jump to loadedEntities, entitiesToDeSpawn, physicsEngine, ...
+        entitiesToDeSpawn.erase(entitiesToDeSpawn.begin() + (int)i);
+        Global::physicsEngine->removeEntity(copy); //TODO what if entity does not exist in physicsEngine.
+
+        Global::currentLevel->getCurrentRoom().getCurrentWeave().enemiesLeft--; //TODO This is not safe
+        assert(Global::currentLevel->getCurrentRoom().getCurrentWeave().enemiesLeft >= 0);
+
+        delete copy;
+        // This break is intentional, not sure why. Probably related to enemy waves.
+        // This shouldn't affect much since this will be called every frame
+        break;
     }
 }

@@ -14,15 +14,15 @@ const glm::vec2 &Camera::getOffset() const {
 }
 
 void Camera::onUpdate(float deltaTime) {
-    //TODO have some momentum for player?
     float oldOffset = viewOffset.x;
+
     if (Global::player->pos().x - viewOffset.x < -Configuration::cameraDeadZone){
-        viewOffset.x -= (Global::player->pos().x - viewOffset.x) * (Global::player->pos().x - viewOffset.x) * 2 * deltaTime;
+        viewOffset.x -= (Global::player->pos().x - viewOffset.x) * (Global::player->pos().x - viewOffset.x) * Configuration::cameraFollowSpeed * deltaTime;
     } else if (Global::player->pos().x - viewOffset.x > Configuration::cameraDeadZone){
-        viewOffset.x += (Global::player->pos().x - viewOffset.x) * (Global::player->pos().x - viewOffset.x) * 2 * deltaTime;
+        viewOffset.x += (Global::player->pos().x - viewOffset.x) * (Global::player->pos().x - viewOffset.x) * Configuration::cameraFollowSpeed * deltaTime;
     }
     if (viewOffset.x != oldOffset) {
-        Global::currentLevel->background.translate((viewOffset.x - oldOffset) * 0.3f);
+        Global::currentLevel->background.translate((viewOffset.x - oldOffset) * Configuration::cameraBackgroundSpeed);
     }
 }
 
