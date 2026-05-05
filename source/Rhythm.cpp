@@ -140,6 +140,7 @@ void Rhythm::init() {
     srand((unsigned int)glfwGetTime());
 
     initAssets();
+    initWeapons();
 
     Global::init();
 

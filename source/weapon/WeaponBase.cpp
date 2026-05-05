@@ -2,18 +2,18 @@
 // Created by Alienson on 22.3.2025..
 //
 
-#include "RangedWeaponBase.h"
+#include "WeaponBase.h"
 #include "reference/Global.h"
 
-RangedWeaponBase::RangedWeaponBase(Texture *texture) : sprite(texture) {
+WeaponBase::WeaponBase(Texture *texture) : sprite(texture) {
 
 }
 
-RangedWeaponBase::~RangedWeaponBase() {
+WeaponBase::~WeaponBase() {
 
 }
 
-void RangedWeaponBase::onUpdate(float deltaTime, glm::vec2& playerPos) {
+void WeaponBase::onUpdate(float deltaTime, glm::vec2& playerPos) {
     sprite.translate = {playerPos.x, playerPos.y + 0.1};
     sprite.rotation = std::atan2(Global::cursor->translate.y - (sprite.translate.y - Global::camera->getOffset().y),
                                  Global::cursor->translate.x - (sprite.translate.x - Global::camera->getOffset().x));
@@ -23,10 +23,10 @@ void RangedWeaponBase::onUpdate(float deltaTime, glm::vec2& playerPos) {
     }
 }
 
-void RangedWeaponBase::onRender() const {
+void WeaponBase::onRender() const {
     sprite.onRender();
 }
 
-bool RangedWeaponBase::canAttack() const {
+bool WeaponBase::canAttack() const {
     return attackCD <= 0;
 }

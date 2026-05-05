@@ -73,7 +73,7 @@ add_executable(Rhythm main.cpp
         source/render/sprite/SpriteInstanced.cpp source/render/sprite/SpriteInstanced.h
         source/render/buffer/GlBufferWrapperInstanced.cpp source/render/buffer/GlBufferWrapperInstanced.h
         source/physics/RayTrace.cpp source/physics/RayTrace.h
-        source/weapon/RangedWeaponBase.cpp source/weapon/RangedWeaponBase.h
+        source/weapon/WeaponBase.cpp source/weapon/WeaponBase.h
         source/weapon/PistolWeapon.cpp source/weapon/PistolWeapon.h
         source/sound/BeatOffset.cpp source/sound/BeatOffset.h
         source/level/Tile.cpp source/level/Tile.h

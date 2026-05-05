@@ -8,7 +8,7 @@
 
 #include "EntityLiving.h"
 #include "reference/Reference.h"
-#include "weapon/RangedWeaponBase.h"
+#include "weapon/WeaponBase.h"
 #include "weapon/PistolWeapon.h"
 #include "sound/BeatOffset.h"
 
@@ -20,7 +20,6 @@ class Player : public EntityLiving {
 
 public:
     Player();
-    ~Player() override; //TODO remove this once weapons are deleted from elsewhere
 
     void onUpdate(float deltaTime) override;
     void onRender() const override;
@@ -31,8 +30,7 @@ public:
     [[nodiscard]] RhythmMultiplier* getCurrentRhythmMultiplier() const;
     [[nodiscard]] RhythmMultiplier* getNextRhythmMultiplier() const;
 
-    //TODO Instance weapons somewhere else and then delete it from there
-    RangedWeaponBase* currentWeapon = new PistolWeapon();
+    WeaponBase* currentWeapon;
 
 protected:
     void rebuildCollisionBoxes() override;

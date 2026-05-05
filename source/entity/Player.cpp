@@ -22,10 +22,8 @@ Player::Player() : EntityLiving(Textures::BIKER) {
 
     collisionSprite.scale = { (collisionBB.maxX - collisionBB.minX) / 2.0f, (collisionBB.maxY - collisionBB.minY) / 2.0f };
 
-}
+    currentWeapon = Weapons::PISTOL;
 
-Player::~Player() {
-    delete currentWeapon; //TODO remove this once weapons are deleted from elsewhere
 }
 
 void Player::onUpdate(float deltaTime) {

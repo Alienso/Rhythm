@@ -2,8 +2,8 @@
 // Created by Alienson on 22.3.2025..
 //
 
-#ifndef RHYTHM_RANGEDWEAPONBASE_H
-#define RHYTHM_RANGEDWEAPONBASE_H
+#ifndef RHYTHM_WEAPONBASE_H
+#define RHYTHM_WEAPONBASE_H
 
 
 #include <glm/vec2.hpp>
@@ -11,9 +11,9 @@
 #include "render/sprite/Sprite.h"
 #include "sound/BeatOffset.h"
 
-class RangedWeaponBase {
+class WeaponBase {
 public:
-    virtual ~RangedWeaponBase();
+    virtual ~WeaponBase();
 
     virtual void onUpdate(float deltaTime, glm::vec2& playerPos);
     virtual void onRender() const;
@@ -21,7 +21,7 @@ public:
     [[nodiscard]] bool canAttack() const;
     virtual void onAttack(BeatOffset* beatOffset) = 0;
 protected:
-    explicit RangedWeaponBase(Texture* texture);
+    explicit WeaponBase(Texture* texture);
 
     float attackCD = 0.0;
     float baseAttackCD = 0.2f;
@@ -34,4 +34,4 @@ protected:
 };
 
 
-#endif //RHYTHM_RANGEDWEAPONBASE_H
+#endif //RHYTHM_WEAPONBASE_H

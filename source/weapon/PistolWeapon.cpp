@@ -6,7 +6,7 @@
 #include "reference/Global.h"
 #include "physics/RayTrace.h"
 
-PistolWeapon::PistolWeapon() : RangedWeaponBase(Textures::PISTOL) {
+PistolWeapon::PistolWeapon() : WeaponBase(Textures::PISTOL) {
     sprite.scale = {0.025, 0.025};
     mist.sprite.scale = {0.05, 0.05};
     mist.sprite.stateMachine = SpriteStateMachine(1, 15);
@@ -22,11 +22,11 @@ PistolWeapon::~PistolWeapon() {
 
 void PistolWeapon::onRender() const {
     mist.onRender();
-    RangedWeaponBase::onRender();
+    WeaponBase::onRender();
 }
 
 void PistolWeapon::onUpdate(float deltaTime, glm::vec2 &playerPos) {
-    RangedWeaponBase::onUpdate(deltaTime, playerPos);
+    WeaponBase::onUpdate(deltaTime, playerPos);
     mist.sprite.translate = sprite.translate;
 }
 
@@ -37,6 +37,8 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
     if (beatOffset == BeatOffset::MISS) {
         //Global::soundEngine->play(Sounds::BEAT_MISS);
         Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, soundStrength * 0.25f);
+        //TODO this logic should be applied inside player not inside weapon
+        Global::player->adjustComboPoints(-comboPointsIncrease);
     } else {
         Global::soundEngine->play(Sounds::BEAT, soundStrength);
     }
@@ -61,6 +63,7 @@ void PistolWeapon::onAttack(BeatOffset* beatOffset) { //TODO try make this more 
 
     if (rayTraceResult.hitType == HIT_TYPE_ENTITY) {
         rayTraceResult.entityHit->damage(damage, beatOffset);
+        //TODO this logic should be applied inside player not inside weapon
         Global::player->adjustComboPoints(comboPointsIncrease * beatOffset->comboMultiplier);
     }
 }

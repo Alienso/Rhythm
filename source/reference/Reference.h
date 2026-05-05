@@ -12,6 +12,7 @@
 #include "sound/Sound.h"
 #include "render/sprite/Particle.h"
 #include "level/Tile.h"
+#include "weapon/WeaponBase.h"
 
 class Textures{
 public:
@@ -62,6 +63,11 @@ class Tiles{
 public:
     static inline Tile* BRICK;
     static inline Tile* METAL_SLAB;
+};
+
+class Weapons{
+public:
+    static inline WeaponBase* PISTOL;
 };
 
 #endif //RHYTHM_ASSETS_H

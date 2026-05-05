@@ -57,6 +57,12 @@ static void initTiles(AssetManager<Tile>& tileManager){
     Tiles::METAL_SLAB = tileManager.createAsset(501, Textures::METAL_SLAB_TILE, true, false, glm::vec2{0, -0.3}, glm::vec2{1, 0.4545}); //TODO feels like this offset is affected by scale
 }
 
+//TODO cleanup this weapons and particles
+// Maybe create weapon manager and particle manager?
+void Rhythm::initWeapons(){
+    Weapons::PISTOL = new PistolWeapon();
+}
+
 void Rhythm::initAssets(){
     initTextures(textureManager);
     initShaders(shaderManager);

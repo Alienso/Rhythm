@@ -6,12 +6,12 @@
 #define RHYTHM_PISTOLWEAPON_H
 
 
-#include "RangedWeaponBase.h"
+#include "WeaponBase.h"
 #include "render/sprite/Sprite.h"
 #include "reference/Reference.h"
 #include "entity/Entity.h"
 
-class PistolWeapon : public RangedWeaponBase {
+class PistolWeapon : public WeaponBase {
 public:
     PistolWeapon();
     ~PistolWeapon() override;
