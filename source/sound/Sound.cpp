@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 11.8.2024..
+// Created by Alienson on 11.8.2024.
 //
 
 #include <cstdio>
@@ -7,7 +7,7 @@
 #include <cmath>
 #include "Sound.h"
 
-typedef struct  WAV_HEADER{
+typedef struct __attribute__((packed)) WAV_HEADER {
     /* RIFF Chunk Descriptor */
     uint8_t         RIFF[4];        // RIFF Header Magic header
     uint32_t        ChunkSize;      // RIFF Chunk Size
@@ -31,32 +31,46 @@ Sound::Sound(const char *path, unsigned int bpm, unsigned int initialOffset) : b
     static unsigned int indexID = 0;
     ID = indexID++;
 
-    FILE * infile = fopen(path,"rb");		// Open wave file in read mode
+    FILE * infile = fopen(path,"rb");
+    if (!infile){
+        std::cout << "Could not open file: " << path << '\n';
+        exit(1);
+    }
 
     wav_hdr wavHeader;
-    size_t headerSize = sizeof(wav_hdr);
-    size_t bytesRead = fread(&wavHeader, 1, headerSize, infile);
-    if (bytesRead == 0){
+    if (fread(&wavHeader, 1, sizeof(wav_hdr), infile) != sizeof(wav_hdr)){
         std::cout << "Could not read WAV header\n";
         exit(1);
     }
 
-    constexpr int BUFFER_SIZE = 512;
-    int16_t buff16[BUFFER_SIZE];
+    size_t totalSamplesToRead = wavHeader.Subchunk2Size / sizeof(int16_t);
+    audioData.reserve(wavHeader.Subchunk2Size / sizeof(int16_t));
+
+    constexpr int BUFFER_SAMPLES  = 256;
+    int16_t buff16[BUFFER_SAMPLES];
+
     double currentLoudness = 0, soundLoudness = 0;
     size_t sampleCount = 0;
-    if (infile){
-        while (!feof(infile)){
-            bytesRead = fread(buff16, sizeof(int16_t), BUFFER_SIZE / (sizeof(int16_t)), infile);
-            //currentLoudness = 0;
-            for (size_t i=0; i < bytesRead; i++) {
-                audioData.push_back(buff16[i]);
-                //currentLoudness+=buff16[i] * buff16[i];
-            }
-            //soundLoudness+= log10(sqrt(currentLoudness / (double)bytesRead));
-            //sampleCount+=bytesRead;
+
+    while (totalSamplesToRead > 0){
+        //currentLoudness = 0;
+
+        size_t chunk = totalSamplesToRead < BUFFER_SAMPLES ? totalSamplesToRead : BUFFER_SAMPLES;
+        size_t samplesRead = fread(buff16, sizeof(int16_t), chunk, infile);
+
+        if (samplesRead == 0)
+            break;
+
+        for (size_t i = 0; i < samplesRead; i++) {
+            audioData.push_back(buff16[i]);
+            //currentLoudness+=buff16[i] * buff16[i];
         }
+        totalSamplesToRead -= samplesRead;
+
+        //soundLoudness+= log10(sqrt(currentLoudness / (double)bytesRead));
+        //sampleCount+=bytesRead;
     }
+
     //soundLoudness /= (double)sampleCount;
     //soundLoudness = log10(sqrt(currentLoudness / (double)sampleCount));
 

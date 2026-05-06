@@ -20,14 +20,11 @@ SoundEngine::SoundEngine() {
         exit(1);
     }
 
-    for (auto &i : soundsPlaying)
-        i = nullptr;
-
-    play(Sounds::DEVASTATION, 0.2f);
-    currentSong = soundsPlaying[0]; //TODO
+    currentSong = playStream(Sounds::DEVASTATION, 0.2f);
 }
 
 SoundEngine::~SoundEngine() {
+    delete currentSong;
     Pa_Terminate();
 }
 
@@ -44,15 +41,19 @@ void SoundEngine::onUpdate(float deltaTime){
             continue;
         if(!Pa_IsStreamActive( sound->paStream )){
             stop(sound);
-            if (sound == currentSong) currentSong = nullptr; //TODO we can't leave this as nullptr
             delete sound;
             sound = nullptr;
         }
     }
+
+    if(!Pa_IsStreamActive( currentSong->paStream )){
+        stop(currentSong);
+        delete currentSong;
+        currentSong = playStream(Sounds::DEVASTATION, 0.2f);
+    }
 }
 
-void SoundEngine::play(Sound *sound, float volume) {
-
+SoundInstance* SoundEngine::playStream(Sound *sound, float volume) {
     PaStreamParameters outputParameters;
     outputParameters.device = Pa_GetDefaultOutputDevice();
     if (outputParameters.device == paNoDevice) {
@@ -88,8 +89,14 @@ void SoundEngine::play(Sound *sound, float volume) {
         exit(1);
     }
 
+    return soundInstance;
+}
+
+void SoundEngine::play(Sound *sound, float volume) {
+    SoundInstance* soundInstance = playStream(sound, volume);
+
     bool soundAdded = false;
-    for (auto & s : soundsPlaying){
+    for (auto &s : soundsPlaying){
         if (s == nullptr){
             s = soundInstance;
             soundAdded = true;
@@ -99,7 +106,6 @@ void SoundEngine::play(Sound *sound, float volume) {
     if (!soundAdded){
         soundsPlaying.push_back(soundInstance);
     }
-
 }
 
 void SoundEngine::stop(SoundInstance* sound) {
@@ -145,6 +151,14 @@ void SoundEngine::seek(int seconds) {
     currentSong->seek(seconds);
 }
 
+static inline void playFramesStereo(unsigned long frames, int16_t* outStream, SoundInstance* sound){
+    for(size_t i=0; i<frames; i++ ){
+        *outStream++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
+        *outStream++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
+    }
+}
+
+
 static int audioCallback( const void *inputBuffer, void *outputBuffer,
                          unsigned long framesPerBuffer,
                          const PaStreamCallbackTimeInfo* timeInfo,
@@ -153,14 +167,13 @@ static int audioCallback( const void *inputBuffer, void *outputBuffer,
 
     auto *out = (int16_t *)outputBuffer;
     auto *sound = (SoundInstance*)userData;
-    if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){ //TODO some frames are not being played (< 2*framesPerBuffer)
+
+    if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){
+        playFramesStereo((sound->getDataSize() - sound->getOffset()) / 2 - 1, out, sound);
         return paComplete;
     }
-    for(size_t i=0; i<framesPerBuffer; i++ ){
-        *out++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
-        *out++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
-    }
 
+    playFramesStereo(framesPerBuffer, out, sound);
     return paContinue;
 }
 
@@ -170,15 +183,20 @@ static int audioCallbackMono( const void *inputBuffer, void *outputBuffer,
                           PaStreamCallbackFlags statusFlags,
                           void *userData ){
 
-    auto *out = (int16_t *)outputBuffer;
+    /*auto *out = (int16_t *)outputBuffer;
     auto *sound = (SoundInstance*)userData;
-    if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){ //TODO some frames are not being played (< 2*framesPerBuffer)
+
+    if (sound->getOffset() + 2 * framesPerBuffer >= sound->getDataSize()){
+        for(size_t i=0; i<sound->getDataSize() - sound->getOffset(); i++ ){
+            *out++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
+        }
         return paComplete;
     }
     for(size_t i=0; i<framesPerBuffer; i++ ){
         *out++ = sound->getNextValue() * sound->volume * Configuration::masterVolume;
     }
 
-    return paContinue;
+    return paContinue;*/
+    return paComplete;
 }
 

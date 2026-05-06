@@ -49,7 +49,7 @@ static void initSounds(AssetManager<Sound>& soundManager){
 
 static void initParticles() {
     AffineTransformations trans({0,0}, {0.05,0.05}, glm::pi<float>()/4.0);
-    Particles::REVOLVER_SHOOT = new Particle(Textures::PARTICLE_GUNSHOT, 5, trans, 0.25);
+    Particles::REVOLVER_SHOOT = new Particle(Textures::PARTICLE_GUNSHOT, 5, trans, 0.025);
 }
 
 static void initTiles(AssetManager<Tile>& tileManager){

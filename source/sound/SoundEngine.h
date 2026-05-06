@@ -17,19 +17,22 @@ public:
     ~SoundEngine();
 
     void play(Sound* sound, float volume = 1.0);
-    void stop(SoundInstance* sound);
-    void pause(SoundInstance* sound);
+    static void stop(SoundInstance* sound);
+    static void pause(SoundInstance* sound);
 
-    void seek(int seconds); //TODO
+    void seek(int seconds);
 
     void onUpdate(float deltaTime);
     [[nodiscard]] BeatOffset* getBeatOffset() const;
 
 private:
     static const inline int FRAMES_PER_BUFFER = 1024;
-    std::vector<SoundInstance*> soundsPlaying{10};
+    std::vector<SoundInstance*> soundsPlaying{30, nullptr};
     SoundInstance* currentSong = nullptr;
     float onUpdateTimer = 1.0f;
+
+    static SoundInstance* playStream(Sound* sound, float volume = 1.0);
+
 };
 
 #endif //RHYTHM_SOUNDENGINE_H
