@@ -53,7 +53,7 @@ void EntityLiving::updateAiTasks(float deltaTime) {
     }
 }
 
-void EntityLiving::damage(int amount, BeatOffset* beatOffset) {
+void EntityLiving::damage(int amount, BeatOffsetType* beatOffset) {
 
     if (invincibilityTime > 0)
         return;

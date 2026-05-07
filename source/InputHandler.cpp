@@ -7,6 +7,7 @@
 #include "reference/Global.h"
 #include "render/sprite/SpriteStates.h"
 #include "Rhythm.h"
+#include "manager/BeatManager.h"
 
 #include <GLFW/glfw3.h>
 
@@ -60,9 +61,10 @@ void InputHandler::processMouseClickInput() {
         return;
     }
 
-    if (glfwGetMouseButton(app->window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
+    if (glfwGetMouseButton(app->window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
         if (Global::player->canAttack()) {
-            BeatOffset* beatOffset = Global::soundEngine->getBeatOffset();
+            float currentOffset = BeatManager::getCurrentOffset();
+            BeatOffsetType* beatOffset = BeatOffsetType::from(currentOffset);
             Global::player->attack(beatOffset);
         }
     }

@@ -16,7 +16,7 @@ public:
     PistolWeapon();
     ~PistolWeapon() override;
 
-    RayTraceResult onAttack(BeatOffset* beatOffset) override;
+    RayTraceResult onAttack(BeatOffsetType* beatOffset) override;
 
     void onRender() const override;
     void onUpdate(float deltaTime, glm::vec2 &playerPos) override;

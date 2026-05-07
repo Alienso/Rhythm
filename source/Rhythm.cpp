@@ -17,7 +17,8 @@
 #include "reference/Configuration.h"
 #include "InputHandler.h"
 #include "reference/Global.h"
-#include "sound/BeatOffset.h"
+#include "sound/BeatOffsetType.h"
+#include "manager/BeatManager.h"
 
 #include <iostream>
 
@@ -117,6 +118,7 @@ void Rhythm::renderImGui(){
 
     ImGui::Text("ComboPoints: %f", Global::player->comboPoints);
     ImGui::Text("Multiplier: %i", Global::player->rhythmMultiplierIndex);
+    ImGui::Text("BeatFrame: %.2f", BeatManager::getCurrentFrame().middle);
 
     ImGui::End();
     ImGui::Render();
@@ -179,6 +181,7 @@ void Rhythm::mainLoop() {
         inputHandler->processMouseClickInput();
         inputHandler->processMouseInput();
 
+        BeatManager::onUpdate();
         physicsEngine->onUpdate(diff);
         soundEngine->onUpdate(diff);
         particleManager->onUpdate(diff);
@@ -209,7 +212,7 @@ void Rhythm::cleanup() {
     delete Global::camera;
 
     RhythmMultiplier::cleanUp();
-    BeatOffset::cleanUp();
+    BeatOffsetType::cleanUp();
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

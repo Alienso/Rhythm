@@ -75,13 +75,14 @@ add_executable(Rhythm main.cpp
         source/physics/RayTrace.cpp source/physics/RayTrace.h
         source/weapon/WeaponBase.cpp source/weapon/WeaponBase.h
         source/weapon/PistolWeapon.cpp source/weapon/PistolWeapon.h
-        source/sound/BeatOffset.cpp source/sound/BeatOffset.h
+        source/sound/BeatOffsetType.cpp source/sound/BeatOffsetType.h
         source/level/Tile.cpp source/level/Tile.h
         source/Camera.cpp source/Camera.h
         source/level/Room.cpp source/level/Room.h
         source/level/Weave.cpp source/level/Weave.h
         source/level/LevelLoader.cpp source/level/LevelLoader.h
         source/gameplay/RhythmMultiplier.cpp source/gameplay/RhythmMultiplier.h
+        source/manager/BeatManager.cpp source/manager/BeatManager.h
 )
 
 if (WIN32)

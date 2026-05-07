@@ -4,7 +4,6 @@
 
 #include <cstdio>
 #include <iostream>
-#include <cmath>
 #include "Sound.h"
 
 typedef struct __attribute__((packed)) WAV_HEADER {
@@ -107,26 +106,14 @@ unsigned int SoundInstance::getSampleRate() const {
     return sound->sampleRate;
 }
 
-unsigned long SoundInstance::getNextBeatOffset() const{
-    float currentSecond = offset/sound->numChannels * 1.0f /sound->sampleRate;
-    float nextBeat = currentSecond - fmodf(currentSecond - sound->beatInitialOffset * 1.0f / sound->sampleRate, spb)+ spb;
-    unsigned long ret = nextBeat * sound->sampleRate;
-    if (ret < offset/sound->numChannels){
-        std::cout << "Err: Next < Current: " << ret << " " << offset/sound->numChannels << '\n';
-    }
-    return ret;
-}
-
-unsigned long SoundInstance::getPreviousBeatOffset() const{
-    float currentSecond = offset/sound->numChannels * 1.0f / sound->sampleRate;
-    float previousBeat = currentSecond - fmodf(currentSecond - sound->beatInitialOffset * 1.0f / sound->sampleRate, spb);
-    unsigned long ret = previousBeat * sound->sampleRate;
-    if (ret > offset/sound->numChannels){
-        std::cout << "Err: Prev > Current: " << ret << " " << offset/sound->numChannels << '\n';
-    }
-    return ret;
+unsigned long SoundInstance::getFirstBeatOffset() const {
+    return sound->beatInitialOffset;
 }
 
 void SoundInstance::seek(int seconds) {
     offset += seconds * sound->sampleRate * sound->numChannels;
+}
+
+float SoundInstance::getCurrentRuntime() const {
+    return (float)offset / (float)(sound->sampleRate * sound->numChannels);
 }

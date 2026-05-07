@@ -6,6 +6,7 @@
 #include <iostream>
 #include "reference/Reference.h"
 #include "reference/Global.h"
+#include "manager/BeatManager.h"
 
 static int audioCallback(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
 static int audioCallbackMono(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
@@ -21,6 +22,7 @@ SoundEngine::SoundEngine() {
     }
 
     currentSong = playStream(Sounds::DEVASTATION, 0.2f);
+    BeatManager::buildBeatFrames(currentSong);
 }
 
 SoundEngine::~SoundEngine() {
@@ -50,6 +52,7 @@ void SoundEngine::onUpdate(float deltaTime){
         stop(currentSong);
         delete currentSong;
         currentSong = playStream(Sounds::DEVASTATION, 0.2f);
+        BeatManager::buildBeatFrames(currentSong);
     }
 }
 
@@ -117,34 +120,6 @@ void SoundEngine::stop(SoundInstance* sound) {
 }
 
 void SoundEngine::pause(SoundInstance* sound) {
-}
-
-// TODO need a function for getting exact offset in millis. Also does this logic belong here? Getting diff is correct,
-//  but converting it to BeatOffsetEnum seems like application wide logic.
-//  When beat occurs there should be event that. There also needs to be a guarantee that same beat is not processed twice
-//  Maybe add a time frame for each beat and compare with that?
-BeatOffset* SoundEngine::getBeatOffset() const {
-    //TODO next/previous beat can be calculated from one, no need to calculate both
-    unsigned long nextBeat = currentSong->getNextBeatOffset();
-    unsigned long previousBeat = currentSong->getPreviousBeatOffset();
-    //std::cout << "Next: " << nextBeat << '\n';
-    //std::cout << "Prev: " << previousBeat << '\n';
-
-    unsigned long current = currentSong->getOffset() / currentSong->getNumberOfChannels();
-    /*std::cout << "Current: " << current << '\n';
-    std::cout << "N-P: " << nextBeat - previousBeat << '\n';
-    std::cout << "---------------------\n";*/
-
-
-    int nextOffset = glm::abs((long)nextBeat - (long)current);
-    int previousOffset = glm::abs((long)previousBeat - (long)current);
-    //std::cout << "Next: " << nextOffset << '\n';
-    //std::cout << "Prev: " << previousOffset << '\n';
-
-    int missOffset = nextOffset < previousOffset ? nextOffset : previousOffset;
-    //return (float)(missOffset) / (float)currentSong->getSampleRate() < 0.2f;
-    //TODO maybe account for weapon audio delay, but then each weapon should have the same one so gameplay isn't affected
-    return BeatOffset::from((float)missOffset / (float)currentSong->getSampleRate());
 }
 
 void SoundEngine::seek(int seconds) {

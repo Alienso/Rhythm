@@ -9,7 +9,7 @@
 #include "Entity.h"
 #include "entity/ai/AiTaskBase.h"
 #include "render/sprite/SpriteStates.h"
-#include "sound/BeatOffset.h"
+#include "sound/BeatOffsetType.h"
 
 #include <array>
 
@@ -20,7 +20,7 @@ public:
     ~EntityLiving() override;
 
     void onUpdate(float deltaTime) override;
-    void damage(int amount, BeatOffset* beatOffset); //TODO maybe use global object for this beatOffset?
+    void damage(int amount, BeatOffsetType* beatOffset); //TODO maybe use global object for this beatOffset?
 
     bool isAlive = true;
 protected:

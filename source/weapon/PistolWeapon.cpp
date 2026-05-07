@@ -30,7 +30,7 @@ void PistolWeapon::onUpdate(float deltaTime, glm::vec2 &playerPos) {
     mist.sprite.translate = sprite.translate;
 }
 
-RayTraceResult PistolWeapon::onAttack(BeatOffset* beatOffset) {
+RayTraceResult PistolWeapon::onAttack(BeatOffsetType* beatOffset) {
 
     RayTraceResult rayTraceResult = WeaponBase::onAttack(beatOffset);
 

@@ -23,12 +23,12 @@ void WeaponBase::onUpdate(float deltaTime, glm::vec2& playerPos) {
     }
 }
 
-RayTraceResult WeaponBase::onAttack(BeatOffset* beatOffset) {
+RayTraceResult WeaponBase::onAttack(BeatOffsetType* beatOffset) {
 
     attackCD = baseAttackCD;
 
     //TODO update this so weapon is always heard, but when beat offset is miss, BEAT_MISS sound is also played
-    if (beatOffset == BeatOffset::MISS) {
+    if (beatOffset == BeatOffsetType::MISS) {
         //Global::soundEngine->play(Sounds::BEAT_MISS);
         Global::soundEngine->play(Sounds::REVOLVER_SHOOT_WEAK, soundStrength * 0.25f);
         Global::player->adjustComboPoints(-comboPointsIncrease);

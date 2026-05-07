@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 1.8.2024..
+// Created by Alienson on 1.8.2024.
 //
 
 #ifndef RHYTHM_GLOBAL_H

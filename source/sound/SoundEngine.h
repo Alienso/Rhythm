@@ -8,7 +8,7 @@
 
 #include "Sound.h"
 #include "portaudio.h"
-#include "BeatOffset.h"
+#include "BeatOffsetType.h"
 
 class SoundEngine {
 
@@ -23,7 +23,6 @@ public:
     void seek(int seconds);
 
     void onUpdate(float deltaTime);
-    [[nodiscard]] BeatOffset* getBeatOffset() const;
 
 private:
     static const inline int FRAMES_PER_BUFFER = 1024;

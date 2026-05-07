@@ -50,7 +50,7 @@ bool Player::canAttack() const {
     return currentWeapon->canAttack();
 }
 
-void Player::attack(BeatOffset* beatOffset) {
+void Player::attack(BeatOffsetType* beatOffset) {
     currentWeapon->onAttack(beatOffset);
 }
 

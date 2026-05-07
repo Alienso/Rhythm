@@ -10,7 +10,7 @@
 #include "reference/Reference.h"
 #include "weapon/WeaponBase.h"
 #include "weapon/PistolWeapon.h"
-#include "sound/BeatOffset.h"
+#include "sound/BeatOffsetType.h"
 
 #include "gameplay/RhythmMultiplier.h"
 
@@ -25,7 +25,7 @@ public:
     void onRender() const override;
 
     [[nodiscard]] bool canAttack() const;
-    void attack(BeatOffset* beatOffset);
+    void attack(BeatOffsetType* beatOffset);
     void adjustComboPoints(float value);
     [[nodiscard]] RhythmMultiplier* getCurrentRhythmMultiplier() const;
     [[nodiscard]] RhythmMultiplier* getNextRhythmMultiplier() const;

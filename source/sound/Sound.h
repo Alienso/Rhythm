@@ -36,14 +36,14 @@ public:
     [[nodiscard]] size_t getDataSize() const;
     [[nodiscard]] unsigned int getSampleRate() const;
     [[nodiscard]] unsigned int getNumberOfChannels() const;
-    [[nodiscard]] unsigned long getNextBeatOffset() const;
-    [[nodiscard]] unsigned long getPreviousBeatOffset() const;
+    [[nodiscard]] unsigned long getFirstBeatOffset() const;
+    [[nodiscard]] float getCurrentRuntime() const;
 
     void seek(int seconds);
 
     PaStream *paStream = nullptr;
     float volume = 1.0;
-    float spb;
+    float spb; //Seconds per beat
 
 private:
     unsigned long offset = 0;
