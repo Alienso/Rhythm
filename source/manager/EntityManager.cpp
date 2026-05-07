@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 21.8.2024.
+// Created by Alienso on 21.8.2024.
 //
 
 #include "EntityManager.h"

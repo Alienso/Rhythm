@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 1.9.2024..
+// Created by Alienso on 1.9.2024.
 //
 
 #include "ParallaxTexture.h"

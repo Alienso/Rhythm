@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 16.4.2024.
+// Created by Alienso on 16.4.2024.
 //
 
 #ifndef INC_3DTEST_ASSETMANAGER_H

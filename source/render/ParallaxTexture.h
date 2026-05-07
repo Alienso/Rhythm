@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 1.9.2024..
+// Created by Alienso on 1.9.2024.
 //
 
 #ifndef RHYTHM_PARALLAXTEXTURE_H

@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 20.4.2025..
+// Created by Alienso on 20.4.2025.
 //
 
 #include "Room.h"

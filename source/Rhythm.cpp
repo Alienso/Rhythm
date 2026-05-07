@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 1.8.2024.
+// Created by Alienso on 1.8.2024.
 //
 
 #define STB_IMAGE_IMPLEMENTATION

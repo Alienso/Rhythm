@@ -1,5 +1,5 @@
 //
-// Created by Alienso on 14.4.2023..
+// Created by Alienso on 14.4.2023.
 //
 
 #ifndef GRASSTERRAIN_FRAMEBUFFER_H

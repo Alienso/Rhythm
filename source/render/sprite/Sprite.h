@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 3.8.2024..
+// Created by Alienso on 3.8.2024.
 //
 
 #ifndef RHYTHM_SPRITE_H

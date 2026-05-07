@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 16.4.2025.
+// Created by Alienso on 16.4.2025.
 //
 
 #include "Camera.h"

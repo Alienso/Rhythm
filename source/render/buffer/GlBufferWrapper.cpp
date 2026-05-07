@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 20.4.2024..
+// Created by Alienso on 20.4.2024.
 //
 
 #include "GlBufferWrapper.h"

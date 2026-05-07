@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 11.8.2024..
+// Created by Alienso on 11.8.2024.
 //
 
 #ifndef RHYTHM_SOUNDENGINE_H

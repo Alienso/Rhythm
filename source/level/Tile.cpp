@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 23.3.2025..
+// Created by Alienso on 23.3.2025.
 //
 
 #include "Tile.h"

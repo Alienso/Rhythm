@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 8.8.2024..
+// Created by Alienso on 8.8.2024.
 //
 
 #ifndef RHYTHM_SPRITESTATEMACHINE_H

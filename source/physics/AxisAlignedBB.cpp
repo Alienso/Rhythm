@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 28.8.2024..
+// Created by Alienso on 28.8.2024.
 //
 
 #include "AxisAlignedBB.h"

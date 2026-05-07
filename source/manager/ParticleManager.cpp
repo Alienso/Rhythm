@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 13.8.2024..
+// Created by Alienso on 13.8.2024.
 //
 
 #include "ParticleManager.h"

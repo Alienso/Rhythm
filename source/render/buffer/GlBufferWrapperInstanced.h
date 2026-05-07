@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 6.9.2024..
+// Created by Alienso on 6.9.2024.
 //
 
 #ifndef RHYTHM_GLBUFFERWRAPPERINSTANCED_H

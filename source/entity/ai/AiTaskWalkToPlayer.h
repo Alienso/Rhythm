@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 24.8.2024..
+// Created by Alienso on 24.8.2024.
 //
 
 #ifndef RHYTHM_AITASKWALKTOPLAYER_H

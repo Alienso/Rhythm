@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 21.4.2024.
+// Created by Alienso on 21.4.2024.
 //
 
 #ifndef VOXEL_INPUTHANDLER_H

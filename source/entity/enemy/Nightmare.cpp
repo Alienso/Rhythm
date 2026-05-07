@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 22.8.2024..
+// Created by Alienso on 22.8.2024.
 //
 
 #include "Nightmare.h"

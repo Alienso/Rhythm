@@ -8,9 +8,11 @@
 #include <vector>
 #include "sound/Sound.h"
 
-// Create time frames for beats, but don't make boundaries based on beat to beat, but instead use middles between the two beats.
-// This way, the middle of the timeframe is the beat itself, so calculating how offbeat something is, is how off the middle the button is pressed.
-// Current beat is always the timeframe currently selected
+/**
+ * Create time frames for beats, but don't make boundaries from beat to beat, but instead use middles between the two beats.
+ * This way, the middle of the timeframe is the beat itself, so calculating how offbeat something is, is how off the middle the button is pressed.
+ * Current beat is always the timeframe currently selected
+ */
 
 class BeatTimeFrame {
 public:

@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 28.5.2023..
+// Created by Alienso on 28.5.2023.
 //
 
 #ifndef INC_3DTEST_BUFFERDATA_H

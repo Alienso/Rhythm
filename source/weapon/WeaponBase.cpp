@@ -1,5 +1,5 @@
 //
-// Created by Alienson on 22.3.2025.
+// Created by Alienso on 22.3.2025.
 //
 
 #include "WeaponBase.h"
