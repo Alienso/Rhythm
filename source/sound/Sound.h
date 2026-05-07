@@ -38,16 +38,20 @@ public:
     [[nodiscard]] unsigned int getNumberOfChannels() const;
     [[nodiscard]] unsigned long getFirstBeatOffset() const;
     [[nodiscard]] float getCurrentRuntime() const;
+    [[nodiscard]] unsigned int getBpm() const;
 
     void seek(int seconds);
 
     PaStream *paStream = nullptr;
     float volume = 1.0;
-    float spb; //Seconds per beat
 
 private:
     unsigned long offset = 0;
-    Sound* sound = nullptr;
+    const std::vector<int16_t>& audioData;
+    const unsigned int sampleRate;
+    const unsigned int numberOfChannels;
+    const unsigned long firstBeatOffset;
+    const unsigned int bpm;
 };
 
 

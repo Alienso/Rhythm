@@ -54,7 +54,7 @@ void Rhythm::initGlfw(){
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSwapInterval(1);
+    glfwSwapInterval(0); //VSYNC
 
     GLFWimage images[1] = { GLFWimage{} };
     images[0].pixels = stbi_load("resource/icon.png", &images[0].width, &images[0].height, nullptr, 4); //rgba channels

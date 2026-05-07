@@ -10,13 +10,14 @@ void BeatManager::buildBeatFrames(SoundInstance *soundInstance_) {
     soundInstance = soundInstance_;
     currentFramIndex = 0;
 
-    int soundFramesPerBeat = soundInstance_->spb * soundInstance_->getSampleRate() * soundInstance_->getNumberOfChannels();
+    long soundFramesPerSecond = soundInstance_->getSampleRate() * soundInstance_->getNumberOfChannels();
+    int soundFramesPerBeat = soundFramesPerSecond * 60 / soundInstance_->getBpm();
     int totalBeatFrames = (soundInstance_->getDataSize() - soundInstance_->getFirstBeatOffset()) / soundFramesPerBeat; //approximation
+
     beatFrames.clear();
     beatFrames.reserve(totalBeatFrames);
 
     long currentSoundFrame = (long)soundInstance_->getFirstBeatOffset() - soundFramesPerBeat / 2; //Offset this by half of beat frame
-    long soundFramesPerSecond = soundInstance_->getSampleRate() * soundInstance_->getNumberOfChannels();
 
     while (true){
         float begin = currentSoundFrame * 1.0f / soundFramesPerSecond;

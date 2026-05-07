@@ -82,16 +82,23 @@ Sound::Sound(const char *path, unsigned int bpm, unsigned int initialOffset) : b
     //std::cout << "Number of channels         :" << wavHeader.NumOfChan << '\n';
 }
 
-SoundInstance::SoundInstance(Sound *sound, float volume) : volume(volume), sound(sound) {
-    spb = 60.0f/(float)sound->bpm;
+SoundInstance::SoundInstance(Sound *sound, float volume) :
+    volume(volume),
+    audioData(sound->audioData),
+    sampleRate(sound->sampleRate),
+    numberOfChannels(sound->numChannels),
+    firstBeatOffset(sound->beatInitialOffset),
+    bpm(sound->bpm) {
+
+
 }
 
 size_t SoundInstance::getDataSize() const {
-    return sound->audioData.size();
+    return audioData.size();
 }
 
 int16_t SoundInstance::getNextValue() {
-    return sound->audioData[offset++];
+    return audioData[offset++];
 }
 
 unsigned long SoundInstance::getOffset() const {
@@ -99,21 +106,25 @@ unsigned long SoundInstance::getOffset() const {
 }
 
 unsigned int SoundInstance::getNumberOfChannels() const{
-    return sound->numChannels;
+    return numberOfChannels;
 }
 
 unsigned int SoundInstance::getSampleRate() const {
-    return sound->sampleRate;
+    return sampleRate;
 }
 
 unsigned long SoundInstance::getFirstBeatOffset() const {
-    return sound->beatInitialOffset;
+    return firstBeatOffset;
 }
 
 void SoundInstance::seek(int seconds) {
-    offset += seconds * sound->sampleRate * sound->numChannels;
+    offset += seconds * sampleRate * numberOfChannels;
 }
 
 float SoundInstance::getCurrentRuntime() const {
-    return (float)offset / (float)(sound->sampleRate * sound->numChannels);
+    return (float)offset / (float)(sampleRate * numberOfChannels);
+}
+
+unsigned int SoundInstance::getBpm() const {
+    return bpm;
 }
