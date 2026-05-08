@@ -25,7 +25,7 @@ void BeatManager::buildBeatFrames(SoundInstance *soundInstance_) {
         float end = currentSoundFrame * 1.0f / soundFramesPerSecond;
         beatFrames.emplace_back(begin, end);
 
-        if (currentSoundFrame >= soundInstance_->getDataSize())
+        if (currentSoundFrame >= (long)soundInstance_->getDataSize())
             break;
     }
 }

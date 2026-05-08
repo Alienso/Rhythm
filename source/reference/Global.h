@@ -18,7 +18,7 @@ class Global{
 public:
     static void init(){}
 
-    static inline Player* player = nullptr; // TODO maybe use player directly from Entity Manager
+    static inline Player* player = nullptr;
     static inline Sprite* cursor = nullptr;
     static inline Camera* camera = nullptr;
     static inline Level* currentLevel = nullptr;

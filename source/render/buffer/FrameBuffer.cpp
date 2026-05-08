@@ -53,7 +53,7 @@ void FrameBuffer::createTexture(){
     glBindTexture(GL_TEXTURE_2D, renderedTexture);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, Configuration::windowWidth, Configuration::windowHeight, 0, GL_RGB, GL_FLOAT, nullptr);
-    glGenerateMipmap(GL_TEXTURE_2D); //TODO this is required?
+    glGenerateMipmap(GL_TEXTURE_2D);
 
     /*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);*/
