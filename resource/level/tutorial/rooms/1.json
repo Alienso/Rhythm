@@ -1,0 +1,38 @@
+[
+    {
+        "spawnDelay": 2.0,
+        "minEnemiesAliveForNext": 0,
+        "spawns": [
+            {
+                "posX": 1.0,
+                "posY": 0.0,
+                "entityId": 500,
+                "spawnDelay": 0.5
+            },
+            {
+                "posX": 0.0,
+                "posY": 0.0,
+                "entityId": 500,
+                "spawnDelay": 1.5
+            }
+        ]
+    },
+    {
+        "spawnDelay": 2.0,
+        "minEnemiesAliveForNext": 0,
+        "spawns": [
+            {
+                "posX": 1.0,
+                "posY": 0.0,
+                "entityId": 500,
+                "spawnDelay": 0.5
+            },
+            {
+                "posX": 0.0,
+                "posY": 0.0,
+                "entityId": 500,
+                "spawnDelay": 1.5
+            }
+        ]
+    }
+]

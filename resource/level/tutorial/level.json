@@ -1,0 +1,6 @@
+{
+  "geometry": "level.geo",
+  "rooms": [
+    "rooms/1.json"
+  ]
+}

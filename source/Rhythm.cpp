@@ -50,7 +50,7 @@ void Rhythm::initGlfw(){
     if (window == nullptr){
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-        exit(-1);
+        exit(1);
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -63,7 +63,7 @@ void Rhythm::initGlfw(){
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to initialize GLAD" << std::endl;
-        exit(-1);
+        exit(1);
     }
 
     glEnable(GL_BLEND);
@@ -158,7 +158,7 @@ void Rhythm::init() {
     Global::physicsEngine = physicsEngine;
     Global::camera = new Camera();
 
-    level = new Level("resource/level/1");
+    level = new Level("resource/level/tutorial/");
     Global::currentLevel = level;
 }
 

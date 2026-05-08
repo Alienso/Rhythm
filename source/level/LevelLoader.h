@@ -12,8 +12,8 @@
 
 class LevelLoader {
 public:
-    static void loadGeometryData(const char * path, std::unordered_map<unsigned int, TilePositions>& sprites, size_t& nRows);
-    static void loadRooms(const char* path, std::vector<Room>& rooms);
+    static void loadGeometryData(std::string& path, std::unordered_map<unsigned int, TilePositions>& sprites, size_t& nRows);
+    static void loadRooms(const char* basePath, std::vector<std::string>& roomPaths, std::vector<Room>& rooms);
 
 };
 

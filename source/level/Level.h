@@ -15,7 +15,7 @@
 
 class Level {
 public:
-    explicit Level(const char* path);
+    explicit Level(const char* basePath);
     ~Level();
 
     void onRender();
@@ -39,7 +39,7 @@ private:
     unsigned int currentRoomIndex = 0;
     std::vector<Room> rooms;
 
-    void loadTiles(const char* path, std::unordered_map<unsigned int, TilePositions>& sprites);
+    void loadTiles(std::string& path, std::unordered_map<unsigned int, TilePositions>& sprites);
 
 };
 

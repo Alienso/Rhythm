@@ -13,6 +13,7 @@
     },
     "opengl",
     "portaudio",
-    "stb"
+    "stb",
+    "nlohmann-json"
   ]
 }

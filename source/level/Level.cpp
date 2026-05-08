@@ -7,13 +7,24 @@
 #include "reference/Global.h"
 #include "LevelLoader.h"
 
+#include <nlohmann/json.hpp>
 #include <fstream>
 
 
-Level::Level(const char* path) {
+Level::Level(const char* basePath) {
+
+    std::ifstream inputFile(std::string(basePath) + "level.json");
+    if (!inputFile.is_open()) {
+        std::cout << "Could not open file: " << basePath << '\n';
+        exit(1);
+    }
+
+    nlohmann::json level = nlohmann::json::parse(inputFile);
 
     std::unordered_map<unsigned int, TilePositions> tiles;
-    loadTiles(path, tiles);
+
+    std::string geometryPath = basePath + level["geometry"].get<std::string>();
+    loadTiles(geometryPath, tiles); // TODO why is this not in level loader as well?
 
     //TODO merge nearby tiles to one physics object
     //add those objects to physics engine
@@ -30,7 +41,8 @@ Level::Level(const char* path) {
         }*/ //TODO
     }
 
-    LevelLoader::loadRooms(path, rooms);
+    std::vector<std::string> roomPaths = level["rooms"].get<std::vector<std::string>>();
+    LevelLoader::loadRooms(basePath, roomPaths, rooms);
 }
 
 Level::~Level() {
@@ -48,7 +60,7 @@ Level::~Level() {
     rooms.clear();
 }
 
-void Level::loadTiles(const char * path, std::unordered_map<unsigned int, TilePositions>& sprites) {
+void Level::loadTiles(std::string& path, std::unordered_map<unsigned int, TilePositions>& sprites) {
 
     //Load level data from file
     size_t nRows = 0;

@@ -22,7 +22,7 @@ public:
     [[nodiscard]] T* getAsset(unsigned int id){
         if (assetsMap.find(id) == assetsMap.end()) {
             std::cout << "Asset " << id << "not loaded in memory!\n";
-            exit(100);
+            exit(1);
         }
         return assetsMap[id];
     }
