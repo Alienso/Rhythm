@@ -15,20 +15,32 @@ public:
     Tile(unsigned int ID, Texture* texture, bool hasCollisionBox = true, bool hasHurtBox = false);
     Tile(unsigned int ID, Texture* texture, bool hasCollisionBox, bool hasHurtBox, glm::vec2 offset, glm::vec2 scale);
 
+    void setDamage(float damage);
+    float getDamage() const;
+
     unsigned int ID;
 
     Texture* texture;
-    AxisAlignedBB collisionBox;
-    AxisAlignedHB hurtBox;
 
-    glm::vec2 scale = {1.0, 1.0};
-    glm::vec2 offset = {0.0, 0.0};
+    //Vertices related
+    glm::vec2 scale = {1.0, 1.0}; // e.g. in case of a vertical plank set to (1.0, 0.5)
+    glm::vec2 offset = {0.0, 0.0}; // In case when texture is not centered, offsets the vertices by this amount
 
     bool hasCollisionBox = false;
     bool hasHurtBox = false;
 
-private:
+    float damage = 0.0f;
+};
 
+class TileInstance {
+public:
+    TileInstance(Tile* tile, const glm::vec2 pos);
+
+    Tile* tile;
+    AxisAlignedBB collisionBox;
+    AxisAlignedHB hurtBox;
+    bool hasCollisionBox = false;
+    bool hasHurtBox = false;
 };
 
 struct TilePositions {

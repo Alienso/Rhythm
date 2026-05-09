@@ -21,25 +21,8 @@ Level::Level(const char* basePath) {
 
     nlohmann::json level = nlohmann::json::parse(inputFile);
 
-    std::unordered_map<unsigned int, TilePositions> tiles;
-
     std::string geometryPath = basePath + level["geometry"].get<std::string>();
-    loadTiles(geometryPath, tiles); // TODO why is this not in level loader as well?
-
-    //TODO merge nearby tiles to one physics object
-    //add those objects to physics engine
-    for (auto& entry: tiles){
-        glm::vec2 scaleVec = {tileScale * entry.second.tile->scale.x, tileScale * entry.second.tile->scale.y};
-        if (entry.second.tile->hasCollisionBox) {
-            for (glm::vec2 &pos: entry.second.positions) {
-                Global::physicsEngine->registerCollisionBox({pos, scaleVec});
-            }
-        } /*else if (entry.second.tile->hasHurtBox){
-            for (glm::vec2 &pos: entry.second.positions) {
-                Global::physicsEngine->registerHurtBox({pos, scaleVec});
-            }
-        }*/ //TODO
-    }
+    loadTiles(geometryPath);
 
     std::vector<std::string> roomPaths = level["rooms"].get<std::vector<std::string>>();
     LevelLoader::loadRooms(basePath, roomPaths, rooms);
@@ -60,7 +43,9 @@ Level::~Level() {
     rooms.clear();
 }
 
-void Level::loadTiles(std::string& path, std::unordered_map<unsigned int, TilePositions>& sprites) {
+void Level::loadTiles(std::string& path) {
+
+    std::unordered_map<unsigned int, TilePositions> sprites;
 
     //Load level data from file
     size_t nRows = 0;
@@ -68,21 +53,6 @@ void Level::loadTiles(std::string& path, std::unordered_map<unsigned int, TilePo
 
     float scale = 2.0f/(float)nRows;
     tileScale = scale;
-
-    //Normalize offsets
-    //TODO 1st column is offscreen
-    for(auto& entry : sprites) {
-        for (auto &position: entry.second.positions) {
-            position.x += entry.second.tile->offset.x;
-            position.y -= entry.second.tile->offset.y;
-            position *= scale;
-            position.x -= Configuration::aspectRatio / 2.0f;
-            position.x -= 1 - scale / 2;
-            position.y -= 1 - scale / 2;
-            position.y *= -1;
-        }
-    }
-
 
     //Create sprites
     unsigned int i=0;

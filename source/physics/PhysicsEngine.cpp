@@ -7,6 +7,7 @@
 
 PhysicsEngine::PhysicsEngine() {
     Global::physicsEngine = this;
+    terrainCollisionBoxes.reserve(1024);
 }
 
 void PhysicsEngine::onUpdate(float deltaTime) {
@@ -74,7 +75,7 @@ void PhysicsEngine::registerEntity(Entity *entity) {
 }
 
 void PhysicsEngine::removeEntity(Entity *entity) {
-    for (size_t i=0; i < physicsEntities.size(); i++){
+    for (size_t i=0; i < physicsEntities.size(); i++) {
         if (physicsEntities[i] == entity){
             physicsEntities.erase(physicsEntities.begin() + (int)i);
             return;
@@ -83,8 +84,16 @@ void PhysicsEngine::removeEntity(Entity *entity) {
     assert(false);
 }
 
-void PhysicsEngine::registerCollisionBox(AxisAlignedBB box) {
-    terrainCollisionBoxes.push_back(box);
+void PhysicsEngine::registerTerrainTiles(std::vector<std::vector<TileInstance>>& terrainTiles_) {
+    this->terrainTiles = terrainTiles_;
+
+    terrainCollisionBoxes.clear();
+    for (auto &tileRows : terrainTiles_) {
+        for (TileInstance& tile : tileRows) {
+            if (tile.hasCollisionBox)
+                terrainCollisionBoxes.emplace_back(tile.collisionBox);
+        }
+    }
 }
 
 const std::vector<AxisAlignedBB> &PhysicsEngine::getCollisionBoxes() const {

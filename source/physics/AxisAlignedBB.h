@@ -25,7 +25,11 @@ public:
     void set(glm::vec2 pos, glm::vec2 scale);
     [[nodiscard]] bool intersects(AxisAlignedBB& other) const;
 
-    float minX,minY,maxX,maxY;
+public:
+    float minX;
+    float minY;
+    float maxX;
+    float maxY;
 };
 
 class AxisAlignedHB : public AxisAlignedBB {
@@ -34,6 +38,8 @@ public:
     explicit AxisAlignedHB(float damage);
     AxisAlignedHB(glm::vec2 pos, glm::vec2 scale, float damage);
     AxisAlignedHB(float x1, float y1, float x2, float y2, float damage);
+
+public:
     float damage = 0.0;
 };
 

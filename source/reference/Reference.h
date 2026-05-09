@@ -61,6 +61,7 @@ public:
 
 class Tiles{
 public:
+    static inline Tile* BLANK;
     static inline Tile* BRICK;
     static inline Tile* METAL_SLAB;
 };

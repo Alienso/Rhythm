@@ -18,15 +18,33 @@ void LevelLoader::loadGeometryData(std::string& path, std::unordered_map<unsigne
     }
 
     std::string line;
-
     size_t startIndex, endIndex;
 
-    for(int i=0; std::getline(inputFile, line); i++){
+    nRows = 20;
+    float scale = 2.0f/(float)nRows;
+    std::vector<std::vector<TileInstance>> terrainTiles;
+
+    for(int i = 0; std::getline(inputFile, line); i++) {
         startIndex = 0;
+        terrainTiles.emplace_back();
         for(int j=0;;j++) {
             endIndex = line.find(';', startIndex);
             if (endIndex == startIndex) {
                 startIndex = endIndex + 1;
+
+                Tile* tile = Tiles::BLANK;
+
+                glm::vec2 position = {j, i};
+
+                position.x += tile->offset.x;
+                position.y -= tile->offset.y;
+                position *= scale;
+                position.x -= Configuration::aspectRatio / 2.0f;
+                position.x -= 1 - scale / 2;
+                position.y -= 1 - scale / 2;
+                position.y *= -1;
+
+                terrainTiles[i].emplace_back(tile, position);
                 continue;
             }
 
@@ -37,10 +55,24 @@ void LevelLoader::loadGeometryData(std::string& path, std::unordered_map<unsigne
             Tile* tile = Global::tileManager->getAsset(id);
             if (sprites.find(id) == sprites.end())
                 sprites[id] = TilePositions{tile};
-            sprites[id].positions.emplace_back(j, i);
+
+            glm::vec2 position = {j, i};
+
+            position.x += tile->offset.x;
+            position.y -= tile->offset.y;
+            position *= scale;
+            position.x -= Configuration::aspectRatio / 2.0f;
+            position.x -= 1 - scale / 2;
+            position.y -= 1 - scale / 2;
+            position.y *= -1;
+
+            sprites[id].positions.emplace_back(position.x, position.y);
+            terrainTiles[i].emplace_back(tile, position);
         }
-        nRows++;
+        //nRows++;
     }
+
+    Global::physicsEngine->registerTerrainTiles(terrainTiles);
 }
 
 void LevelLoader::loadRooms(const char* basePath, std::vector<std::string>& roomPaths , std::vector<Room> &rooms) {

@@ -36,7 +36,7 @@ RayTraceResult RayTracer::rayTrace(glm::vec2 pos, glm::vec2 dest){
         }
     }
 
-    for (const AxisAlignedBB& aabb : Global::physicsEngine->getCollisionBoxes()){
+    for (const AxisAlignedBB& aabb : Global::physicsEngine->getCollisionBoxes()) {
         float dist = intersect(pos, rayDir, kn, aabb);
         if (dist < closest){
             closest = dist;

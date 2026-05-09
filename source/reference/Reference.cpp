@@ -53,6 +53,7 @@ static void initParticles() {
 }
 
 static void initTiles(AssetManager<Tile>& tileManager){
+    Tiles::BLANK = tileManager.createAsset(0, Textures::BLANK, false, false);
     Tiles::BRICK = tileManager.createAsset(500, Textures::BRICK_TILE);
     Tiles::METAL_SLAB = tileManager.createAsset(501, Textures::METAL_SLAB_TILE, true, false, glm::vec2{0, -0.3}, glm::vec2{1, 0.4545}); //TODO feels like this offset is affected by scale
 }
