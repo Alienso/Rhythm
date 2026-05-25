@@ -45,21 +45,17 @@ Level::~Level() {
 
 void Level::loadTiles(std::string& path) {
 
-    std::unordered_map<unsigned int, TilePositions> sprites;
+    LevelGeometryData levelGeometryData = LevelLoader::loadGeometryData(path);
 
-    //Load level data from file
-    size_t nRows = 0;
-    LevelLoader::loadGeometryData(path, sprites, nRows);
-
-    float scale = 2.0f/(float)nRows;
+    float scale = 2.0f/(float)levelGeometryData.nRows;
     tileScale = scale;
 
     //Create sprites
     unsigned int i=0;
-    tileSprites.reserve(sprites.size());
-    for(auto& entry : sprites){
+    tileSprites.reserve(levelGeometryData.backgroundSpritePositions.size());
+    for(auto& entry : levelGeometryData.backgroundSpritePositions){
         tileSprites.emplace_back();
-        tileSprites[i].initialize(entry.second.tile->texture, entry.second.positions, glm::vec2{entry.second.tile->scale * scale * 0.5f} );
+        tileSprites[i].initialize(entry.second.tile->texture, entry.second.positions, glm::vec2{ entry.second.tile->scale * scale * 0.5f } );
         i++;
     }
 }

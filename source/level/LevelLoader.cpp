@@ -10,41 +10,62 @@
 #include <fstream>
 #include <cstdio>
 
-void LevelLoader::loadGeometryData(std::string& path, std::unordered_map<unsigned int, TilePositions>& sprites, size_t& nRows) {
+//Used for sprite vertices
+inline static void normalizeToRenderingTilePosition(glm::vec2& position, Tile* tile, float scale){
+    position.x += tile->offset.x;
+    position.y -= tile->offset.y;
+    position *= scale;
+    position.x -= - scale / 2;
+    position.y -= 1 - scale / 2;
+    position.y *= -1;
+}
+
+//Used for AABB calculations
+inline static void normalizeToPhysicalTilePosition(glm::vec2& position, Tile* tile, float scale){
+    position.x += tile->offset.x;
+    position.y += tile->offset.y;
+    position.y -= 1.0f / scale - 1.0f;
+    position.y *= -1;
+}
+
+LevelGeometryData LevelLoader::loadGeometryData(std::string& path) {
     std::ifstream inputFile(path);
     if (!inputFile.is_open()) {
         std::cout << "Could not open file: " << path << '\n';
         exit(1);
     }
 
+    LevelGeometryData levelGeometryData;
+    std::unordered_map<unsigned int, TilePositions> backgroundSprites;
+    std::unordered_map<unsigned int, TilePositions> foregroundSprites;
+    /* Maybe separate this 2 to 3 layers - Background, Middle ground and Foreground
+     * What is background now should be middle ground.
+     * There should not be any collision detection except in middle ground
+     */
+    size_t nRows;
+
     std::string line;
     size_t startIndex, endIndex;
 
-    nRows = 20;
+    nRows = 20; //TODO
     float scale = 2.0f/(float)nRows;
     std::vector<std::vector<TileInstance>> terrainTiles;
 
     for(int i = 0; std::getline(inputFile, line); i++) {
+
         startIndex = 0;
         terrainTiles.emplace_back();
-        for(int j=0;;j++) {
+
+        for(int j = 0; ; j++) {
             endIndex = line.find(';', startIndex);
-            if (endIndex == startIndex) {
+            if (endIndex == startIndex) { // There is no tile at this position (;;)
                 startIndex = endIndex + 1;
 
                 Tile* tile = Tiles::BLANK;
-
                 glm::vec2 position = {j, i};
-
-                position.x += tile->offset.x;
-                position.y -= tile->offset.y;
-                position *= scale;
-                position.x -= Configuration::aspectRatio / 2.0f;
-                position.x -= 1 - scale / 2;
-                position.y -= 1 - scale / 2;
-                position.y *= -1;
-
-                terrainTiles[i].emplace_back(tile, position);
+                normalizeToPhysicalTilePosition(position, tile, scale);
+                glm::vec2 scaleVec = {scale, scale};
+                terrainTiles[i].emplace_back(tile, position, scaleVec);
                 continue;
             }
 
@@ -52,27 +73,27 @@ void LevelLoader::loadGeometryData(std::string& path, std::unordered_map<unsigne
             unsigned int id = std::stoi(line.substr(startIndex, endIndex - startIndex));
             startIndex = endIndex + 1;
 
+            // Tile exists in this pos
             Tile* tile = Global::tileManager->getAsset(id);
-            if (sprites.find(id) == sprites.end())
-                sprites[id] = TilePositions{tile};
+            if (backgroundSprites.find(id) == backgroundSprites.end())
+                backgroundSprites[id] = TilePositions{tile};
 
             glm::vec2 position = {j, i};
+            normalizeToRenderingTilePosition(position, tile, scale);
+            backgroundSprites[id].positions.emplace_back(position.x, position.y);
 
-            position.x += tile->offset.x;
-            position.y -= tile->offset.y;
-            position *= scale;
-            position.x -= Configuration::aspectRatio / 2.0f;
-            position.x -= 1 - scale / 2;
-            position.y -= 1 - scale / 2;
-            position.y *= -1;
-
-            sprites[id].positions.emplace_back(position.x, position.y);
-            terrainTiles[i].emplace_back(tile, position);
+            position = {j, i};
+            normalizeToPhysicalTilePosition(position, tile, scale);
+            glm::vec2 scaleVec = {scale, scale};
+            terrainTiles[i].emplace_back(tile, position, scaleVec);
         }
-        //nRows++;
     }
 
     Global::physicsEngine->registerTerrainTiles(terrainTiles);
+    levelGeometryData.backgroundSpritePositions = backgroundSprites;
+    levelGeometryData.foregroundSpritePositions = {};
+    levelGeometryData.nRows = nRows;
+    return levelGeometryData;
 }
 
 void LevelLoader::loadRooms(const char* basePath, std::vector<std::string>& roomPaths , std::vector<Room> &rooms) {
@@ -98,7 +119,7 @@ void LevelLoader::loadRooms(const char* basePath, std::vector<std::string>& room
                 int entityId = spawnJson["entityId"].get<int>();
                 float waveSpawnDelay = spawnJson["spawnDelay"].get<float>();
 
-                EntityLiving* entity = new Nightmare(); // TODO
+                EntityLiving* entity = new Nightmare({1.75f, -0.80f}); // TODO
 
                 spawns.emplace_back(glm::vec2(posX, posY), entity, waveSpawnDelay);
             }

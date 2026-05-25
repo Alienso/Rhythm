@@ -34,7 +34,7 @@ public:
 
 class TileInstance {
 public:
-    TileInstance(Tile* tile, const glm::vec2 pos);
+    TileInstance(Tile* tile, const glm::vec2& pos, const glm::vec2& scale);
 
     Tile* tile;
     AxisAlignedBB collisionBox;

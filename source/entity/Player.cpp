@@ -23,7 +23,10 @@ Player::Player() : EntityLiving(Textures::BIKER) {
     collisionSprite.scale = { (collisionBB.maxX - collisionBB.minX) / 2.0f, (collisionBB.maxY - collisionBB.minY) / 2.0f };
 
     currentWeapon = Weapons::PISTOL;
+}
 
+Player::Player(glm::vec2 position) : Player() {
+    moveTo(position.x, position.y);
 }
 
 void Player::onUpdate(float deltaTime) {

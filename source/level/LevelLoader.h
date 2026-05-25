@@ -10,9 +10,15 @@
 
 #include <unordered_map>
 
+struct LevelGeometryData {
+    std::unordered_map<unsigned int, TilePositions> backgroundSpritePositions;
+    std::unordered_map<unsigned int, TilePositions> foregroundSpritePositions;
+    size_t nRows;
+};
+
 class LevelLoader {
 public:
-    static void loadGeometryData(std::string& path, std::unordered_map<unsigned int, TilePositions>& sprites, size_t& nRows);
+    static LevelGeometryData loadGeometryData(std::string& path);
     static void loadRooms(const char* basePath, std::vector<std::string>& roomPaths, std::vector<Room>& rooms);
 
 };

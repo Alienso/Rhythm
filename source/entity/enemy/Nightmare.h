@@ -10,6 +10,7 @@
 class Nightmare : public EntityLiving {
 public:
     Nightmare();
+    Nightmare(glm::vec2 position);
     ~Nightmare() override;
 
 protected:

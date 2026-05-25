@@ -11,6 +11,10 @@ Entity::Entity(Texture *texture) : sprite(texture), collisionSprite(Textures::CO
     collisionSprite.scale = {0,0};
 }
 
+Entity::Entity(Texture *texture, glm::vec2 position) : Entity(texture) {
+    moveTo(position.x, position.y);
+}
+
 Entity::~Entity() { //Do not delete, it is virtual
 
 }

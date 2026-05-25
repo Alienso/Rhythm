@@ -7,7 +7,13 @@
 #include "reference/Global.h"
 #include "level/Level.h"
 
-EntityLiving::EntityLiving(Texture *texture) : Entity(texture) {}
+EntityLiving::EntityLiving(Texture *texture) : Entity(texture) {
+
+}
+
+EntityLiving::EntityLiving(Texture *texture, glm::vec2 pos) : Entity(texture, pos) {
+
+}
 
 EntityLiving::~EntityLiving() {
     for (auto& task: aiTasks){

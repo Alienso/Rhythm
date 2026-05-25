@@ -13,6 +13,7 @@ class Entity{
 
 public:
     explicit Entity(Texture* texture);
+    Entity(Texture* texture, glm::vec2 position);
     virtual ~Entity();
 
     virtual void onRender() const;

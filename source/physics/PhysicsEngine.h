@@ -30,7 +30,7 @@ private:
     std::vector<AxisAlignedBB> terrainCollisionBoxes; //This one is for path tracing (projectiles)
     std::vector<std::vector<TileInstance>> terrainTiles; //This one is for collisions (optimization)
 
-    void limitEntitySpeed(Entity *entity);
+    static void limitEntitySpeed(Entity *entity);
 };
 
 

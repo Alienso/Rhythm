@@ -30,24 +30,24 @@ float Tile::getDamage() const {
     return damage;
 }
 
-TileInstance::TileInstance(Tile* tile, const glm::vec2 pos){
+TileInstance::TileInstance(Tile* tile, const glm::vec2& pos, const glm::vec2& scale) : tile(tile){
     hasCollisionBox = tile->hasCollisionBox;
     hasHurtBox = tile->hasHurtBox;
 
     if (hasCollisionBox) {
         collisionBox = {
-                pos.x + tile->offset.x,
-                pos.y + tile->offset.y,
-                pos.x + tile->scale.x + tile->offset.x,
-                pos.y + tile->scale.y + tile->offset.y
+                scale.x * (pos.x + tile->offset.x),
+                scale.y * (pos.y + tile->offset.y),
+                scale.x * (pos.x + tile->offset.x + tile->scale.x),
+                scale.y * (pos.y + tile->offset.y + tile->scale.y)
         };
     }
     if (hasHurtBox) {
         hurtBox = {
-                pos.x + tile->offset.x,
-                pos.y + tile->offset.y,
-                pos.x + tile->scale.x + tile->offset.x,
-                pos.y + tile->scale.y + tile->offset.y,
+                scale.x * (pos.x + tile->offset.x),
+                scale.y * (pos.y + tile->offset.y),
+                scale.x * (pos.x + tile->offset.x + tile->scale.x),
+                scale.y * (pos.y + tile->offset.y + tile->scale.y),
                 tile->getDamage()
         };
     }

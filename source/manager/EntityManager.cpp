@@ -6,9 +6,9 @@
 #include "entity/enemy/Nightmare.h"
 #include "reference/Global.h"
 
-EntityManager::EntityManager() : player() {
+EntityManager::EntityManager() : player( {1.75, -0.80 }) {
     Global::entityManger = this;
-    entitiesToDeSpawn.reserve(5);
+    entitiesToDeSpawn.reserve(10);
 }
 
 EntityManager::~EntityManager() {

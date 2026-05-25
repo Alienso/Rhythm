@@ -18,9 +18,11 @@ public:
     void processMouseClickInput();
     void processKeyboardInput(double deltaTime);
 
+    glm::vec2 previousCursorPos = {0,0}; //Temp move to private
+
 private:
     Rhythm* app;
-    glm::vec2 previousCursorPos = {0,0};
+
 };
 
 

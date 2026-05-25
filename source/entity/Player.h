@@ -20,6 +20,7 @@ class Player : public EntityLiving {
 
 public:
     Player();
+    explicit Player(glm::vec2 position);
 
     void onUpdate(float deltaTime) override;
     void onRender() const override;

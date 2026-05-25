@@ -24,6 +24,10 @@ Nightmare::Nightmare() : EntityLiving(Textures::NIGHTMARE) {
     aiTasks.push_back(new AiTaskWalkToPlayer(this));
 }
 
+Nightmare::Nightmare(glm::vec2 position) : Nightmare() {
+    moveTo(position.x, position.y);
+}
+
 void Nightmare::rebuildCollisionBoxes() {
     collisionBB = {(pos_.x - 0.65f * sprite.scale.x), pos_.y - 1.0f * sprite.scale.y,
                    (pos_.x + 0.65f * sprite.scale.x), pos_.y + 0.4167f * sprite.scale.y};

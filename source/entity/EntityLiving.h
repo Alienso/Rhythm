@@ -17,6 +17,7 @@ class EntityLiving : public Entity {
 
 public:
     explicit EntityLiving(Texture *texture);
+    EntityLiving(Texture *texture, glm::vec2 pos);
     ~EntityLiving() override;
 
     void onUpdate(float deltaTime) override;
